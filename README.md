@@ -89,6 +89,8 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
   
   ![Ekran görüntüsü 2025-07-06 155808](https://github.com/user-attachments/assets/02cbc25b-846e-4640-9a47-7b965d160268)
 
+  ![Ekran görüntüsü 2025-07-06 155118](https://github.com/user-attachments/assets/0e677ac9-2d93-4790-90b6-dc52bb72086d)
+
 </details>
 
 ## 🧠 Daily Scrum 
