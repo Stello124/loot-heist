@@ -65,6 +65,9 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 - Sprint başında toplam 300 puanlık backlog oluşturuldu.  
 - Sprint 1’de 100 puanlık iş planlandı.  
 - Backlog item’ları; oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzerine odaklandı.
+- **Sprint 1 Board Update**: Sprint Board Screenshot
+
+![WhatsApp Görsel 2025-07-06 saat 17 28 33_e667d1ea](https://github.com/user-attachments/assets/b00d876a-7bca-4b47-9415-aab99a20eb4c)
 
 ## 📌 Tamamlananlar
 
