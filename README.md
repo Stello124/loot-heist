@@ -40,7 +40,7 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 
 - FPS ve co-op oyun severler  
 - 13 yaş ve üzeri oyuncular  
-- R.E.P.O., Phasmophobia tarzı oyunlardan hoşlananlar  
+- R.E.P.O., Hello Neighbour tarzı oyunlardan hoşlananlar  
 - Arkadaşlarıyla eğlenerek stratejik oynamak isteyen kullanıcılar  
 
 ---
@@ -49,7 +49,7 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 
 - İlk hedef, Bootcamp demo sunumu sonrası prototipin itch.io üzerinde yayınlanması.  
 - Oyun, olumlu geri dönüşler alırsa Steam için genişletilmiş bir versiyonu planlanacaktır.  
-- Kozmetik sistem üzerinden mikro-ödeme yapıları test edilecek (isteğe bağlı).  
+- Kozmetik sistem üzerinden mikro-ödeme yapıları test edilecek.  
 - Topluluk oluşturmak amacıyla Discord sunucusu açılacaktır.  
 
 ---
@@ -102,7 +102,7 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 
 ## 🔁 Sprint Retrospective  
 - Geliştirilen sistemlerin üzerine eklemeler yapılmasına karar verildi.  
-- İkinci sprintte canavar yapay zekası, faz geçiş sistemi ve market mekaniklerine öncelik verilecek.  
-- Haritalar arası geçiş ve zamanlayıcı sistemi için alt yapı oluşturulacak.
+- İkinci sprintte canavar yapay zekası ve market mekaniklerine öncelik verilecek.  
+- Genel olarak oyunun kodlama kısmına ağır verilecek.
 - Işıklandırmanın düzeltilmesine ve atmosferin iyileştirilmesine karar verildi.
 - İkinci sprintte ana karakter görünümü üzerine çalışılacak.
