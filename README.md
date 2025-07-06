@@ -1,10 +1,10 @@
 # 👥 Takım İsmi  
-**Looters**
+**Yapacaz Bu İşi**
 
 # 🧑‍💻 Takım Üyeleri  
 
-| Fotoğraf | İsim | Rol | Bağlantı |
-|---|---|---|---|
+| Fotoğraf | İsim | Rol |
+|---|---|---|
 | 🧑‍🎓 | [İsim 1] | Product Owner |
 | 🧑‍🏫 | [İsim 2] | Scrum Master |
 | 👨‍💻 | [İsim 3] | Developer |
@@ -17,17 +17,17 @@
 
 # 📌 Oyun Açıklaması
 
-**Loot-Heist**, 1-4 oyuncuyla oynanabilen, FPS türünde, zaman kısıtlamalı ve 3 fazdan oluşan bir aksiyon/soygun oyunudur. Oyuncular, farklı haritalarda değerli eşyaları çalarak para kazanırken aynı zamanda harita içerisindeki ölümcül canavarlardan kaçmak zorundadır. Her fazın sonunda markete dönülerek yeni itemlar ve silahlar satın alınabilir. Bu sayede sonraki fazlara daha güçlü bir şekilde girilir.
+Loot-Heist, 1-4 oyuncu ile oynanabilen, birinci şahıs bakış açısından deneyimlenen, gizem odaklı bir soygun ve kaçış oyunudur. Oyuncular, terkedilmiş malikâneler, laboratuvarlar ya da güvenlikli tesisler gibi tehlikeli alanlara gizlice sızar; içerideki değerli eşyaları çalarak kâr elde etmeye çalışır. Ancak her harita, sadece eşyalarla değil, aynı zamanda tuzaklar, beklenmedik bulmacalar ve oyuncuları takip eden canavarlarla doludur.
 
-Oyun içerisinde kozmetik özelleştirmeler de bulunmaktadır (şapka vb.), bu sayede oyuncular kendi karakterlerini kişiselleştirebilir.
+Her görev sonrasında oyuncular güvenli bölgeye dönerek kazandıkları parayla yeni ekipmanlar veya faydalı eşyalar satın alabilir. Haritalar ilerledikçe riskler artar, ama getiriler de büyür.
+Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakterlerine farklı şapkalar, maskeler ve giysiler giydirerek tarzlarını yansıtabilir.
 
 ---
 
 # ⚙️ Oyun Özellikleri
 
 - 🎯 FPS kamera  
-- 🧑‍🤝‍🧑 1-4 oyunculu (Multiplayer & Singleplayer destekli)  
-- ⏱️ 3 Fazlı yapı (her faz sonrası market sistemi)  
+- 🧑‍🤝‍🧑 1-4 oyunculu (Multiplayer & Singleplayer destekli) 
 - 👾 Canavarlardan kaçış / savaş  
 - 🧢 Kozmetik özelleştirmeler (şapka vb.)  
 - 🗺️ Birden fazla oynanabilir harita  
@@ -55,7 +55,7 @@ Oyun içerisinde kozmetik özelleştirmeler de bulunmaktadır (şapka vb.), bu s
 ---
 
 # 🧾 Product Backlog URL  
-[Jira Board](#) _(Link eklenecek)_
+[Jira Board](https://loot-heist.atlassian.net/jira/core/projects/YBI/board?groupBy=status&atlOrigin=eyJpIjoiOTI5OTU0NjkxZDM1NGE4ZjgzNTBkZWYxMjk1ZTk1NjUiLCJwIjoiaiJ9)
 
 ---
 
@@ -79,9 +79,13 @@ Oyun içerisinde kozmetik özelleştirmeler de bulunmaktadır (şapka vb.), bu s
 
 <details>
   <summary><b>🖼️ Ürün Durumu: Ekran Görüntüleri</b></summary>
-  ![Ekran görüntüsü 2025-07-06 155635](https://github.com/user-attachments/assets/5f86f37a-0658-4639-9bc8-e6b933fa9336)
-  ![Ekran görüntüsü 2025-07-06 155808](https://github.com/user-attachments/assets/5451a925-986d-45ec-bd22-073d7100a7c6)
-  ![Ekran görüntüsü 2025-07-06 155402](https://github.com/user-attachments/assets/f96a73bb-08a0-46f3-84ce-c657af0f91e1)
+  
+  ![WhatsApp Görsel 2025-07-06 saat 16 14 34_d4f27e18](https://github.com/user-attachments/assets/3e27f520-41aa-473f-a095-400244c008f9)
+  
+  ![WhatsApp Görsel 2025-07-06 saat 16 14 34_f65806fb](https://github.com/user-attachments/assets/7ddfbfc4-0dc0-46af-9508-50e8810e67a6)
+  
+  ![Ekran görüntüsü 2025-07-06 155808](https://github.com/user-attachments/assets/02cbc25b-846e-4640-9a47-7b965d160268)
+
 </details>
 
 ## 🧠 Daily Scrum 
