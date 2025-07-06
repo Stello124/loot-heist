@@ -63,7 +63,7 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 
 ## 🎯 Sprint Notları  
 - Sprint başında toplam 300 puanlık backlog oluşturuldu.  
-- Sprint 1’de 100 puanlık iş planlandı.  
+- Sprint 1’de 100 puanlık iş planlandı ve hedefe ulaşıldı.
 - Backlog item’ları; oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzerine odaklandı.
 - **Sprint 1 Board Update**: Sprint Board Screenshot
 
