@@ -5,10 +5,10 @@
 
 | Fotoğraf | İsim | Rol |
 |---|---|---|
-| 🧑‍🎓 | [İsim 1] | Product Owner |
-| 🧑‍🏫 | [İsim 2] | Scrum Master |
-| 👨‍💻 | [İsim 3] | Developer |
-| 👩‍💻 | [İsim 4] | Developer |
+| 🧑‍🎓 | Kartal Enbiya Onar | Product Owner |
+| 🧑‍🏫 | Samet Cantaş | Scrum Master |
+| 👨‍💻 | Nazar Güner | Developer |
+| 👩‍💻 | Doğa Çalkap | Developer |
 
 # 🎮 Oyun İsmi  
 **Loot-Heist**
