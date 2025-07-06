@@ -5,9 +5,9 @@
 
 | Fotoğraf | İsim | Rol |
 |---|---|---|
-| 🧑‍🎓 | Kartal Enbiya Onar | Product Owner |
-| 🧑‍🏫 | Samet Cantaş | Scrum Master |
-| 👨‍💻 | Nazar Güner | Developer |
+| 🧑‍🎓 | Kartal Enbiya Onar | Product Owner / Developer |
+| 🧑‍🏫 | Samet Cantaş | Scrum Master / Designer |
+| 👨‍💻 | Nazar Güner | Developer / Game Designer |
 | 👩‍💻 | Doğa Çalkap | Developer |
 
 # 🎮 Oyun İsmi  
