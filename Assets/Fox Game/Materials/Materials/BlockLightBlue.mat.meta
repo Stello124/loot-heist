@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Fox Game/Materials/Materials/BlockLightBlue.mat.meta
 guid: f8b33d6436c9b5d459903c3d0b57fa6a
+========
+guid: acd590a3ed637f24881846cc7df3f964
+>>>>>>>> main:Assets/FSP/Platformer/Models/Materials/Block_Green.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

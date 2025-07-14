@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Fox Game.meta
 guid: cd669aa7142f1bc459ef41a23602d4fe
+========
+guid: 38e3da9866fb39140afcbdfbda309e4d
+>>>>>>>> main:Assets/FSP.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

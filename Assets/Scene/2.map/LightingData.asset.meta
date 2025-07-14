@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scene/2.map/LightingData.asset.meta
 guid: 7ae685ed4feead34db11f8d13548ad7d
+========
+guid: 9bab7e0742a763d4c8629fffaead6a4a
+>>>>>>>> main:Assets/FSP/Platformer/Demo Scene/Demo Scene/LightingData.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 112000000

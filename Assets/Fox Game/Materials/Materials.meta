@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Fox Game/Materials/Materials.meta
 guid: a63922544802d8c46882e0fd8af2fed0
+========
+guid: d0234ba368eeec9418390da711bfdad0
+>>>>>>>> main:Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Art/Materials.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

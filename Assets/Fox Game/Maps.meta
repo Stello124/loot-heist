@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Fox Game/Maps.meta
 guid: 4f2f94ddf79b74d498bdc38a428ccb3b
+========
+guid: 3d1ca0a65c3e9c54bbfadce9183bc9e5
+>>>>>>>> main:Assets/FSP/Platformer/Demo Scene/Demo Scene.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

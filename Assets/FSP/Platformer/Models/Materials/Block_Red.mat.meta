@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Fox Game/Materials/Materials/BlockOrange.mat.meta
+guid: f331430a1c1c6ff48834c0c1bc39a0d5
+========
+guid: 13994de73c70a5f4280fe0ff7ae146d9
+>>>>>>>> main:Assets/FSP/Platformer/Models/Materials/Block_Red.mat.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
