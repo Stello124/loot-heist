@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ab54b3942e025d24eadb0e2673348f9b
+guid: 186a8d9264fb5ee4bb4b0b5a4af78407
 PrefabImporter:
   externalObjects: {}
   userData: 
@@ -10,5 +10,6 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Prefabs/Environments/Bridge_B.prefab
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Platformer Starter
+    Pack_URP/Prefabs/Environments/Bridge_B.prefab
   uploadId: 661738

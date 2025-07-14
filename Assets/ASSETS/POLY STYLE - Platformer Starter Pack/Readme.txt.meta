@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2763a529e32bc3448bf8fbd54a2557ee
+guid: dc137612af3d7c340b85e0aaa03477c1
 TextScriptImporter:
   externalObjects: {}
   userData: 
@@ -10,5 +10,5 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Readme.txt
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Readme.txt
   uploadId: 661738

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c76d2fe551a140e4a837bc5443f74abd
+guid: 873128cb2561cd44181c5b4ea07410b2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,5 +149,6 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Art/Textures/Tree-1.png
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Platformer Starter
+    Pack_URP/Art/Textures/Tree-1.png
   uploadId: 661738

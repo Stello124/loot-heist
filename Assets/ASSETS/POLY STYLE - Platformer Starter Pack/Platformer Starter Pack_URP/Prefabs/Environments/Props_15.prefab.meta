@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0bd69ac6889286d41b7218c7edeeb465
+guid: 34351fb8b2ad12e44aecfdd6a3a0a73a
 PrefabImporter:
   externalObjects: {}
   userData: 
@@ -10,5 +10,6 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Prefabs/Environments/Props_15.prefab
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Platformer Starter
+    Pack_URP/Prefabs/Environments/Props_15.prefab
   uploadId: 661738

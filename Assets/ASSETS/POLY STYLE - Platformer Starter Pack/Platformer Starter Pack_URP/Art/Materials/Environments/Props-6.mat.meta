@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0614f11a62ba3704cb95be91ef96aca5
+guid: 228d3ebd5ea75474e9e2536eaabc8a1f
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
@@ -11,5 +11,6 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Art/Materials/Environments/Props-6.mat
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Platformer Starter
+    Pack_URP/Art/Materials/Environments/Props-6.mat
   uploadId: 661738

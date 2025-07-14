@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5bed9329e081929469433bb9222ff226
+guid: f184ba4911fbaaa4195a4f967a69e3bf
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
@@ -253,5 +253,6 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Art/Meshes/DemoScene/DemoScene.fbx
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Platformer Starter
+    Pack_URP/Art/Meshes/DemoScene/DemoScene.fbx
   uploadId: 661738

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a7784dbc32096f847aa2dbdaeef3159c
+guid: 0b045f30bfc32464780c25865b113dfd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,5 +149,6 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Art/Textures/SkyColor.png
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Platformer Starter
+    Pack_URP/Art/Textures/SkyColor.png
   uploadId: 661738

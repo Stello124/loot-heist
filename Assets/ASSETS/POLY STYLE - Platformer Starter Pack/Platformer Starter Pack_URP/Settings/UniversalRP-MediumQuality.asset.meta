@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bafe0a01f8e2e0c4fb0d6e83ae8cd693
+guid: d847b876476d3d6468f5dfcd34266f96
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
@@ -11,5 +11,6 @@ AssetOrigin:
   productId: 284167
   packageName: POLY STYLE - Platformer Starter Pack
   packageVersion: 1.2
-  assetPath: Assets/POLY STYLE - Platformer Starter Pack/Platformer Starter Pack_URP/Settings/UniversalRP-MediumQuality.asset
+  assetPath: Assets/ASSETS/POLY STYLE - Platformer Starter Pack/Platformer Starter
+    Pack_URP/Settings/UniversalRP-MediumQuality.asset
   uploadId: 661738
