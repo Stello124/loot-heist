@@ -2578,11 +2578,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 129646599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cc01e3336dafe7428f885c5f144ba4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8456661ea6bc41840a939620406fb2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
-  boostedSpeed: 16
+  moveSpeed: 11
+  boostedSpeed: 15
   speedEffectPrefab: {fileID: 861935631}
   jumpEffectPrefab: {fileID: 861935631}
   jumpForce: 7
@@ -2592,7 +2592,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  mouseSensitivity: 2.5
+  mouseSensitivity: 2.4
   cameraTransform: {fileID: 116505435}
 --- !u!1001 &132500017
 PrefabInstance:
