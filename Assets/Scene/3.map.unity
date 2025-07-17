@@ -2544,15 +2544,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129646599}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.75, y: 1.2237, z: 27.15}
+  m_LocalRotation: {x: -0, y: -0.9914453, z: -0, w: -0.13052304}
+  m_LocalPosition: {x: 22.676603, y: 1.2237, z: 26.978338}
   m_LocalScale: {x: 1, y: 1.3435878, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 216880980}
   - {fileID: 116505435}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -195, z: 0}
 --- !u!114 &129646607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2569,14 +2569,14 @@ MonoBehaviour:
   boostedSpeed: 16
   speedEffectPrefab: {fileID: 861935631}
   jumpEffectPrefab: {fileID: 861935631}
-  jumpForce: 10
-  boostedJumpForce: 12
+  jumpForce: 7
+  boostedJumpForce: 9
   groundCheck: {fileID: 216880980}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
-  mouseSensitivity: 3
+    m_Bits: 8
+  mouseSensitivity: 2.5
   cameraTransform: {fileID: 116505435}
 --- !u!1001 &132500017
 PrefabInstance:
