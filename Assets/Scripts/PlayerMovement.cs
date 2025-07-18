@@ -1,51 +1,44 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
-    public CharacterController controller;
+    public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>(
+        writePerm: NetworkVariableWritePermission.Server);
 
-    public float speed = 12f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
+    public float moveSpeed = 3f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-
-    Vector3 velocity;
-    bool isGrounded;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
+        // Pozisyon deðiþtiðinde sadece localde görsel olarak güncelle
+        Position.OnValueChanged += (oldPos, newPos) =>
+        {
+            transform.position = newPos;
+        };
     }
 
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
+        if (!IsOwner) return;
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        Vector3 inputDir = Vector3.zero;
 
-        if (isGrounded && velocity.y < 0)
+        if (Input.GetKey(KeyCode.W)) inputDir.z += 1f;
+        if (Input.GetKey(KeyCode.S)) inputDir.z -= 1f;
+        if (Input.GetKey(KeyCode.A)) inputDir.x -= 1f;
+        if (Input.GetKey(KeyCode.D)) inputDir.x += 1f;
+
+        if (inputDir != Vector3.zero)
         {
-            velocity.y = -2f;
+            // Time.deltaTime'ý client'ta deðil server'da uygula
+            MoveRequestServerRpc(inputDir.normalized);
         }
+    }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        controller.Move(move * speed * Time.deltaTime);
-
-        if(Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
+    [ServerRpc]
+    private void MoveRequestServerRpc(Vector3 direction)
+    {
+        Position.Value += direction * moveSpeed * Time.fixedDeltaTime;
     }
 }
