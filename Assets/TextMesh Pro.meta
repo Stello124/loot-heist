@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/TextMesh Pro.meta
 guid: f54d1bd14bd3ca042bd867b519fee8cc
+========
+guid: c557ee5beac82f648a359f10c8250329
+>>>>>>>> main:Assets/Scripts/FSP/Platformer.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

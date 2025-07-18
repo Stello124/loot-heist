@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/prefab/PlayerEntryPrefab.prefab.meta
 guid: f2903b578f0a5d041b0b38e0bc599eef
+========
+guid: c95803971e302314da5196b7f656afb3
+>>>>>>>> main:Assets/prefab/Dönence.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Relay.meta
 guid: a4ca1ef5b33f55d4aa01aabeaca4d7e1
+========
+guid: 6b428d57701f92849b4112e1b7dddab8
+>>>>>>>> main:Assets/Scripts/FSP.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

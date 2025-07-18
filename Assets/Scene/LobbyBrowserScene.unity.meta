@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scene/LobbyBrowserScene.unity.meta
 guid: da596b2efa53e374793e5007affcab51
+========
+guid: 0ba908b3ed60568418c1dc9ce342ab0f
+>>>>>>>> main:Assets/Scripts/FSP/Platformer/Demo Scene/Demo Scene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

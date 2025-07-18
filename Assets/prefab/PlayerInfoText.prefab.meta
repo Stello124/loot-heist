@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/prefab/PlayerInfoText.prefab.meta
 guid: d2214f437c36518459497ae4fd5597a9
+========
+guid: 71b6c4a6bcd77b246b129fc1d7730982
+>>>>>>>> main:Assets/prefab/HammerPivot.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

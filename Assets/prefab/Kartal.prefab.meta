@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/prefab/Kartal.prefab.meta
 guid: d990d43105d61f346827988170121109
+========
+guid: 9100213bb4e443842a479a091b5b4c89
+>>>>>>>> main:Assets/prefab/ChestEffect.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
