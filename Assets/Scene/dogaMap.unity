@@ -357,7 +357,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -383,7 +383,7 @@ Transform:
   m_GameObject: {fileID: 772040417}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.10580032, w: 0.9943874}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.8, y: 0.256, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -571,7 +571,7 @@ Transform:
   m_GameObject: {fileID: 935895569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.866, y: -0.051, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -726,17 +726,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1800471160723715809, guid: 9d14a4c921088cc48a0cf8bdbb1ec27b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.286
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800471160723715809, guid: 9d14a4c921088cc48a0cf8bdbb1ec27b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.151
+      objectReference: {fileID: 0}
     - target: {fileID: 3047004618532654063, guid: 9d14a4c921088cc48a0cf8bdbb1ec27b, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 772040418}
     - target: {fileID: 6872897779688572648, guid: 9d14a4c921088cc48a0cf8bdbb1ec27b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.95
       objectReference: {fileID: 0}
     - target: {fileID: 6872897779688572648, guid: 9d14a4c921088cc48a0cf8bdbb1ec27b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.14
       objectReference: {fileID: 0}
     - target: {fileID: 6872897779688572648, guid: 9d14a4c921088cc48a0cf8bdbb1ec27b, type: 3}
       propertyPath: m_LocalPosition.z
