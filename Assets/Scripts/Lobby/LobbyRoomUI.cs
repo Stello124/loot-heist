@@ -10,13 +10,13 @@ using System;
 public class LobbyRoomUI : MonoBehaviour
 {
     [Header("Lobby Bilgileri")]
-    [SerializeField] private TextMeshProUGUI lobbyNameText;
-    [SerializeField] private TextMeshProUGUI lobbyCodeText;
-    [SerializeField] private TextMeshProUGUI gameModeText;
+    [SerializeField] public TextMeshProUGUI lobbyNameText;
+    [SerializeField] public TextMeshProUGUI lobbyCodeText;
+    [SerializeField] public TextMeshProUGUI gameModeText;
 
     [Header("Oyuncu Listesi")]
-    [SerializeField] private Transform playerListContainer;
-    [SerializeField] private GameObject playerEntryPrefab;
+    [SerializeField] public Transform playerListContainer;
+    [SerializeField] public GameObject playerEntryPrefab;
 
     [Header("Güncelleme Input'ları")]
     [SerializeField] private TMP_InputField newLobbyNameInput;
@@ -148,7 +148,7 @@ public class LobbyRoomUI : MonoBehaviour
         }
     }
 
-    public void HandleStartGameClick()
+    /*public void HandleStartGameClick()
     {
         if (currentLobby == null || currentLobby.currentLobby == null)
         {
@@ -165,7 +165,14 @@ public class LobbyRoomUI : MonoBehaviour
             return;
         }
 
-        Debug.Log("🎮 Oyuna geçiliyor...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        LobbyStatic.LoadLobbyRoom();
+
+
+    }*/
+
+    public void HandleStartGameButtonClick()
+    {
+        SceneManager.LoadScene("DeneyK2"); // 🎯 geçilecek sahnenin adı
     }
+
 }

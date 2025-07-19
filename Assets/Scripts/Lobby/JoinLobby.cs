@@ -54,6 +54,7 @@ public class JoinLobby : MonoBehaviour
 
             // Doğrudan lobby verisini UI'a gönder
             lobbyRoomUI.UpdateLobbyUIFromLobby(lobby); // 🔧 Yeni method üzerinden güncellenir
+            LobbyStatic.LoadLobbyRoom();
         }
         catch (Exception e)
         {
@@ -88,7 +89,8 @@ public class JoinLobby : MonoBehaviour
             lobbySetupPanel.SetActive(false);
             lobbyRoomPanel.SetActive(true);
 
-            lobbyRoomUI.UpdateLobbyUIFromLobby(lobby); 
+            lobbyRoomUI.UpdateLobbyUIFromLobby(lobby);
+            LobbyStatic.LoadLobbyRoom();
         }
         catch (Exception e)
         {
@@ -113,6 +115,7 @@ public class JoinLobby : MonoBehaviour
             lobbyRoomPanel.SetActive(true);
 
             lobbyRoomUI.UpdateLobbyUIFromLobby(lobby); // 🔧 Yeni method
+            LobbyStatic.LoadLobbyRoom();
         }
         catch (LobbyServiceException e)
         {

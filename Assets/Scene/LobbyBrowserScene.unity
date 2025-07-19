@@ -8745,7 +8745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbed40abcb68af4db69d2d722473bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   lobbyNameText: {fileID: 266682204}
   lobbyCodeText: {fileID: 968385133}
   gameModeText: {fileID: 249702177}

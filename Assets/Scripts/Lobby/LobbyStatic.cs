@@ -17,8 +17,8 @@ public static class LobbyStatic
         Debug.Log("Lobby Id :" + lobby.Id+"\n"+ "GameMode = "+ lobby.Data["GameMode"].Value);
     }
 
-   /* public static void LoadLobbyRoom()
+    public static void LoadLobbyRoom()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }*/
+    }
 }

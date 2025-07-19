@@ -11,11 +11,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/LobbyRoom.unity
     guid: 4a5134dc2e9e39f46acfefaffb18df8f
+  - enabled: 1
+    path: Assets/Scene/DeneyK2.unity
+    guid: 517ce1a38438105468869d7eb80508e4
   - enabled: 0
     path: Assets/Scene/DeneyK.unity
     guid: a6b74a495804ed84ba1b2821a69ebe66
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/ASSETS/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
