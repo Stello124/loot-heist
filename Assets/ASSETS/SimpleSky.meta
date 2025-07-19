@@ -1,6 +1,10 @@
 fileFormatVersion: 2
-guid: 4941fdead0d825548971306892f63c67
+<<<<<<<< HEAD:Assets/ASSETS/SimpleSky.meta
+guid: 806bd4bcb69a24b45baad0ec465d7a54
 folderAsset: yes
+========
+guid: d873fa581b6179e40bda5437603f7f05
+>>>>>>>> doga-kodd:Assets/Scenes/dogaMap.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
