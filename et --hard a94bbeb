@@ -1,0 +1,617 @@
+[33mcommit ef08d0e8fde9c809976e5aca9ee5a83b6c1b7479[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdoga-kodd[m[33m)[m
+Author: dogacalkap <doga.calkap7@gmailc.om>
+Date:   Sat Jul 19 17:11:32 2025 +0300
+
+    Materials klasörü doga-kodd branch’inden geri getirildi
+
+[33mcommit 95c99a27e7ad4a887c9cf0aee3c9b560afdeab9f[m
+Merge: a94bbeb 6f78a31
+Author: dogacalkap <doga.calkap7@gmailc.om>
+Date:   Sat Jul 19 16:39:35 2025 +0300
+
+    Merge branch 'main' into doga-kodd
+
+[33mcommit a94bbebc821a72508a5d8fa94646da4e8594413d[m[33m ([m[1;31morigin/doga-kodd[m[33m)[m
+Author: dogacalkap <doga.calkap7@gmailc.om>
+Date:   Sat Jul 19 14:04:29 2025 +0300
+
+    character_control
+
+[33mcommit 6f78a315e87bae48b0b031b276a39b528c6b845d[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Fri Jul 18 23:28:05 2025 +0300
+
+    1.map
+
+[33mcommit ef4e9790c4d15358ca248227adcdd8a63d81b2a9[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Fri Jul 18 22:48:26 2025 +0300
+
+    aa
+
+[33mcommit 8529a89c93df3908ae74566c7a8bc49c17aad0e5[m
+Merge: e8195a7 5fb78ba
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Fri Jul 18 22:14:19 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit e8195a76cfe1ae3c6a36530e91e0c8a9415dae6c[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Fri Jul 18 22:14:08 2025 +0300
+
+    1. map
+
+[33mcommit 5fb78ba189b0054bf935829545f253a598d46821[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 18:51:39 2025 +0300
+
+    main'den playercontroller kaldırıldı
+
+[33mcommit 030e3223d002df1eaf37f7d0bdd5e1719bb520e0[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 18:48:49 2025 +0300
+
+    Gökyüzü değiştirildi.
+
+[33mcommit 31985b2ef44662ed192b918a2ece3958aa51643e[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 18:47:03 2025 +0300
+
+    Bloklara box collider eklendi ve ground yapıldı.
+
+[33mcommit 1ffd2640270c21500c7aef63e05ebf70485f871a[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 18:43:46 2025 +0300
+
+    Jump force değiştirildi.
+
+[33mcommit 7f2e3540bb7e6695796131b7d1a1e3333d6c542d[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 18:42:14 2025 +0300
+
+    Deneme Amaçlı
+    
+    - PlayerMovement.cs geri eklendi. (Main'e mergelenmeyecek)
+
+[33mcommit 26e312bb788f8ac9fe89a8b6b9eeee176c496d05[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 18:39:12 2025 +0300
+
+    Player movement kaldırıldı (çakışmasın diye)
+
+[33mcommit 6b78953539c8253d83321a79a0268f8548a7940d[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 18:37:16 2025 +0300
+
+    Update
+    
+    - Yeni gökyüzü asseti eklendi.
+    - Chest'lere hız ve zıplama boost özelliği geldi.
+    - Partikül efekti denendi. (Üzerine çalışılıyor.)
+
+[33mcommit 370468c5e57915d82972b3a5ef21fb6fdce418da[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Thu Jul 17 13:07:11 2025 +0300
+
+    Spawn pointleri eklendi
+
+[33mcommit 5ca5debcaae2e9d253f58dc189654538db6f7bf5[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Wed Jul 16 21:47:04 2025 +0300
+
+    aa
+
+[33mcommit 9c32ec08b990b301e60f50b90bfc3452671067bb[m
+Merge: 72d0ea1 7be79d5
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Wed Jul 16 21:37:57 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit a6e15e21c597050682c7e74de6936bbd7bf00655[m
+Author: dogacalkap <doga.calkap7@gmailc.om>
+Date:   Wed Jul 16 21:30:20 2025 +0300
+
+    deneme
+
+[33mcommit ed080509ed8f5e841a38863cd1fdf99ab6650c90[m
+Merge: 7be79d5 72d0ea1
+Author: dogacalkap <doga.calkap7@gmailc.om>
+Date:   Wed Jul 16 20:31:07 2025 +0300
+
+    Merge branch 'smtcnts' into doga-kodd
+
+[33mcommit 7be79d5d1fa37e775b8894c1dc6da9363cf08896[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Tue Jul 15 15:59:45 2025 +0300
+
+    Update
+    
+    - Player controller silindi. (Yeni bir tane yapılacağı ve çakışmaması gerektiği için)
+
+[33mcommit 97bc5326df3126d3838933a7d3a319c3b7336dac[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Tue Jul 15 15:57:29 2025 +0300
+
+    Create Demo Scene.unity
+
+[33mcommit 2e601700e8188fa9e5dac78a0d505bc93f5d9df2[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Tue Jul 15 15:56:16 2025 +0300
+
+    Update
+    
+    - Yeni asset eklendi.
+    - Yeni map çalışmasına başlandı.
+    - Yeni map'te değişiklikler yapıldı.
+
+[33mcommit 72d0ea19c9bcdb64961e2781d2a06d00ff6e8925[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 23:14:11 2025 +0300
+
+    map1
+
+[33mcommit 456c8b8c80609b9a001daadadca06ec816a5eadd[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 22:41:47 2025 +0300
+
+    Update
+    
+    - Bozuk renkler düzeltildi
+
+[33mcommit 9d388a3a23061ae029abc6fcec5470d7e34ee0fb[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 22:14:22 2025 +0300
+
+    Temizlik
+
+[33mcommit 3e1050c006ee7f86a425aed739583fcb4ad00b51[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 22:14:15 2025 +0300
+
+    temizlik
+
+[33mcommit faf40e839202651396e46a19a3c3c32b54be4840[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 22:10:34 2025 +0300
+
+    temizlik
+
+[33mcommit 82376286ca98204f00f41d61f563160e2d615b19[m
+Merge: f0dcaa1 c5e2abc
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 21:50:09 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit f0dcaa1ff67b542a9fd6ff35ddb98ebf395335ad[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 21:49:54 2025 +0300
+
+    map
+
+[33mcommit c5e2abc7e6f0b05a5be84041b1596cfb2696bc2e[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 21:48:24 2025 +0300
+
+    temizlik
+
+[33mcommit ed38cf19dfbc45b695b1efed128c9c58a422eb8f[m
+Merge: 15c5023 22c6830
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 21:33:20 2025 +0300
+
+    Nazar ve main birleştirildi, tüm dosyalar korundu
+
+[33mcommit 22c6830940fdccb0e93eb700c8d1b5e69e4a8785[m
+Merge: 64ffeb4 194f568
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 21:08:08 2025 +0300
+
+    Merge branch 'smtcnts'
+
+[33mcommit 64ffeb4ddeb426359146d5eba372ae132324a1c8[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 21:04:24 2025 +0300
+
+    temzilik
+
+[33mcommit 194f568a0d95e4f72ad089a74e643203aa34bb5a[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 21:01:07 2025 +0300
+
+    temizlik
+
+[33mcommit e8a41607ffd18490807fb2efd22f67a242468350[m
+Merge: 1ce2b56 9c07d50
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Mon Jul 14 20:57:16 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit 15c5023a6d71d695f41faa2ae860700ddaa66060[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 20:08:12 2025 +0300
+
+    Update
+    
+    - Deleted unnecessary assets
+
+[33mcommit 6e08e74ac8367e65cc34610466b27b6acf597ce0[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 20:03:46 2025 +0300
+
+    New Update
+    
+    - Made improvements
+    - Added textures to sky, ground and cubes
+
+[33mcommit effd851cc4732393830c96dc4630a55748da1083[m
+Merge: 30ba6d0 9c07d50
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 14:46:33 2025 +0300
+
+    Merge branch 'main' into Nazar
+
+[33mcommit 30ba6d041d45b6206530d97cc59cac83a676336f[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 14:18:35 2025 +0300
+
+    Update
+    
+    - Added new prototype texture asset
+    - Finished prototype (only in need for textures)
+
+[33mcommit 9c07d50e8f42d7ca5358f981ffad58d7d147dddc[m
+Author: Stello124 <kartal.enbiya@gmail.com>
+Date:   Mon Jul 14 12:57:00 2025 +0300
+
+    netcode kurulum
+
+[33mcommit ea1688508725bd75c5a7493ae15096518df6b344[m
+Merge: e0d5b98 fe29a15
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 11:02:06 2025 +0300
+
+    Merge branch 'main' into Nazar
+
+[33mcommit e0d5b98065aa78ffb2ee8128cb332c6b83f1565c[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jul 14 11:01:33 2025 +0300
+
+    Update
+    
+    - Deleted assets
+    - Added new map prototype
+
+[33mcommit 1ce2b569bdc0d1860587dd71a74ed3b325cd97c5[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sat Jul 12 22:48:06 2025 +0300
+
+    1. Map Çalışma
+
+[33mcommit fe29a151ebf479a242967d9759ea9a5c5ce9296b[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 18:08:27 2025 +0300
+
+    Update README.md
+
+[33mcommit 14ec32299b946c5de890cdddc2338b8c9415990c[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 17:52:54 2025 +0300
+
+    Update README.md
+
+[33mcommit 2eb8d06cdf9f3adf9c5e3d3f497b30b164361cd5[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 17:50:13 2025 +0300
+
+    Update README.md
+
+[33mcommit 0b6989731cc03fd8cb68add25b50c6e2a4c55087[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 17:42:55 2025 +0300
+
+    Update README.md
+
+[33mcommit cd44348b516cd8b3e756509a18ec503c939f9b84[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 17:37:36 2025 +0300
+
+    Update README.md
+
+[33mcommit cc7684e1366e519aedd3b36cad3209e1414c98a8[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 17:36:37 2025 +0300
+
+    Update README.md
+
+[33mcommit fc511f6871f07c4bfeb6a6cc0ea3ce8861b59358[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 17:34:37 2025 +0300
+
+    Update README.md
+
+[33mcommit 514564344507a91408deed8db44e255dad8ed160[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jul 6 16:06:35 2025 +0300
+
+    Create README.md
+
+[33mcommit edcbb0f2bbe6ca6102d00b777beed683e2687d25[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sat Jul 5 21:38:26 2025 +0300
+
+    Update
+    
+    - Interior design updated
+    - Added barn
+
+[33mcommit c045b888fa92bc62aaba68039ce023b3f5c7981c[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Wed Jul 2 18:53:35 2025 +0300
+
+    Interior Design Update
+
+[33mcommit fb21678dc9d3e222a9defc650ce74cb998f5f1af[m
+Merge: a877a7b aaf5483
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jun 30 17:25:23 2025 +0300
+
+    Merge branch 'main' into Nazar
+
+[33mcommit a877a7b59fa49af4b154f44fe2fce7fb83dc6898[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Mon Jun 30 17:23:29 2025 +0300
+
+    Update
+    
+    - Added new asset
+    - Updated interior design
+
+[33mcommit 24ea298a7596235153ddfe747f4fbe2077effe94[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 21:05:16 2025 +0300
+
+    Update 1.map.unity
+
+[33mcommit 5a282485932b40978395182d7bdc45deda0724fc[m
+Merge: e25a268 aaf5483
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 20:18:56 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit aaf548368fe6abc3a47c325840417b1161849c82[m
+Merge: 3d91ca9 c2575a3
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 20:18:24 2025 +0300
+
+    Merge branch 'Nazar'
+
+[33mcommit c2575a3ed283496301bd42efd58ca0d6d379a091[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 20:17:31 2025 +0300
+
+    Update Floor - Ground
+
+[33mcommit e25a268b6d815b3d63cce81ffb005e17ad71e424[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 20:13:54 2025 +0300
+
+    map
+
+[33mcommit 3d91ca92d989a9da4c95154b5f3da8daf883386c[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 19:53:29 2025 +0300
+
+    aa
+
+[33mcommit 31608810ef05f3b358a59535a07202567eb6c69d[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 19:49:28 2025 +0300
+
+    deneme
+
+[33mcommit 6af40f923cf8eb9e5cdef3d88e702894344fe409[m
+Merge: 45657a6 abc806a
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 19:48:34 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit 45657a615958beab4df01e8a9563ebfc083d633f[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 19:48:00 2025 +0300
+
+    deneme
+
+[33mcommit e278eb7413cb8aa69a5fea7239ca583675f6db18[m
+Merge: a774882 c6eb13f
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 19:40:22 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit abc806a6acccb83b5dd161e3003d85c33f93e358[m
+Merge: c6eb13f 28aa5ef
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 19:34:35 2025 +0300
+
+    Merge branch 'Nazar'
+
+[33mcommit 28aa5ef04dd4483d9b5e77356e92363ad62ebed1[m
+Merge: 89db488 de6bc16
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 19:31:36 2025 +0300
+
+    Merge branch 'main' into Nazar
+
+[33mcommit 89db488b6b3ada0b9e3794488ec6cb0796310375[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 19:29:55 2025 +0300
+
+    Update
+
+[33mcommit c6eb13f0392363c2aac5fb18d40416b3545a3920[m
+Merge: de6bc16 76dc056
+Author: Stello124 <138963561+Stello124@users.noreply.github.com>
+Date:   Sun Jun 29 19:16:02 2025 +0300
+
+    Merge pull request #2 from Stello124/yeni-Stello124
+    
+    deneme3
+
+[33mcommit a77488236e1104297bac6873181242738666d832[m
+Merge: 8f37d56 de6bc16
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 19:14:32 2025 +0300
+
+    Merge branch 'main' into smtcnts
+
+[33mcommit 8f37d5663e05cc7de90a6bf99cc15c0d6c802efa[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Sun Jun 29 19:14:31 2025 +0300
+
+    deneme
+
+[33mcommit 76dc0569b8e6358dd6f480b4cc0fedd503b45b42[m
+Author: Stello124 <kartal.enbiya@gmail.com>
+Date:   Sun Jun 29 19:11:17 2025 +0300
+
+    deneme3
+
+[33mcommit de6bc16cf4a35e3f05340255515aae83600178ec[m
+Merge: cad40e1 1f64abd
+Author: Stello124 <kartal.enbiya@gmail.com>
+Date:   Sun Jun 29 19:06:01 2025 +0300
+
+    Merge branch 'main' into yeni-Stello124
+
+[33mcommit 1f64abdf656a290bf701188645f4bd98cbb44640[m
+Author: Stello124 <kartal.enbiya@gmail.com>
+Date:   Sun Jun 29 19:05:16 2025 +0300
+
+    Update 2.map.unity
+
+[33mcommit cad40e1966ad839434a1b3278b350cd523f1e463[m
+Author: Stello124 <kartal.enbiya@gmail.com>
+Date:   Sun Jun 29 19:04:19 2025 +0300
+
+    deneme
+    
+    beraber deneme
+
+[33mcommit db432a5f6a2cb63f6c2fcf949a1a14c0f4ab68aa[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 18:08:34 2025 +0300
+
+    Interior Update
+    
+    - Added new interior furniture
+
+[33mcommit f76f96a4277106ec960170fbfa6003a54af7c950[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 17:33:17 2025 +0300
+
+    Added New Furnites and Asset
+
+[33mcommit 0ac513011b02454fe26d8e14f6cb2f3bec90e223[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Sun Jun 29 15:52:58 2025 +0300
+
+    Added Roof and Opening the Door
+
+[33mcommit 0342a893a0eab6c760e31c79a7692d0cfc441d9d[m
+Merge: 9f6e72e d79a9f6
+Author: Stello124 <138963561+Stello124@users.noreply.github.com>
+Date:   Sat Jun 28 23:24:46 2025 +0300
+
+    Merge pull request #1 from Stello124/yeni-Stello124
+    
+    deneme
+
+[33mcommit 5901c53e963b8e733bed4d91d831e6f5c9413f02[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Fri Jun 27 18:31:57 2025 +0300
+
+    Added First Person Player and Modified Assets
+    
+    Changed the names of assets and deleted 2 of them.
+
+[33mcommit 140bd398a4584c8b5c3d5c9cce9996c860609232[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Fri Jun 27 17:40:00 2025 +0300
+
+    Made the House Foundations
+
+[33mcommit 581cfa2628397f7c2193534e6bd76206f98d5650[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Fri Jun 27 13:27:12 2025 +0300
+
+    Added New Assets
+
+[33mcommit 3ede1581a31ccf0cd83490bf14a6e879db5e38cc[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Wed Jun 25 23:30:09 2025 +0300
+
+    Changed cube position
+
+[33mcommit 9f6e72e8d9702da57f1f0979a99a71013c4218e9[m
+Author: Nazar <nazarxguner@gmail.com>
+Date:   Wed Jun 25 23:27:12 2025 +0300
+
+    New Cube
+
+[33mcommit d79a9f6ce932eae3660e9047772369b218db3c6f[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Wed Jun 25 23:19:56 2025 +0300
+
+    new
+
+[33mcommit 6db0ca2bdf0264c277360b98fc1a06903e9c5b3b[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Wed Jun 25 23:07:08 2025 +0300
+
+    folder
+
+[33mcommit 4558f18dbcf565c1473e99fecaece92a10809d01[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Wed Jun 25 23:06:38 2025 +0300
+
+    folder
+
+[33mcommit 14f6e02c9d0170b6b24920fa7cf76ae847c1421a[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Wed Jun 25 22:43:28 2025 +0300
+
+    2.
+
+[33mcommit de5dd7d8aa4f90026bedea6ba8a0adc5cd623b6d[m
+Author: smtcnts <sametcantas@gmail.com>
+Date:   Wed Jun 25 22:41:22 2025 +0300
+
+    casule
+
+[33mcommit 7e95fb7d6813c9a1724b93e779cfc08443b865bb[m
+Author: Stello124 <kartal.enbiya@gmail.com>
+Date:   Wed Jun 25 22:12:25 2025 +0300
+
+    deneme1
+    
+    deneme1
+
+[33mcommit 09b385f66b9dc8a9ed73dc13a4fee0ccfc315f9c[m
+Author: Stello124 <kartal.enbiya@gmail.com>
+Date:   Wed Jun 25 22:09:42 2025 +0300
+
+    başla
+    
+    başla
+
+[33mcommit ab344654af93a6f9e1a683f668caeb3adc732b61[m
+Author: Stello124 <138963561+Stello124@users.noreply.github.com>
+Date:   Wed Jun 25 21:44:14 2025 +0300
+
+    Initial commit
