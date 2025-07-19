@@ -1,10 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD:Assets/ASSETS/Fox Game/Materials/Materials/BlockLightBlue.mat
---- !u!114 &-1341898872855943970
-=======
 --- !u!114 &-1579796109126616956
->>>>>>> doga-kodd:Assets/ASSETS/ithappy/Creative_Characters_FREE/Materials/Color.mat
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24,13 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/ASSETS/Fox Game/Materials/Materials/BlockLightBlue.mat
-  m_Name: BlockLightBlue
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-=======
   m_Name: Color
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
->>>>>>> doga-kodd:Assets/ASSETS/ithappy/Creative_Characters_FREE/Materials/Color.mat
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -39,7 +30,8 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -71,11 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-<<<<<<< HEAD:Assets/ASSETS/Fox Game/Materials/Materials/BlockLightBlue.mat
-        m_Texture: {fileID: 2800000, guid: 24ef318e4d2bd8f4da61e3ae33a3323d, type: 3}
-=======
         m_Texture: {fileID: 2800000, guid: 601cef6ffead6614a8abd4f653eaaef5, type: 3}
->>>>>>> doga-kodd:Assets/ASSETS/ithappy/Creative_Characters_FREE/Materials/Color.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -123,18 +111,13 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-<<<<<<< HEAD:Assets/ASSETS/Fox Game/Materials/Materials/BlockLightBlue.mat
-    - _GlossMapScale: 0
-    - _Glossiness: 0
-    - _GlossyReflections: 0
-=======
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
->>>>>>> doga-kodd:Assets/ASSETS/ithappy/Creative_Characters_FREE/Materials/Color.mat
     - _Metallic: 0
+    - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.005
+    - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -143,6 +126,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
