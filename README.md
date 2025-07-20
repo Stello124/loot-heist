@@ -163,7 +163,7 @@ Sprint Board Screenshot:
 
 <details>
 
-  <summary><b>🖼️ Ürün Durumu: Ekran Görüntüleri</b></summary>
+  <summary><b>🖼️ Daily Scrum Örnekleri: Ekran Görüntüleri</b></summary>
 
   ![WhatsApp Görsel 2025-07-20 saat 17 59 21_7fb259da](https://github.com/user-attachments/assets/f254b751-2ea1-4afd-8be3-5fb84eae5d40)
 
