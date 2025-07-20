@@ -11,13 +11,13 @@
 | 👩‍💻 | Doğa Çalkap | Developer |
 
 # 🎮 Oyun İsmi  
-**Loot-Heist**
+**Box Games**
 
 ---
 
 # 📌 Oyun Açıklaması
 
-Loot-Heist, 20 oyuncuya kadar destekleyen çevrim içi çok oyunculu, mini oyun temelli bir eğlence oyunudur. Oyuncular, her biri farklı beceriler ve stratejiler gerektiren mini oyunlarla dolu bir arenada hayatta kalmaya ve rakiplerini geride bırakmaya çalışır. Yarış, ebelemece, FPS shooter gibi farklı türde oyun modları; her turda rastgele sırayla oynatılır. Her mini oyunun sonunda elenen oyuncular olur, sona kalan kişi galip gelir. Hız, refleks, strateji ve takım çalışması başarının anahtarıdır. Renkli low-poly grafikleri ve enerjik atmosferiyle arkadaş grupları için eğlenceli bir rekabet ortamı sunar.
+Box Games, 20 oyuncuya kadar destekleyen çevrim içi çok oyunculu, mini oyun temelli bir eğlence oyunudur. Oyuncular, her biri farklı beceriler ve stratejiler gerektiren mini oyunlarla dolu bir arenada hayatta kalmaya ve rakiplerini geride bırakmaya çalışır. Yarış, ebelemece, FPS shooter gibi farklı türde oyun modları; her turda rastgele sırayla oynatılır. Her mini oyunun sonunda elenen oyuncular olur, sona kalan kişi galip gelir. Hız, refleks, strateji ve takım çalışması başarının anahtarıdır. Renkli low-poly grafikleri ve enerjik atmosferiyle arkadaş grupları için eğlenceli bir rekabet ortamı sunar.
 
 ---
 
