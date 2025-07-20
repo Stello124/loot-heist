@@ -119,8 +119,7 @@ Oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzeri
 # 🚀 Sprint 2
 ## 🎯 Sprint Notları
 Sprint 2’de oyunun türü ve temel yapısı tamamen pivotlandı. Başlangıçta planlanan 1-4 kişilik gizemli co-op FPS oyun yapısı yerine, artık 20 kişiye kadar oyuncunun oynayabileceği çevrimiçi multiplayer mini oyun sistemi seçildi.
-Oyun 3 farklı haritada 3 farklı mini oyun moduyla oynanacak:
-*🏁 Yarış, 👟 Ebelemece, 🎯 Shooter (geliştirme aşamasında).*
+Oyun farklı mini oyun modlarıyla oynanacak.
 
 Bu değişiklik, oyuncu etkileşimi ve eğlence dinamiğini artırmaya yönelik olarak yapıldı.
 
@@ -128,33 +127,49 @@ Bu değişiklik, oyuncu etkileşimi ve eğlence dinamiğini artırmaya yönelik 
 100 Puan
 
 ## 🧮 Puanlama Mantığı
-Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte yaklaşık 100 puanlık iş tamamlanması planlanmıştır. Bu sayede sprint yükü dengeli tutulmuş ve her iterasyon sonunda anlamlı bir çıktı üretilmesi hedeflenmiştir.
+Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte 100 puanlık iş tamamlanması planlanmıştır. Bu sayede sprint yükü dengeli tutulmuş ve her iterasyon sonunda anlamlı bir çıktı üretilmesi hedeflenmiştir.
 
 ## 🗂️ Sprint Board Update
 Sprint Board Screenshot:
-(Sprint board görseli)
 
-🖼️ Screenshot
-
-(Not: Gerçek Jira ekran görüntüsü yukarıdaki görsel olarak zaten sağlandı)
+<img width="859" height="810" alt="Ekran görüntüsü 2025-07-20 181953" src="https://github.com/user-attachments/assets/2a98b5cb-4084-4c6c-ad32-4c5afbc4ba29" />
 
 ## 🧠 Backlog Item’ları
-- Backlog item’ları; karakter mekaniği, multiplayer, harita tasarımı ve UI tasarımı üzerine odaklandı.
+- Backlog item’ları; temel karakter mekaniği, harita tasarımı üzerine odaklandı.
 
 ## 📌 Tamamlananlar
-- Yarış haritası hazırlanması
-- Oyuncu mekanikleri
+- Yarış ve ebelemece haritalarının hazırlanması
+- Temel oyuncu mekanikleri
 - Spawn point'lerin eklenmesi
 - Boost kutusu sistemi: hız artışı, cooldown
 - Kamera optimizasyonu
 - İlk multiplayer denemeleri
-- Ana menü UI tasarımı
-- Shooter haritasının temel tasarımı
+
+<details>
+  <summary><b>🖼️ Ürün Durumu: Ekran Görüntüleri</b></summary>
+
+  <img width="1272" height="706" alt="Ekran görüntüsü 2025-07-20 182136" src="https://github.com/user-attachments/assets/6ceab499-5459-488c-a6d0-137749453209" />
+
+  <img width="1271" height="707" alt="Ekran görüntüsü 2025-07-20 182236" src="https://github.com/user-attachments/assets/eb47e70b-90e7-4205-9480-2744704b1280" />
+
+  <img width="1277" height="706" alt="Ekran görüntüsü 2025-07-20 182345" src="https://github.com/user-attachments/assets/408db035-f488-41ce-8213-21fd2365f8a1" />
+
+</details>
 
 ## 🧠 Daily Scrum
 - Slack üzerinden toplantılar yapıldı.
 - Görevler, engeller ve ilerlemeler Whatsapp grubunda paylaşıldı.
 - Jira üzerinden güncellemeler ve görev takibi sağlandı.
+
+<details>
+
+  <summary><b>🖼️ Ürün Durumu: Ekran Görüntüleri</b></summary>
+
+  ![WhatsApp Görsel 2025-07-20 saat 17 59 21_7fb259da](https://github.com/user-attachments/assets/f254b751-2ea1-4afd-8be3-5fb84eae5d40)
+
+  ![WhatsApp Görsel 2025-07-20 saat 17 59 04_d5477b88](https://github.com/user-attachments/assets/3daf32af-f9e6-4555-b462-7f2a085d11f5)
+
+</details>
 
 ## 📋 Sprint Review
 - Yeni oyun sistemi ekip içinde test edildi.
@@ -166,3 +181,4 @@ Sprint Board Screenshot:
 - Karakter animasyonları ve çarpışmalar güçlendirilecek.
 - Shooter haritası Sprint 3’te tamamlanacak.
 - Lobby, skor ekranı ve oyun geçiş yapısı geliştirilecek.
+- UI tasarımı bitirilecek.
