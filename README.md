@@ -62,9 +62,15 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 # 🚀 Sprint 1
 
 ## 🎯 Sprint Notları  
-- Sprint başında toplam 300 puanlık backlog oluşturuldu.  
+- Sprint başında toplam 300 puanlık backlog oluşturuldu. 
 - Sprint 1’de 100 puanlık iş planlandı ve hedefe ulaşıldı.
-- Backlog item’ları; oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzerine odaklandı.
+
+## 🧮 Puanlama Mantığı
+Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte yaklaşık 100 puanlık iş tamamlanması planlanmıştır. Bu sayede sprint yükü dengeli tutulmuş ve her iterasyon sonunda anlamlı bir çıktı üretilmesi hedeflenmiştir.
+
+## 🧠 Backlog Item’ları
+Oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzerine odaklandı.
+
 - **Sprint 1 Board Update**: Sprint Board Screenshot
 
 ![WhatsApp Görsel 2025-07-06 saat 17 28 33_e667d1ea](https://github.com/user-attachments/assets/b00d876a-7bca-4b47-9415-aab99a20eb4c)
@@ -111,3 +117,54 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 - Genel olarak oyunun kodlama kısmına ağır verilecek.
 - Işıklandırmanın düzeltilmesine ve atmosferin iyileştirilmesine karar verildi.
 - İkinci sprintte ana karakter görünümü üzerine çalışılacak.
+
+# 🚀 Sprint 2
+## 🎯 Sprint Notları
+Sprint 2’de oyunun türü ve temel yapısı tamamen pivotlandı. Başlangıçta planlanan 1-4 kişilik gizemli co-op FPS oyun yapısı yerine, artık 20 kişiye kadar oyuncunun oynayabileceği çevrimiçi multiplayer mini oyun sistemi seçildi.
+Oyun 3 farklı haritada 3 farklı mini oyun moduyla oynanacak:
+*🏁 Yarış, 👟 Ebelemece, 🎯 Shooter (geliştirme aşamasında).*
+
+Bu değişiklik, oyuncu etkileşimi ve eğlence dinamiğini artırmaya yönelik olarak yapıldı.
+
+## 📌 Sprint İçinde Tamamlanması Tahmin Edilen Puan
+100 Puan
+
+## 🧮 Puanlama Mantığı
+Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte yaklaşık 100 puanlık iş tamamlanması planlanmıştır. Bu sayede sprint yükü dengeli tutulmuş ve her iterasyon sonunda anlamlı bir çıktı üretilmesi hedeflenmiştir.
+
+## 🗂️ Sprint Board Update
+Sprint Board Screenshot:
+(Sprint board görseli)
+
+🖼️ Screenshot
+
+(Not: Gerçek Jira ekran görüntüsü yukarıdaki görsel olarak zaten sağlandı)
+
+## 🧠 Backlog Item’ları
+- Backlog item’ları; karakter mekaniği, multiplayer, harita tasarımı ve UI tasarımı üzerine odaklandı.
+
+## 📌 Tamamlananlar
+- Yarış haritası hazırlanması
+- Oyuncu mekanikleri
+- Spawn point'lerin eklenmesi
+- Boost kutusu sistemi: hız artışı, cooldown
+- Kamera optimizasyonu
+- İlk multiplayer denemeleri
+- Ana menü UI tasarımı
+- Shooter haritasının temel tasarımı
+
+## 🧠 Daily Scrum
+- Slack üzerinden toplantılar yapıldı.
+- Görevler, engeller ve ilerlemeler Whatsapp grubunda paylaşıldı.
+- Jira üzerinden güncellemeler ve görev takibi sağlandı.
+
+## 📋 Sprint Review
+- Yeni oyun sistemi ekip içinde test edildi.
+- Map'ler üzerine fikir alışverişleri yapıldı ve test edildi.
+- UI tasarımı üzerinden geri bildirimler alındı.
+- Pivot sonrası alınan kararların oyuna olumlu katkı sağladığı gözlemlendi.
+
+## 🔁 Sprint Retrospective
+- Karakter animasyonları ve çarpışmalar güçlendirilecek.
+- Shooter haritası Sprint 3’te tamamlanacak.
+- Lobby, skor ekranı ve oyun geçiş yapısı geliştirilecek.
