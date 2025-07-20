@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using Unity.Services.Authentication;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class CreateLobby : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class CreateLobby : MonoBehaviour
     public Toggle islobbyprivate;
 
     [Header("Panel Referansları")]
-    public GameObject lobbyRoomPanel;        // Panel sahnede giriş ekranında
+    
     public GameObject lobbySetupPanel;       // Paneli kapatmak için
     public LobbyRoomUI lobbyRoomUI;          // Lobby bilgilerini yazdıran script
 
@@ -41,6 +42,7 @@ public class CreateLobby : MonoBehaviour
             {
                 { "GameMode", new DataObject(DataObject.VisibilityOptions.Public, gamemode.options[gamemode.value].text, DataObject.IndexOptions.S1) }
             }
+
         };
 
         try
@@ -53,7 +55,7 @@ public class CreateLobby : MonoBehaviour
 
             // Panel geçişi
             lobbySetupPanel.SetActive(false);
-            lobbyRoomPanel.SetActive(true);
+            
 
             // UI verileri yazdır
             if (lobbyRoomUI != null)
@@ -66,6 +68,8 @@ public class CreateLobby : MonoBehaviour
 
             // Heartbeat başlat
             StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 9f));
+            LobbyStatic.LoadLobbyRoom();
+            //SceneManager.LoadScene("LobbyRoom");
         }
         catch (LobbyServiceException e)
         {

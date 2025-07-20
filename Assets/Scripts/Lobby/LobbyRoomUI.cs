@@ -25,15 +25,15 @@ public class LobbyRoomUI : MonoBehaviour
     [Header("Sahne Ayarları")]
     //[SerializeField] private string gameplaySceneName = "Gameplay"; // sahne adını dilediğin gibi ver
 
-    private CurrentLobby currentLobby;
+    private CurrentLobby _currentLobby;
     private string lobbyId;
 
     void Start()
     {
-        currentLobby = GameObject.Find("LobbyManager")?.GetComponent<CurrentLobby>();
-        if (currentLobby == null || currentLobby.currentLobby == null) return;
+        _currentLobby = GameObject.Find("LobbyManager")?.GetComponent<CurrentLobby>();
+        if (_currentLobby == null || _currentLobby.currentLobby == null) return;
 
-        lobbyId = currentLobby.currentLobby.Id;
+        lobbyId = _currentLobby.currentLobby.Id;
 
         // 🔥 Panel verisini hemen doldur
         UpdateLobbyUI();
@@ -44,9 +44,9 @@ public class LobbyRoomUI : MonoBehaviour
 
     public void UpdateLobbyUI()
     {
-        if (currentLobby == null || currentLobby.currentLobby == null) return;
+        if (_currentLobby == null || _currentLobby.currentLobby == null) return;
 
-        Lobby lobby = currentLobby.currentLobby;
+        Lobby lobby = _currentLobby.currentLobby;
 
         lobbyNameText.text = lobby.Name;
         lobbyCodeText.text = lobby.LobbyCode;
@@ -82,8 +82,8 @@ public class LobbyRoomUI : MonoBehaviour
         TMP_Text nameText = entry.GetComponentInChildren<TMP_Text>();
         nameText.text = $"{player.Id} : {playerLevel}";
 
-        bool isHost = currentLobby != null && currentLobby.currentLobby != null &&
-                      player.Id == currentLobby.currentLobby.HostId;
+        bool isHost = _currentLobby != null && _currentLobby.currentLobby != null &&
+                      player.Id == _currentLobby.currentLobby.HostId;
         Transform icon = entry.transform.Find("HostIcon");
         if (icon != null) icon.gameObject.SetActive(isHost);
     }
@@ -100,7 +100,7 @@ public class LobbyRoomUI : MonoBehaviour
     {
         try
         {
-            currentLobby.currentLobby = await LobbyService.Instance.GetLobbyAsync(lobbyId);
+            _currentLobby.currentLobby = await LobbyService.Instance.GetLobbyAsync(lobbyId);
             UpdateLobbyUI(); // 🌟 Bu satır çok kritik
         }
         catch (LobbyServiceException e)
@@ -117,7 +117,7 @@ public class LobbyRoomUI : MonoBehaviour
         try
         {
             var options = new UpdateLobbyOptions { Name = newName };
-            currentLobby.currentLobby = await Lobbies.Instance.UpdateLobbyAsync(lobbyId, options);
+            _currentLobby.currentLobby = await Lobbies.Instance.UpdateLobbyAsync(lobbyId, options);
         }
         catch (LobbyServiceException e)
         {

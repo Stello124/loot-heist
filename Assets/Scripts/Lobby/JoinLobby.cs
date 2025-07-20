@@ -5,6 +5,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JoinLobby : MonoBehaviour
 {
@@ -12,9 +13,9 @@ public class JoinLobby : MonoBehaviour
     [SerializeField] private TMP_InputField inputField;
 
     [Header("Panel Geçiş")]
-    [SerializeField] private GameObject lobbyRoomPanel;
+    
     [SerializeField] private GameObject lobbySetupPanel;
-    [SerializeField] private LobbyRoomUI lobbyRoomUI;
+    
 
     private CurrentLobby currentLobby;
 
@@ -49,11 +50,11 @@ public class JoinLobby : MonoBehaviour
             LobbyStatic.LogPlayersInLobby(lobby);
 
             // Panel geçişi
-            lobbySetupPanel.SetActive(false);
-            lobbyRoomPanel.SetActive(true);
+           // lobbySetupPanel.SetActive(false);
+          //  SceneManager.LoadScene("LobbyRoom");
 
             // Doğrudan lobby verisini UI'a gönder
-            lobbyRoomUI.UpdateLobbyUIFromLobby(lobby); // 🔧 Yeni method üzerinden güncellenir
+            //lobbyRoomUI.UpdateLobbyUIFromLobby(lobby); // 🔧 Yeni method üzerinden güncellenir
             LobbyStatic.LoadLobbyRoom();
         }
         catch (Exception e)
@@ -87,9 +88,9 @@ public class JoinLobby : MonoBehaviour
 
             
             lobbySetupPanel.SetActive(false);
-            lobbyRoomPanel.SetActive(true);
+            
 
-            lobbyRoomUI.UpdateLobbyUIFromLobby(lobby);
+            
             LobbyStatic.LoadLobbyRoom();
         }
         catch (Exception e)
@@ -112,9 +113,8 @@ public class JoinLobby : MonoBehaviour
 
             // Panel geçişi
             lobbySetupPanel.SetActive(false);
-            lobbyRoomPanel.SetActive(true);
-
-            lobbyRoomUI.UpdateLobbyUIFromLobby(lobby); // 🔧 Yeni method
+            
+            
             LobbyStatic.LoadLobbyRoom();
         }
         catch (LobbyServiceException e)
