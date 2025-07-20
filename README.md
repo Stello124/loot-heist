@@ -7,7 +7,7 @@
 |---|---|---|
 | 🧑‍🎓 | Kartal Enbiya Onar | Product Owner / Developer |
 | 🧑‍🏫 | Samet Cantaş | Scrum Master / Designer |
-| 👨‍💻 | Nazar Güner | Developer / Game Designer |
+| 👨‍💻 | Nazar Güner | Developer / Designer |
 | 👩‍💻 | Doğa Çalkap | Developer |
 
 # 🎮 Oyun İsmi  
@@ -17,31 +17,29 @@
 
 # 📌 Oyun Açıklaması
 
-Loot-Heist, 1-4 oyuncu ile oynanabilen, birinci şahıs bakış açısından deneyimlenen, gizem odaklı bir soygun ve kaçış oyunudur. Oyuncular, terkedilmiş malikâneler, laboratuvarlar ya da güvenlikli tesisler gibi tehlikeli alanlara gizlice sızar; içerideki değerli eşyaları çalarak kâr elde etmeye çalışır. Ancak her harita, sadece eşyalarla değil, aynı zamanda tuzaklar, beklenmedik bulmacalar ve oyuncuları takip eden canavarlarla doludur.
-
-Her görev sonrasında oyuncular güvenli bölgeye dönerek kazandıkları parayla yeni ekipmanlar veya faydalı eşyalar satın alabilir. Haritalar ilerledikçe riskler artar, ama getiriler de büyür.
-Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakterlerine farklı şapkalar, maskeler ve giysiler giydirerek tarzlarını yansıtabilir.
+Loot-Heist, 20 oyuncuya kadar destekleyen çevrim içi çok oyunculu, mini oyun temelli bir eğlence oyunudur. Oyuncular, her biri farklı beceriler ve stratejiler gerektiren mini oyunlarla dolu bir arenada hayatta kalmaya ve rakiplerini geride bırakmaya çalışır. Yarış, ebelemece, FPS shooter gibi farklı türde oyun modları; her turda rastgele sırayla oynatılır. Her mini oyunun sonunda elenen oyuncular olur, sona kalan kişi galip gelir. Hız, refleks, strateji ve takım çalışması başarının anahtarıdır. Renkli low-poly grafikleri ve enerjik atmosferiyle arkadaş grupları için eğlenceli bir rekabet ortamı sunar.
 
 ---
 
 # ⚙️ Oyun Özellikleri
 
-- 🎯 FPS kamera  
-- 🧑‍🤝‍🧑 1-4 oyunculu (Multiplayer & Singleplayer destekli) 
-- 👾 Canavarlardan kaçış / savaş  
-- 🧢 Kozmetik özelleştirmeler (şapka vb.)  
-- 🗺️ Birden fazla oynanabilir harita  
-- 🧩 Low poly grafikler  
+- 🎯 FPS kamera
+- 👥 20 kişiye kadar çevrim içi multiplayer
+- 🎮 3 farklı mini oyun türü: yarış, ebelemece, shooter
+- 🧩 Low poly, stilize grafik tasarımı
+- ⚙️ Fizik tabanlı dinamik oyunlar
+- 🧢 Kozmetik özelleştirme (şapka vb.)
+- 🚪 Elenme ve hayatta kalma temelli ilerleyiş
 - 💸 Para kazanma ve harcama mekaniği  
 
 ---
 
 # 🎯 Hedef Kitle
 
-- FPS ve co-op oyun severler  
-- 13 yaş ve üzeri oyuncular  
-- R.E.P.O., Hello Neighbour tarzı oyunlardan hoşlananlar  
-- Arkadaşlarıyla eğlenerek stratejik oynamak isteyen kullanıcılar  
+- Fall Guys, Crab Game, Stumble Guys gibi oyunlardan hoşlananlar
+- 13 yaş ve üzeri çevrim içi rekabet seven oyuncular
+- Arkadaşlarıyla birlikte eğlenmek isteyen kullanıcılar
+- Hızlı tempolu, eğlenceli ve tekrar oynanabilirliği yüksek oyunları sevenler
 
 ---
 
@@ -165,6 +163,6 @@ Sprint Board Screenshot:
 - Pivot sonrası alınan kararların oyuna olumlu katkı sağladığı gözlemlendi.
 
 ## 🔁 Sprint Retrospective
-- Karakter animasyonları ve çarpışmalar güçlendirilecek.
+- Karakter animasyonları ve çarpışmalar güçlendirilecej.
 - Shooter haritası Sprint 3’te tamamlanacak.
 - Lobby, skor ekranı ve oyun geçiş yapısı geliştirilecek.
