@@ -163,6 +163,6 @@ Sprint Board Screenshot:
 - Pivot sonrası alınan kararların oyuna olumlu katkı sağladığı gözlemlendi.
 
 ## 🔁 Sprint Retrospective
-- Karakter animasyonları ve çarpışmalar güçlendirilecej.
+- Karakter animasyonları ve çarpışmalar güçlendirilecek.
 - Shooter haritası Sprint 3’te tamamlanacak.
 - Lobby, skor ekranı ve oyun geçiş yapısı geliştirilecek.
