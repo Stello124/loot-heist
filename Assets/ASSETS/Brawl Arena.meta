@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scripts/Lobby.meta
-guid: 8a6eecdf9381179439eff97f9841971f
-========
+<<<<<<< HEAD
 guid: 2cde164b189a14ed8b58d7facdad5b32
->>>>>>>> main:Assets/Scripts/Brawl Arena.meta
+=======
+guid: 04344cc56b6ef264e8b513fe23a049c3
+>>>>>>> doga-kodd
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
