@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset.meta
+guid: ed86a3352b239b94299693ca8565f97d
+timeCreated: 1484171803
+licenseType: Pro
+========
 guid: e60f0420fd97eb241ae363ac402c1c2e
+>>>>>>>> main:Assets/Scripts/Fox Game/Materials/Assets/Materials/Açık Mavi Texture.mat.meta
 NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
