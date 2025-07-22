@@ -6,6 +6,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using System;
+using Unity.Netcode;
 
 public class LobbyRoomUI : MonoBehaviour
 {
@@ -127,6 +128,8 @@ public class LobbyRoomUI : MonoBehaviour
 
     public void HandleStartGameButtonClick()
     {
+        NetworkManager.Singleton.StartHost(); // 🔥 Host başlatılır
+
         SceneManager.LoadScene("DeneyK2"); // 🎯 geçilecek sahnenin adı
     }
 }
