@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2110651521835233316}
   - component: {fileID: 5357502435244948795}
   - component: {fileID: 2972414045597554319}
+  - component: {fileID: 3815256349281998317}
   m_Layer: 0
   m_Name: Testere
   m_TagString: Untagged
@@ -118,6 +119,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDistance: 1.4
   moveSpeed: 3
+--- !u!64 &3815256349281998317
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934811308836551963}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4685099658920931431, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}
 --- !u!1 &8983747534957151316
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +152,7 @@ GameObject:
   - component: {fileID: 8788115837475436291}
   - component: {fileID: 7563264595290095485}
   - component: {fileID: 894720297809190143}
+  - component: {fileID: 1022004129942729675}
   m_Layer: 0
   m_Name: "Testere Alt\u0131 (Sol)"
   m_TagString: Untagged
@@ -206,3 +230,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1022004129942729675
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8983747534957151316}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6672925563393389093, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}
