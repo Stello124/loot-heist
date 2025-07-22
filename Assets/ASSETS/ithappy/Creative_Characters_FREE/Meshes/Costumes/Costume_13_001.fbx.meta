@@ -1,14 +1,7 @@
 fileFormatVersion: 2
 guid: c26456827c09dba47ae31941d87b6eb6
-AssetOrigin:
-  serializedVersion: 1
-  productId: 304841
-  packageName: Creative Characters FREE - Animated Low Poly 3D Models
-  packageVersion: 2.1
-  assetPath: Assets/ithappy/Creative_Characters_FREE/Meshes/Costumes/Costume_13_001.fbx
-  uploadId: 727966
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -28,6 +21,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -50,7 +45,6 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -68,7 +62,7 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
-    meshOptimizationFlags: 0
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -514,9 +508,15 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304841
+  packageName: Creative Characters FREE - Animated Low Poly 3D Models
+  packageVersion: 2.1
+  assetPath: Assets/ASSETS/ithappy/Creative_Characters_FREE/Meshes/Costumes/Costume_13_001.fbx
+  uploadId: 727966
