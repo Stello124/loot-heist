@@ -7,41 +7,39 @@
 |---|---|---|
 | 🧑‍🎓 | Kartal Enbiya Onar | Product Owner / Developer |
 | 🧑‍🏫 | Samet Cantaş | Scrum Master / Designer |
-| 👨‍💻 | Nazar Güner | Developer / Game Designer |
+| 👨‍💻 | Nazar Güner | Developer / Designer |
 | 👩‍💻 | Doğa Çalkap | Developer |
 
 # 🎮 Oyun İsmi  
-**Loot-Heist**
+**Box Games**
 
 ---
 
 # 📌 Oyun Açıklaması
 
-Loot-Heist, 1-4 oyuncu ile oynanabilen, birinci şahıs bakış açısından deneyimlenen, gizem odaklı bir soygun ve kaçış oyunudur. Oyuncular, terkedilmiş malikâneler, laboratuvarlar ya da güvenlikli tesisler gibi tehlikeli alanlara gizlice sızar; içerideki değerli eşyaları çalarak kâr elde etmeye çalışır. Ancak her harita, sadece eşyalarla değil, aynı zamanda tuzaklar, beklenmedik bulmacalar ve oyuncuları takip eden canavarlarla doludur.
-
-Her görev sonrasında oyuncular güvenli bölgeye dönerek kazandıkları parayla yeni ekipmanlar veya faydalı eşyalar satın alabilir. Haritalar ilerledikçe riskler artar, ama getiriler de büyür.
-Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakterlerine farklı şapkalar, maskeler ve giysiler giydirerek tarzlarını yansıtabilir.
+Box Games, 20 oyuncuya kadar destekleyen çevrim içi çok oyunculu, mini oyun temelli bir eğlence oyunudur. Oyuncular, her biri farklı beceriler ve stratejiler gerektiren mini oyunlarla dolu bir arenada hayatta kalmaya ve rakiplerini geride bırakmaya çalışır. Yarış, ebelemece, FPS shooter gibi farklı türde oyun modları; her turda rastgele sırayla oynatılır. Her mini oyunun sonunda elenen oyuncular olur, sona kalan kişi galip gelir. Hız, refleks, strateji ve takım çalışması başarının anahtarıdır. Renkli low-poly grafikleri ve enerjik atmosferiyle arkadaş grupları için eğlenceli bir rekabet ortamı sunar.
 
 ---
 
 # ⚙️ Oyun Özellikleri
 
-- 🎯 FPS kamera  
-- 🧑‍🤝‍🧑 1-4 oyunculu (Multiplayer & Singleplayer destekli) 
-- 👾 Canavarlardan kaçış / savaş  
-- 🧢 Kozmetik özelleştirmeler (şapka vb.)  
-- 🗺️ Birden fazla oynanabilir harita  
-- 🧩 Low poly grafikler  
+- 🎯 FPS kamera
+- 👥 20 kişiye kadar çevrim içi multiplayer
+- 🎮 3 farklı mini oyun türü: yarış, ebelemece, shooter
+- 🧩 Low poly, stilize grafik tasarımı
+- ⚙️ Fizik tabanlı dinamik oyunlar
+- 🧢 Kozmetik özelleştirme (şapka vb.)
+- 🚪 Elenme ve hayatta kalma temelli ilerleyiş
 - 💸 Para kazanma ve harcama mekaniği  
 
 ---
 
 # 🎯 Hedef Kitle
 
-- FPS ve co-op oyun severler  
-- 13 yaş ve üzeri oyuncular  
-- R.E.P.O., Hello Neighbour tarzı oyunlardan hoşlananlar  
-- Arkadaşlarıyla eğlenerek stratejik oynamak isteyen kullanıcılar  
+- Fall Guys, Crab Game, Stumble Guys gibi oyunlardan hoşlananlar
+- 13 yaş ve üzeri çevrim içi rekabet seven oyuncular
+- Arkadaşlarıyla birlikte eğlenmek isteyen kullanıcılar
+- Hızlı tempolu, eğlenceli ve tekrar oynanabilirliği yüksek oyunları sevenler
 
 ---
 
@@ -62,9 +60,15 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 # 🚀 Sprint 1
 
 ## 🎯 Sprint Notları  
-- Sprint başında toplam 300 puanlık backlog oluşturuldu.  
+- Sprint başında toplam 300 puanlık backlog oluşturuldu. 
 - Sprint 1’de 100 puanlık iş planlandı ve hedefe ulaşıldı.
-- Backlog item’ları; oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzerine odaklandı.
+
+## 🧮 Puanlama Mantığı
+Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte yaklaşık 100 puanlık iş tamamlanması planlanmıştır. Bu sayede sprint yükü dengeli tutulmuş ve her iterasyon sonunda anlamlı bir çıktı üretilmesi hedeflenmiştir.
+
+## 🧠 Backlog Item’ları
+Oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzerine odaklandı.
+
 - **Sprint 1 Board Update**: Sprint Board Screenshot
 
 ![WhatsApp Görsel 2025-07-06 saat 17 28 33_e667d1ea](https://github.com/user-attachments/assets/b00d876a-7bca-4b47-9415-aab99a20eb4c)
@@ -111,3 +115,70 @@ Oyun aynı zamanda çeşitli kozmetik özelleştirmeler sunar; oyuncular karakte
 - Genel olarak oyunun kodlama kısmına ağır verilecek.
 - Işıklandırmanın düzeltilmesine ve atmosferin iyileştirilmesine karar verildi.
 - İkinci sprintte ana karakter görünümü üzerine çalışılacak.
+
+# 🚀 Sprint 2
+## 🎯 Sprint Notları
+Sprint 2’de oyunun türü ve temel yapısı tamamen pivotlandı. Başlangıçta planlanan 1-4 kişilik gizemli co-op FPS oyun yapısı yerine, artık 20 kişiye kadar oyuncunun oynayabileceği çevrimiçi multiplayer mini oyun sistemi seçildi.
+Oyun farklı mini oyun modlarıyla oynanacak.
+
+Bu değişiklik, oyuncu etkileşimi ve eğlence dinamiğini artırmaya yönelik olarak yapıldı.
+
+## 📌 Sprint İçinde Tamamlanması Tahmin Edilen Puan
+100 Puan
+
+## 🧮 Puanlama Mantığı
+Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte 100 puanlık iş tamamlanması planlanmıştır. Bu sayede sprint yükü dengeli tutulmuş ve her iterasyon sonunda anlamlı bir çıktı üretilmesi hedeflenmiştir.
+
+## 🗂️ Sprint Board Update
+Sprint Board Screenshot:
+
+<img width="859" height="810" alt="Ekran görüntüsü 2025-07-20 181953" src="https://github.com/user-attachments/assets/2a98b5cb-4084-4c6c-ad32-4c5afbc4ba29" />
+
+## 🧠 Backlog Item’ları
+- Backlog item’ları; temel karakter mekaniği, harita tasarımı üzerine odaklandı.
+
+## 📌 Tamamlananlar
+- Yarış ve ebelemece haritalarının hazırlanması
+- Temel oyuncu mekanikleri
+- Spawn point'lerin eklenmesi
+- Boost kutusu sistemi: hız artışı, cooldown
+- Kamera optimizasyonu
+- İlk multiplayer denemeleri
+
+<details>
+  <summary><b>🖼️ Ürün Durumu: Ekran Görüntüleri</b></summary>
+
+  <img width="1272" height="706" alt="Ekran görüntüsü 2025-07-20 182136" src="https://github.com/user-attachments/assets/6ceab499-5459-488c-a6d0-137749453209" />
+
+  <img width="1271" height="707" alt="Ekran görüntüsü 2025-07-20 182236" src="https://github.com/user-attachments/assets/eb47e70b-90e7-4205-9480-2744704b1280" />
+
+  <img width="1277" height="706" alt="Ekran görüntüsü 2025-07-20 182345" src="https://github.com/user-attachments/assets/408db035-f488-41ce-8213-21fd2365f8a1" />
+
+</details>
+
+## 🧠 Daily Scrum
+- Slack üzerinden toplantılar yapıldı.
+- Görevler, engeller ve ilerlemeler Whatsapp grubunda paylaşıldı.
+- Jira üzerinden güncellemeler ve görev takibi sağlandı.
+
+<details>
+
+  <summary><b>🖼️ Daily Scrum Örnekleri: Ekran Görüntüleri</b></summary>
+
+  ![WhatsApp Görsel 2025-07-20 saat 17 59 21_7fb259da](https://github.com/user-attachments/assets/f254b751-2ea1-4afd-8be3-5fb84eae5d40)
+
+  ![WhatsApp Görsel 2025-07-20 saat 17 59 04_d5477b88](https://github.com/user-attachments/assets/3daf32af-f9e6-4555-b462-7f2a085d11f5)
+
+</details>
+
+## 📋 Sprint Review
+- Yeni oyun sistemi ekip içinde test edildi.
+- Map'ler üzerine fikir alışverişleri yapıldı ve test edildi.
+- UI tasarımı üzerinden geri bildirimler alındı.
+- Pivot sonrası alınan kararların oyuna olumlu katkı sağladığı gözlemlendi.
+
+## 🔁 Sprint Retrospective
+- Karakter animasyonları ve çarpışmalar güçlendirilecek.
+- Shooter haritası Sprint 3’te tamamlanacak.
+- Lobby, skor ekranı ve oyun geçiş yapısı geliştirilecek.
+- UI tasarımı bitirilecek.
