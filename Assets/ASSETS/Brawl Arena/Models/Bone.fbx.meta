@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 58d66111ad238428faf88397a12c55ce
-=======
-guid: a817f6b71f70e5247a4c6f49ba44f91e
->>>>>>> doga-kodd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -20,6 +16,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -45,13 +43,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-<<<<<<< HEAD
     importCameras: 0
     importLights: 0
-=======
-    importCameras: 1
-    importLights: 1
->>>>>>> doga-kodd
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -59,11 +52,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-<<<<<<< HEAD
     bakeAxisConversion: 1
-=======
-    bakeAxisConversion: 0
->>>>>>> doga-kodd
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
@@ -89,11 +78,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-<<<<<<< HEAD
   importAnimation: 0
-=======
-  importAnimation: 1
->>>>>>> doga-kodd
   humanDescription:
     serializedVersion: 3
     human: []
@@ -112,11 +97,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-<<<<<<< HEAD
   animationType: 0
-=======
-  animationType: 2
->>>>>>> doga-kodd
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
@@ -131,5 +112,5 @@ AssetOrigin:
   productId: 307330
   packageName: Brawl/Battle Arena Freebie
   packageVersion: 1.0.0
-  assetPath: Assets/Brawl Arena/Models/Bone.fbx
+  assetPath: Assets/ASSETS/Brawl Arena/Models/Bone.fbx
   uploadId: 757730
