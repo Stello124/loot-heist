@@ -20,7 +20,6 @@ public class LobbyRoomUI : MonoBehaviour
 
     [Header("Güncelleme Input'ları")]
     [SerializeField] private TMP_InputField newLobbyNameInput;
-    [SerializeField] private TMP_InputField newPlayerLevelInput;
 
     [Header("Sahne Ayarları")]
     //[SerializeField] private string gameplaySceneName = "Gameplay"; // sahne adını dilediğin gibi ver
@@ -77,10 +76,11 @@ public class LobbyRoomUI : MonoBehaviour
     void AddPlayerEntry(Player player)
     {
         GameObject entry = Instantiate(playerEntryPrefab, playerListContainer);
-        string playerLevel = player.Data.ContainsKey("PlayerLevel") ? player.Data["PlayerLevel"].Value : "???";
+
+        string playerName = player.Data.ContainsKey("PlayerName") ? player.Data["PlayerName"].Value : "İsimsiz";
 
         TMP_Text nameText = entry.GetComponentInChildren<TMP_Text>();
-        nameText.text = $"{player.Id} : {playerLevel}";
+        nameText.text = playerName;
 
         bool isHost = _currentLobby != null && _currentLobby.currentLobby != null &&
                       player.Id == _currentLobby.currentLobby.HostId;
@@ -125,54 +125,8 @@ public class LobbyRoomUI : MonoBehaviour
         }
     }
 
-    public async void ChangePlayerLevel()
-    {
-        string newLevel = newPlayerLevelInput.text;
-        if (string.IsNullOrEmpty(newLevel)) return;
-
-        try
-        {
-            var options = new UpdatePlayerOptions
-            {
-                Data = new Dictionary<string, PlayerDataObject>
-                {
-                    { "PlayerLevel", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, newLevel) }
-                }
-            };
-
-            await LobbyService.Instance.UpdatePlayerAsync(lobbyId, AuthenticationService.Instance.PlayerId, options);
-        }
-        catch (LobbyServiceException e)
-        {
-            Debug.LogError(e);
-        }
-    }
-
-    /*public void HandleStartGameClick()
-    {
-        if (currentLobby == null || currentLobby.currentLobby == null)
-        {
-            Debug.LogWarning("Lobby bilgisi eksik.");
-            return;
-        }
-
-        Lobby lobby = currentLobby.currentLobby;
-        string localPlayerId = AuthenticationService.Instance.PlayerId;
-
-        if (lobby.HostId != localPlayerId)
-        {
-            Debug.LogWarning("Sadece host oyunu başlatabilir.");
-            return;
-        }
-
-        LobbyStatic.LoadLobbyRoom();
-
-
-    }*/
-
     public void HandleStartGameButtonClick()
     {
         SceneManager.LoadScene("DeneyK2"); // 🎯 geçilecek sahnenin adı
     }
-
 }

@@ -19,7 +19,6 @@ public class CreateLobby : MonoBehaviour
     public Toggle islobbyprivate;
 
     [Header("Panel Referansları")]
-    
     public GameObject lobbySetupPanel;       // Paneli kapatmak için
     public LobbyRoomUI lobbyRoomUI;          // Lobby bilgilerini yazdıran script
 
@@ -35,14 +34,26 @@ public class CreateLobby : MonoBehaviour
             {
                 Data = new Dictionary<string, PlayerDataObject>
                 {
-                    { "PlayerLevel", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, "5") }
+                    {
+                        "PlayerName",
+                        new PlayerDataObject(
+                            PlayerDataObject.VisibilityOptions.Public,
+                            StartupManager.PlayerName
+                        )
+                    }
                 }
             },
             Data = new Dictionary<string, DataObject>
             {
-                { "GameMode", new DataObject(DataObject.VisibilityOptions.Public, gamemode.options[gamemode.value].text, DataObject.IndexOptions.S1) }
+                {
+                    "GameMode",
+                    new DataObject(
+                        DataObject.VisibilityOptions.Public,
+                        gamemode.options[gamemode.value].text,
+                        DataObject.IndexOptions.S1
+                    )
+                }
             }
-
         };
 
         try
@@ -55,12 +66,10 @@ public class CreateLobby : MonoBehaviour
 
             // Panel geçişi
             lobbySetupPanel.SetActive(false);
-            
 
             // UI verileri yazdır
             if (lobbyRoomUI != null)
                 lobbyRoomUI.UpdateLobbyUI();
-
 
             // Kod gösterimi
             if (lobbyCode != null)

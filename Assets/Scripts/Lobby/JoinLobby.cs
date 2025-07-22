@@ -13,9 +13,7 @@ public class JoinLobby : MonoBehaviour
     [SerializeField] private TMP_InputField inputField;
 
     [Header("Panel Geçiş")]
-    
     [SerializeField] private GameObject lobbySetupPanel;
-    
 
     private CurrentLobby currentLobby;
 
@@ -36,7 +34,13 @@ public class JoinLobby : MonoBehaviour
                 {
                     Data = new Dictionary<string, PlayerDataObject>
                     {
-                        { "PlayerLevel", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, "8") }
+                        {
+                            "PlayerName",
+                            new PlayerDataObject(
+                                PlayerDataObject.VisibilityOptions.Public,
+                                StartupManager.PlayerName
+                            )
+                        }
                     }
                 }
             };
@@ -49,12 +53,6 @@ public class JoinLobby : MonoBehaviour
             Debug.Log($"Joined Lobby With Code = {code}");
             LobbyStatic.LogPlayersInLobby(lobby);
 
-            // Panel geçişi
-           // lobbySetupPanel.SetActive(false);
-          //  SceneManager.LoadScene("LobbyRoom");
-
-            // Doğrudan lobby verisini UI'a gönder
-            //lobbyRoomUI.UpdateLobbyUIFromLobby(lobby); // 🔧 Yeni method üzerinden güncellenir
             LobbyStatic.LoadLobbyRoom();
         }
         catch (Exception e)
@@ -73,7 +71,13 @@ public class JoinLobby : MonoBehaviour
                 {
                     Data = new Dictionary<string, PlayerDataObject>
                     {
-                        { "PlayerLevel", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, "8") }
+                        {
+                            "PlayerName",
+                            new PlayerDataObject(
+                                PlayerDataObject.VisibilityOptions.Public,
+                                StartupManager.PlayerName
+                            )
+                        }
                     }
                 }
             };
@@ -86,11 +90,7 @@ public class JoinLobby : MonoBehaviour
             Debug.Log($"Joined Lobby With Id = {lobbyId}");
             LobbyStatic.LogPlayersInLobby(lobby);
 
-            
             lobbySetupPanel.SetActive(false);
-            
-
-            
             LobbyStatic.LoadLobbyRoom();
         }
         catch (Exception e)
@@ -103,7 +103,24 @@ public class JoinLobby : MonoBehaviour
     {
         try
         {
-            Lobby lobby = await LobbyService.Instance.QuickJoinLobbyAsync();
+            QuickJoinLobbyOptions options = new QuickJoinLobbyOptions
+            {
+                Player = new Player(AuthenticationService.Instance.PlayerId)
+                {
+                    Data = new Dictionary<string, PlayerDataObject>
+                    {
+                        {
+                            "PlayerName",
+                            new PlayerDataObject(
+                                PlayerDataObject.VisibilityOptions.Public,
+                                StartupManager.PlayerName
+                            )
+                        }
+                    }
+                }
+            };
+
+            Lobby lobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
 
             currentLobby.currentLobby = lobby;
             DontDestroyOnLoad(this);
@@ -111,10 +128,7 @@ public class JoinLobby : MonoBehaviour
             Debug.Log($"Joined Lobby With Quick Join = {lobby.Id}");
             LobbyStatic.LogPlayersInLobby(lobby);
 
-            // Panel geçişi
             lobbySetupPanel.SetActive(false);
-            
-            
             LobbyStatic.LoadLobbyRoom();
         }
         catch (LobbyServiceException e)
