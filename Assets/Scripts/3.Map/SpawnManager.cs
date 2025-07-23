@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject playerPrefab; // Karakter prefabýn
-    public Transform[] spawnPoints; // Spawn noktalarý
+    public GameObject playerPrefab;    // Karakter prefabý
+    public Transform[] spawnPoints;    // Spawn noktalarý
+    public int playerCount = 4;        // Spawn olacak oyuncu sayýsý
 
     void Start()
     {
-        // Rastgele bir spawn point seç
-        int randomIndex = Random.Range(0, spawnPoints.Length);
-        Transform spawnPoint = spawnPoints[randomIndex];
+        for (int i = 0; i < playerCount; i++)
+        {
+            int spawnIndex = i % spawnPoints.Length;    // Spawn noktalarýný sýrayla seç
+            Transform spawnPoint = spawnPoints[spawnIndex];
 
-        // Karakteri doður
-        Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+            Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+        }
     }
 }
 
