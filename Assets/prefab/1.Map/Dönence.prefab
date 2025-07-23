@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5667202881289173363}
   - component: {fileID: 6383856313884766268}
   - component: {fileID: 8065754550357195176}
+  - component: {fileID: 3745563137435335493}
   m_Layer: 0
   m_Name: "D\xF6nenceSopas\u0131"
   m_TagString: Untagged
@@ -105,6 +106,28 @@ MonoBehaviour:
   baseSpeed: 100
   speedVariance: 40
   changeSpeed: 0.6
+--- !u!64 &3745563137435335493
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247037282563397566}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1164985422732053104, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}
 --- !u!1 &6883013520650265911
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,6 +139,7 @@ GameObject:
   - component: {fileID: 743106524635840548}
   - component: {fileID: 2000313290214829124}
   - component: {fileID: 6106572656829476137}
+  - component: {fileID: 1558868715306386570}
   m_Layer: 0
   m_Name: "D\xF6nence"
   m_TagString: Untagged
@@ -194,3 +218,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1558868715306386570
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6883013520650265911}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5431765119403406774, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}

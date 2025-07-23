@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4941137093411911505}
   - component: {fileID: 2778531144820900644}
   - component: {fileID: 809980335182276315}
+  - component: {fileID: 3961996770863639584}
   m_Layer: 0
   m_Name: SpikeWall
   m_TagString: Untagged
@@ -108,6 +109,29 @@ MonoBehaviour:
   closeSpeed: 12
   openSpeed: 4
   waitTime: 1.5
+  startDelay: 0
+--- !u!64 &3961996770863639584
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762865288837689036}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1573460029855636193, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}
 --- !u!1 &1539924517386025308
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +240,7 @@ GameObject:
   - component: {fileID: 8632625380299043587}
   - component: {fileID: 4474386317665497026}
   - component: {fileID: 5979289524459299731}
+  - component: {fileID: 3352419398022538184}
   m_Layer: 0
   m_Name: "DikenKapal\u0131"
   m_TagString: Untagged
@@ -293,3 +318,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3352419398022538184
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776966117069809106}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4892918372294959524, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}
