@@ -2,64 +2,64 @@ using UnityEngine;
 
 namespace Controller
 {
-    public class ThirdPersonCamera : PlayerCamera
+    public class ThirdPersonCamera : MonoBehaviour
     {
-        [SerializeField, Range(0f, 2f)]
-        private float m_Offset = 1.5f;
-        [SerializeField, Range(0f, 360f)]
-        private float m_CameraSpeed = 90f;
+        [Header("Target")]
+        [SerializeField] private Transform target;       // Takip edilecek karakter
+        [SerializeField] private Vector3 offset = new Vector3(0, 1.5f, 0);  // Kamera hedef noktasý için offset
 
-        private Vector3 m_LookPoint;
-        private Vector3 m_TargetPos;
+        [Header("Kamera Ayarlarý")]
+        [SerializeField] private float distance = 3.5f;  // Karaktere uzaklýk
+        [SerializeField] private float rotationSpeed = 90f;
+        [SerializeField] private float smoothSpeed = 10f;
+
+        [Header("Dönüþ Limitleri")]
+        [SerializeField] private float minY = -20f;
+        [SerializeField] private float maxY = 60f;
+
+        private Vector2 angles;           // X = Yukarý-aþaðý, Y = sað-sol
+        private Vector3 lookPoint;
+        private Vector3 targetPos;
+
+        private void Start()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            if (target == null)
+                Debug.LogError("ThirdPersonCamera: Target atanmadý!");
+        }
 
         private void LateUpdate()
         {
-            Move(Time.deltaTime);
+            HandleInput();
+            CalculateTargetPosition();
+            SmoothMove();
         }
 
-        public override void SetInput(in Vector2 delta, float scroll)
+        private void HandleInput()
         {
-            base.SetInput(delta, scroll);
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
 
-            var dir = new Vector3(0, 0, -m_Distance);
-            var rot = Quaternion.Euler(m_Angles.x, m_Angles.y, 0f);
-
-            var playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
-            m_LookPoint = playerPos + m_Offset * Vector3.up;
-            m_TargetPos = m_LookPoint + rot * dir;
+            angles.y += mouseX * rotationSpeed * Time.deltaTime;
+            angles.x -= mouseY * rotationSpeed * Time.deltaTime;
+            angles.x = Mathf.Clamp(angles.x, minY, maxY);
         }
 
-        private void Move(float deltaTime)
+        private void CalculateTargetPosition()
         {
-            camera();
-            target();
+            lookPoint = target.position + offset;
+            Quaternion rotation = Quaternion.Euler(angles.x, angles.y, 0f);
+            Vector3 direction = rotation * Vector3.back * distance;
 
-            void camera()
-            {
-                var direction = m_TargetPos - m_Transform.position;
-                var delta = m_CameraSpeed * deltaTime;
+            targetPos = lookPoint + direction;
+        }
 
-                if(delta * delta > direction.sqrMagnitude)
-                {
-                    m_Transform.position = m_TargetPos;
-                }
-                else
-                {
-                    m_Transform.position += delta * direction.normalized;
-                }
-
-                m_Transform.LookAt(m_LookPoint);
-            }
-
-            void target()
-            {
-                if(m_Target == null)
-                {
-                    return;
-                }
-
-                m_Target.position = m_Transform.position + m_Transform.forward * TargetDistance;
-            }
+        private void SmoothMove()
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPos, smoothSpeed * Time.deltaTime);
+            transform.LookAt(lookPoint);
         }
     }
 }
