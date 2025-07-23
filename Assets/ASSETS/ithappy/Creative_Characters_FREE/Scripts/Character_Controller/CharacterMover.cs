@@ -10,9 +10,9 @@ namespace Controller
     {
         [Header("Movement")]
         [SerializeField]
-        private float m_WalkSpeed = 1f;
+        private float m_WalkSpeed = 5f;
         [SerializeField]
-        private float m_RunSpeed = 4f;
+        private float m_RunSpeed = 10f;
         [SerializeField, Range(0f, 360f)]
         private float m_RotateSpeed = 90f;
         [SerializeField]
@@ -72,7 +72,6 @@ namespace Controller
         {
             m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsJump, m_IsMoving, out var animAxis, out var isAir);
             m_Animation.Animate(in animAxis, m_IsRun ? 1f : 0f, isAir, Time.deltaTime);
-
         }
 
         private void OnAnimatorIK()
@@ -94,7 +93,7 @@ namespace Controller
             }
             else
             {
-                m_Axis = Vector3.ClampMagnitude(m_Axis, 1f);
+                m_Axis = Vector2.ClampMagnitude(m_Axis, 1f);
                 m_IsMoving = true;
             }
         }
@@ -105,6 +104,28 @@ namespace Controller
             {
                 m_Movement.SetSurface(hit.normal);
             }
+        }
+
+        // ** SETTER & GETTER FOR BOOSTS **
+
+        public void SetRunSpeed(float speed)
+        {
+            m_Movement.SetRunSpeed(speed);
+        }
+
+        public float GetRunSpeed()
+        {
+            return m_Movement.GetRunSpeed();
+        }
+
+        public void SetJumpHeight(float jumpHeight)
+        {
+            m_Movement.SetJumpHeight(jumpHeight);
+        }
+
+        public float GetJumpHeight()
+        {
+            return m_Movement.GetJumpHeight();
         }
 
         [Serializable]
@@ -169,6 +190,26 @@ namespace Controller
                 m_JumpHeight = jumpHeight;
 
                 m_Space = space;
+            }
+
+            public void SetRunSpeed(float speed)
+            {
+                m_RunSpeed = speed;
+            }
+
+            public float GetRunSpeed()
+            {
+                return m_RunSpeed;
+            }
+
+            public void SetJumpHeight(float jumpHeight)
+            {
+                m_JumpHeight = jumpHeight;
+            }
+
+            public float GetJumpHeight()
+            {
+                return m_JumpHeight;
             }
 
             public void SetSurface(in Vector3 normal)
@@ -342,8 +383,10 @@ namespace Controller
                 m_Animator.SetLookAtPosition(target);
                 m_Animator.SetLookAtWeight(lookWeight.weight, lookWeight.body, lookWeight.head, lookWeight.eyes);
             }
+
         }
         #endregion
     }
 }
+
 

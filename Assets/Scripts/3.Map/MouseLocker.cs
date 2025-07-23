@@ -4,16 +4,16 @@ public class MouseLocker : MonoBehaviour
 {
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;  // Mouse ekranýn ortasýna sabitlenir
-        Cursor.visible = false;                    // Mouse görünmez olur
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.lockState = CursorLockMode.None; // ESC ile serbest býrak
-            Cursor.visible = true;                  // ESC ile mouse görünür olur
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

@@ -1570,7 +1570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (27)
+      value: JumpChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -4319,7 +4319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest
+      value: JumpChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -5512,7 +5512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (11)
+      value: JumpChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -12693,79 +12693,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2df72ec125264584faa40cb1beef0481, type: 3}
---- !u!1001 &698329114
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2376169762476625605, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_RunSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2376169762476625605, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_WalkSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2376169762476625605, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_JumpHeight
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2376169762476625605, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_RotateSpeed
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.091591835
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.0242863
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3390669317249210465, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6660576084122957759, guid: 29e697d366676d84c9a474687db761b2, type: 3}
-      propertyPath: m_Name
-      value: Character 1 1 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 29e697d366676d84c9a474687db761b2, type: 3}
 --- !u!1001 &700534392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19284,7 +19211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (8)
+      value: JumpChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -19548,7 +19475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (1)
+      value: SpeedChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -22263,7 +22190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (25)
+      value: SpeedChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -25956,7 +25883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (24)
+      value: SpeedChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -26643,7 +26570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06468dbf7e0b12b499c403b1f579c77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6660576084122957759, guid: 29e697d366676d84c9a474687db761b2, type: 3}
+  playerPrefab: {fileID: 5426732054536805499, guid: c06cc6a92b2de88488d0f7271b0f83d1, type: 3}
   spawnPoints:
   - {fileID: 2069147109}
   - {fileID: 1947498123}
@@ -32116,7 +32043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (26)
+      value: JumpChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -33320,7 +33247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 779091436301119123, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.999996
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 779091436301119123, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_LocalRotation.w
@@ -33352,7 +33279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_Name
-      value: Chest (19)
+      value: SpeedChest
       objectReference: {fileID: 0}
     - target: {fileID: 5386360885354237217, guid: 166dc75935ef5473eb1dea7565c83806, type: 3}
       propertyPath: m_TagString
@@ -48857,4 +48784,3 @@ SceneRoots:
   - {fileID: 1368993039}
   - {fileID: 537692289}
   - {fileID: 1306628191}
-  - {fileID: 698329114}
