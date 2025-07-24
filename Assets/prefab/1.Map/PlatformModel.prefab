@@ -108,9 +108,11 @@ MonoBehaviour:
   platform: {fileID: 2125425857166713180}
   checkAreaCenter: {fileID: 2125425857166713180}
   checkAreaSize: {x: 1.82, y: 1.2, z: 5.34}
-  torqueForce: 10
-  maxAngle: 20
-  angularDrag: 2
+  torqueForce: 7
+  maxAngle: 70
+  angularDrag: 3
+  resetDelay: 4
+  resetSpeed: 1
 --- !u!54 &5889818167701654618
 Rigidbody:
   m_ObjectHideFlags: 0
