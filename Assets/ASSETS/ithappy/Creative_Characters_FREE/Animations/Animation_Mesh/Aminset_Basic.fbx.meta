@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: 5dbb2366974668d48a42568690792034
+AssetOrigin:
+  serializedVersion: 1
+  productId: 304841
+  packageName: Creative Characters FREE - Animated Low Poly 3D Models
+  packageVersion: 2.1
+  assetPath: Assets/ASSETS/ithappy/Creative_Characters_FREE/Animations/Animation_Mesh/Aminset_Basic.fbx
+  uploadId: 727966
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -16,34 +23,43 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Run_Backward' has import animation warnings
-      that might lower retargeting quality:\n\t'Hips' has scale animation that will
-      be discarded.\n\t'LeftLeg' has scale animation that will be discarded.\n\t'LeftFoot'
-      has scale animation that will be discarded.\n\t'LeftToeBase' has scale animation
-      that will be discarded.\n\t'Neck' has scale animation that will be discarded.\n\t'Head'
-      has scale animation that will be discarded.\n\t'LeftShoulder' has scale animation
-      that will be discarded.\n\t'LeftArm' has scale animation that will be discarded.\n\t'LeftForeArm'
-      has scale animation that will be discarded.\n\t'LeftHand' has scale animation
-      that will be discarded.\n\t'LeftHandIndex1' has translation animation that
-      will be discarded.\n\t'LeftHandIndex1' has scale animation that will be discarded.\n\t'LeftHandIndex2'
-      has translation animation that will be discarded.\n\t'LeftHandIndex2' has scale
-      animation that will be discarded.\n\t'LeftHandMiddle1' has translation animation
-      that will be discarded.\n\t'LeftHandMiddle1' has scale animation that will
-      be discarded.\n\t'LeftHandMiddle2' has scale animation that will be discarded.\n\t'LeftHandPinky1'
-      has translation animation that will be discarded.\n\t'LeftHandPinky1' has scale
-      animation that will be discarded.\n\t'LeftHandPinky2' has scale animation that
-      will be discarded.\n\t'LeftHandRing1' has translation animation that will be
-      discarded.\n\t'LeftHandRing1' has scale animation that will be discarded.\n\t'LeftHandRing2'
-      has scale animation that will be discarded.\n\t'LeftHandThumb1' has translation
-      animation that will be discarded.\n\t'LeftHandThumb1' has scale animation that
-      will be discarded.\n\t'LeftHandThumb2' has translation animation that will
-      be discarded.\n\t'LeftHandThumb2' has scale animation that will be discarded.\n\t'RightShoulder'
-      has scale animation that will be discarded.\n\t'RightArm' has scale animation
-      that will be discarded.\n\t'RightForeArm' has scale animation that will be
-      discarded.\n\t'RightHand' has scale animation that will be discarded.\n\t'RightHandIndex1'
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Hips' has scale animation that will be
+      discarded.\n\t'LeftLeg' has translation animation that will be discarded.\n\t'LeftLeg'
+      has scale animation that will be discarded.\n\t'LeftFoot' has translation animation
+      that will be discarded.\n\t'LeftFoot' has scale animation that will be discarded.\n\t'LeftToeBase'
+      has translation animation that will be discarded.\n\t'LeftToeBase' has scale
+      animation that will be discarded.\n\t'Spine1' has translation animation that
+      will be discarded.\n\t'Neck' has translation animation that will be discarded.\n\t'Neck'
+      has scale animation that will be discarded.\n\t'Head' has translation animation
+      that will be discarded.\n\t'Head' has scale animation that will be discarded.\n\t'LeftShoulder'
+      has translation animation that will be discarded.\n\t'LeftShoulder' has scale
+      animation that will be discarded.\n\t'LeftArm' has translation animation that
+      will be discarded.\n\t'LeftArm' has scale animation that will be discarded.\n\t'LeftForeArm'
+      has translation animation that will be discarded.\n\t'LeftForeArm' has scale
+      animation that will be discarded.\n\t'LeftHand' has translation animation that
+      will be discarded.\n\t'LeftHand' has scale animation that will be discarded.\n\t'LeftHandIndex1'
+      has translation animation that will be discarded.\n\t'LeftHandIndex1' has scale
+      animation that will be discarded.\n\t'LeftHandIndex2' has translation animation
+      that will be discarded.\n\t'LeftHandIndex2' has scale animation that will be
+      discarded.\n\t'LeftHandMiddle1' has translation animation that will be discarded.\n\t'LeftHandMiddle1'
+      has scale animation that will be discarded.\n\t'LeftHandMiddle2' has scale
+      animation that will be discarded.\n\t'LeftHandPinky1' has translation animation
+      that will be discarded.\n\t'LeftHandPinky1' has scale animation that will be
+      discarded.\n\t'LeftHandPinky2' has scale animation that will be discarded.\n\t'LeftHandRing1'
+      has translation animation that will be discarded.\n\t'LeftHandRing1' has scale
+      animation that will be discarded.\n\t'LeftHandRing2' has scale animation that
+      will be discarded.\n\t'LeftHandThumb1' has translation animation that will
+      be discarded.\n\t'LeftHandThumb1' has scale animation that will be discarded.\n\t'LeftHandThumb2'
+      has translation animation that will be discarded.\n\t'LeftHandThumb2' has scale
+      animation that will be discarded.\n\t'RightShoulder' has translation animation
+      that will be discarded.\n\t'RightShoulder' has scale animation that will be
+      discarded.\n\t'RightArm' has scale animation that will be discarded.\n\t'RightForeArm'
+      has translation animation that will be discarded.\n\t'RightForeArm' has scale
+      animation that will be discarded.\n\t'RightHand' has translation animation
+      that will be discarded.\n\t'RightHand' has scale animation that will be discarded.\n\t'RightHandIndex1'
       has translation animation that will be discarded.\n\t'RightHandIndex1' has
       scale animation that will be discarded.\n\t'RightHandIndex2' has translation
       animation that will be discarded.\n\t'RightHandIndex2' has scale animation
@@ -60,8 +76,19 @@ ModelImporter:
       discarded.\n\t'RightHandThumb1' has translation animation that will be discarded.\n\t'RightHandThumb1'
       has scale animation that will be discarded.\n\t'RightHandThumb2' has translation
       animation that will be discarded.\n\t'RightHandThumb2' has scale animation
-      that will be discarded.\n\t'RightLeg' has scale animation that will be discarded.\n\t'RightFoot'
-      has scale animation that will be discarded.\n\t'RightToeBase' has scale animation
+      that will be discarded.\n\t'RightLeg' has translation animation that will be
+      discarded.\n\t'RightLeg' has scale animation that will be discarded.\n\t'RightFoot'
+      has translation animation that will be discarded.\n\t'RightFoot' has scale
+      animation that will be discarded.\n\t'RightToeBase' has translation animation
+      that will be discarded.\n\t'RightToeBase' has scale animation that will be
+      discarded.\n\nClip 'Hit_Reaction_Heavy' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'LeftFoot' has translation animation that
+      will be discarded.\n\t'RightFoot' has translation animation that will be discarded.\n\nClip
+      'Death_Forward' has import animation warnings that might lower retargeting
+      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'Spine'
+      has translation animation that will be discarded.\n\t'Spine1' has translation
+      animation that will be discarded.\n\t'RightFoot' has translation animation
       that will be discarded.\n"
     animationRetargetingWarnings: "\nRetargeting quality report for clip 'Idle_Relaxed':\n\tRetargeting
       quality is good. No significant differences with original animation were found.\n\nRetargeting
@@ -73,53 +100,69 @@ ModelImporter:
       significant differences with original animation were found.\n\nRetargeting
       quality report for clip 'Walk_Forward':\n\tRetargeting quality is good. No
       significant differences with original animation were found.\n\nRetargeting
-      quality report for clip 'Death_Backward':\n\tLeftFoot average position error
-      0.1 mm and maximum position error 1.6 mm at time 2:12 (80.0%) Frame 72\n\nRetargeting
-      quality report for clip 'Strafe_Right':\n\tRightHand average position error
-      0.3 mm and maximum position error 1.1 mm at time 0:22 (71.0%) Frame 22\n\nRetargeting
-      quality report for clip 'Strafe_Left':\n\tLeftHand average position error 0.3
-      mm and maximum position error 1.1 mm at time 0: 6 (19.4%) Frame 6\n\nRetargeting
-      quality report for clip 'Run_Right':\n\tRetargeting quality is good. No significant
-      differences with original animation were found.\n\nRetargeting quality report
-      for clip 'Run_Left':\n\tRetargeting quality is good. No significant differences
-      with original animation were found.\n\nRetargeting quality report for clip
-      'Run_Backward':\n\tRightFoot average position error 0.4 mm and maximum position
-      error 1.4 mm at time 0:23 (100.0%) Frame 23\n\nRetargeting quality report for
-      clip 'Run_Forward':\n\tRetargeting quality is good. No significant differences
-      with original animation were found.\n\nRetargeting quality report for clip
-      'Attack_Kick':\n\tRetargeting quality is good. No significant differences with
-      original animation were found.\n\nRetargeting quality report for clip 'Attack_Punch':\n\tRetargeting
-      quality is good. No significant differences with original animation were found.\n\nRetargeting
-      quality report for clip 'Climb_Ladder':\n\tRetargeting quality is good. No
+      quality report for clip 'Death_Backward':\n\tLeftLowerLeg average position
+      error 0.2 mm and maximum position error 2.4 mm at time 2:12 (80.0%) Frame 72\n\nRetargeting
+      quality report for clip 'Strafe_Right':\n\tRetargeting quality is good. No
       significant differences with original animation were found.\n\nRetargeting
-      quality report for clip 'Fall':\n\tRetargeting quality is good. No significant
+      quality report for clip 'Strafe_Left':\n\tRetargeting quality is good. No significant
       differences with original animation were found.\n\nRetargeting quality report
-      for clip 'Jump_End':\n\tLeftHand average position error 0.3 mm and maximum
-      position error 1.5 mm at time 0:12 (37.5%) Frame 12\n\nRetargeting quality
-      report for clip 'Jump_Loop':\n\tRetargeting quality is good. No significant
+      for clip 'Run_Right':\n\tRetargeting quality is good. No significant differences
+      with original animation were found.\n\nRetargeting quality report for clip
+      'Run_Left':\n\tRetargeting quality is good. No significant differences with
+      original animation were found.\n\nRetargeting quality report for clip 'Run_Backward':\n\tLeftLowerLeg
+      average position error 0.1 mm and maximum position error 1.2 mm at time 0:23
+      (100.0%) Frame 23\n\tLeftFoot average position error 0.2 mm and maximum position
+      error 2.6 mm at time 0:23 (100.0%) Frame 23\n\tRightFoot average position error
+      0.4 mm and maximum position error 2.0 mm at time 0:23 (100.0%) Frame 23\n\tLeftLowerArm
+      average position error 0.2 mm and maximum position error 1.2 mm at time 0:23
+      (100.0%) Frame 23\n\tLeftHand average position error 0.2 mm and maximum position
+      error 1.4 mm at time 0:23 (100.0%) Frame 23\n\tRightHand average position error
+      0.1 mm and maximum position error 1.4 mm at time 0:23 (100.0%) Frame 23\n\nRetargeting
+      quality report for clip 'Run_Forward':\n\tRetargeting quality is good. No significant
       differences with original animation were found.\n\nRetargeting quality report
-      for clip 'Jump_Start':\n\tRetargeting quality is good. No significant differences
+      for clip 'Attack_Kick':\n\tRetargeting quality is good. No significant differences
       with original animation were found.\n\nRetargeting quality report for clip
-      'Crouch_Walk_Right':\n\tRetargeting quality is good. No significant differences
+      'Attack_Punch':\n\tRetargeting quality is good. No significant differences
       with original animation were found.\n\nRetargeting quality report for clip
-      'Crouch_Walk_Left':\n\tRetargeting quality is good. No significant differences
+      'Climb_Ladder':\n\tRetargeting quality is good. No significant differences
       with original animation were found.\n\nRetargeting quality report for clip
-      'Crouch_Walk_Backward':\n\tRetargeting quality is good. No significant differences
-      with original animation were found.\n\nRetargeting quality report for clip
-      'Crouch_Walk_Forward':\n\tRetargeting quality is good. No significant differences
-      with original animation were found.\n\nRetargeting quality report for clip
-      'Hit_Reaction_Heavy':\n\tRetargeting quality is good. No significant differences
-      with original animation were found.\n\nRetargeting quality report for clip
-      'Hit_Reaction_Light':\n\tRetargeting quality is good. No significant differences
-      with original animation were found.\n\nRetargeting quality report for clip
-      'Dodge_Sidestep':\n\tRetargeting quality is good. No significant differences
+      'Fall':\n\tRetargeting quality is good. No significant differences with original
+      animation were found.\n\nRetargeting quality report for clip 'Jump_End':\n\tLeftLowerArm
+      average position error 0.4 mm and maximum position error 1.8 mm at time 0:12
+      (37.5%) Frame 12\n\nRetargeting quality report for clip 'Jump_Loop':\n\tRetargeting
+      quality is good. No significant differences with original animation were found.\n\nRetargeting
+      quality report for clip 'Jump_Start':\n\tRetargeting quality is good. No significant
+      differences with original animation were found.\n\nRetargeting quality report
+      for clip 'Crouch_Walk_Right':\n\tRetargeting quality is good. No significant
+      differences with original animation were found.\n\nRetargeting quality report
+      for clip 'Crouch_Walk_Left':\n\tRetargeting quality is good. No significant
+      differences with original animation were found.\n\nRetargeting quality report
+      for clip 'Crouch_Walk_Backward':\n\tRetargeting quality is good. No significant
+      differences with original animation were found.\n\nRetargeting quality report
+      for clip 'Crouch_Walk_Forward':\n\tRetargeting quality is good. No significant
+      differences with original animation were found.\n\nRetargeting quality report
+      for clip 'Hit_Reaction_Heavy':\n\tRightFoot average position error 0.1 mm and
+      maximum position error 5.6 mm at time 0: 6 (15.4%) Frame 6\n\nRetargeting quality
+      report for clip 'Hit_Reaction_Light':\n\tRetargeting quality is good. No significant
+      differences with original animation were found.\n\nRetargeting quality report
+      for clip 'Dodge_Sidestep':\n\tRetargeting quality is good. No significant differences
       with original animation were found.\n\nRetargeting quality report for clip
       'Dodge_Roll':\n\tRightFoot average orientation error 0.1 deg and maximum orientation
       error 1.9 deg at time 1:11 (83.7%) Frame 41\n\nRetargeting quality report for
       clip 'Block_With_Hands':\n\tRetargeting quality is good. No significant differences
       with original animation were found.\n\nRetargeting quality report for clip
-      'Death_Forward':\n\tRetargeting quality is good. No significant differences
-      with original animation were found.\n"
+      'Death_Forward':\n\tRightLowerLeg average position error 0.2 mm and maximum
+      position error 1.3 mm at time 0:10 (11.6%) Frame 10\n\tLeftUpperArm average
+      position error 8.4 mm and maximum position error 68.0 mm at time 2:26 (100.0%)
+      Frame 86\n\tLeftLowerArm average position error 8.4 mm and maximum position
+      error 67.9 mm at time 2:26 (100.0%) Frame 86\n\tLeftHand average position error
+      8.4 mm and maximum position error 68.0 mm at time 2:26 (100.0%) Frame 86\n\tRightUpperArm
+      average position error 8.4 mm and maximum position error 68.0 mm at time 2:26
+      (100.0%) Frame 86\n\tRightLowerArm average position error 8.3 mm and maximum
+      position error 67.8 mm at time 2:26 (100.0%) Frame 86\n\tRightHand average
+      position error 8.4 mm and maximum position error 68.0 mm at time 2:26 (100.0%)
+      Frame 86\n\tHead average position error 8.4 mm and maximum position error 68.0
+      mm at time 2:26 (100.0%) Frame 86\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -143,9 +186,9 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
@@ -291,7 +334,7 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -610,7 +653,7 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -636,10 +679,10 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -668,7 +711,7 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -980,6 +1023,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -1594,7 +1638,7 @@ ModelImporter:
     feetSpacing: 0
     globalScale: 1
     rootMotionBoneName: 
-    hasTranslationDoF: 1
+    hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
@@ -1603,15 +1647,9 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 304841
-  packageName: Creative Characters FREE - Animated Low Poly 3D Models
-  packageVersion: 2.1
-  assetPath: Assets/ASSETS/ithappy/Creative_Characters_FREE/Animations/Animation_Mesh/Aminset_Basic.fbx
-  uploadId: 727966

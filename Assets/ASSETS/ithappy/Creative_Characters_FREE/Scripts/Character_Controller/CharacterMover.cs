@@ -51,6 +51,7 @@ namespace Controller
         public bool IsRun => m_IsRun;
 
         private bool m_IsDead = false;
+
         private void OnValidate()
         {
             m_WalkSpeed = Mathf.Max(m_WalkSpeed, 0f);
@@ -101,7 +102,7 @@ namespace Controller
             m_Animation.AnimateIK(in m_Target, m_LookWeight);
         }
 
-        public void SetInput(in Vector2 axis, in Vector3 target, in bool isRun, in bool isJump)
+        public void SetInput(in Vector2 axis, in Vector3 target, in bool isRun, in bool isJump, in bool isCrouch)
         {
             m_Axis = axis;
             m_Target = target;
@@ -118,6 +119,8 @@ namespace Controller
                 m_Axis = Vector3.ClampMagnitude(m_Axis, 1f);
                 m_IsMoving = true;
             }
+            m_Animator.SetBool("IsCrouch", isCrouch);
+
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)

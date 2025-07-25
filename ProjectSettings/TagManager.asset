@@ -9,6 +9,8 @@ TagManager:
   - JumpChest
   - DeathZone
   - IsDead
+  - Customizable
+  - Bullet
   layers:
   - Default
   - TransparentFX

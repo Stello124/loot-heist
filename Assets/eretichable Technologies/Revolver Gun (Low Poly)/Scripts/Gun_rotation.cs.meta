@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ab22ec70f5559c640867ba6aa0707925
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 221659
+  packageName: Revolver Gun (Low Poly)
+  packageVersion: 1.1
+  assetPath: Assets/eretichable Technologies/Revolver Gun (Low Poly)/Scripts/Gun_rotation.cs
+  uploadId: 520414
