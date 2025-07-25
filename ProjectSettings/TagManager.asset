@@ -7,8 +7,7 @@ TagManager:
   - Ground
   - SpeedChest
   - JumpChest
-  - DeathZone
-  - IsDead
+  - Customizable
   layers:
   - Default
   - TransparentFX
@@ -18,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Character Preview
   - 
   - 
   - 
