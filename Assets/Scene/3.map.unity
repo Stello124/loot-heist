@@ -26578,7 +26578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06468dbf7e0b12b499c403b1f579c77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2444564162027647711, guid: 8b6312b8f2b47ab49809efab43c115b3, type: 3}
+  playerPrefab: {fileID: 867627420768474587, guid: d02d9a9f7cafff34f8e676437e3ebce3, type: 3}
   spawnPoints:
   - {fileID: 2069147109}
   - {fileID: 1947498123}
@@ -40677,6 +40677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e680f31b3c38170489c6064614e035c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
 --- !u!4 &2100825305
 Transform:
   m_ObjectHideFlags: 0
