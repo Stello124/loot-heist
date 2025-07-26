@@ -2,24 +2,45 @@ using UnityEngine;
 
 public class BombPasser : MonoBehaviour
 {
-    private BombController bombController;
+    public bool HasBomb = false;
+    private GameObject bombVisual;
 
-    void Start()
+    private void Start()
     {
-        bombController = GetComponent<BombController>();
+        bombVisual = transform.Find("BombVisual")?.gameObject;
+        if (bombVisual != null)
+            bombVisual.SetActive(false);
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void ReceiveBomb()
     {
-        if (!bombController.HasBomb()) return;
+        HasBomb = true;
+        if (bombVisual != null)
+            bombVisual.SetActive(true);
+    }
 
-        BombController otherBomb = collision.gameObject.GetComponent<BombController>();
+    public void RemoveBomb()
+    {
+        HasBomb = false;
+        if (bombVisual != null)
+            bombVisual.SetActive(false);
+    }
 
-        if (otherBomb != null && !otherBomb.HasBomb())
+    public void Explode()
+    {
+        Debug.Log($"{gameObject.name} patladý!");
+        Destroy(gameObject); // Patlama efektiyle deðiþtirilebilir
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!HasBomb) return;
+
+        BombPasser other = collision.gameObject.GetComponent<BombPasser>();
+        if (other != null && !other.HasBomb)
         {
-            bombController.SetBomb(false);
-            otherBomb.SetBomb(true);
+            RemoveBomb();
+            other.ReceiveBomb();
         }
     }
 }
-
