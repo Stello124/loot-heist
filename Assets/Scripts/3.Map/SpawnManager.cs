@@ -1,22 +1,33 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject playerPrefab;    // Karakter prefabý
-    public Transform[] spawnPoints;    // Spawn noktalarý
-    public int playerCount = 4;        // Spawn olacak oyuncu sayýsý
+    public GameObject playerPrefab;
+    public Transform[] spawnPoints;
+    public int playerCount = 4;
+
+    public static List<GameObject> allPlayers = new List<GameObject>();
 
     void Start()
     {
         for (int i = 0; i < playerCount; i++)
         {
-            int spawnIndex = i % spawnPoints.Length;    // Spawn noktalarýný sýrayla seç
+            int spawnIndex = i % spawnPoints.Length;
             Transform spawnPoint = spawnPoints[spawnIndex];
 
-            Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+            player.name = "Player" + (i + 1);
+            allPlayers.Add(player);
         }
+
+        BombManager.Instance.AssignBombToRandomPlayer();
     }
 }
+
+
+
+
 
 
 
