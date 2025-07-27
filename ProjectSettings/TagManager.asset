@@ -8,7 +8,6 @@ TagManager:
   - SpeedChest
   - JumpChest
   - Customizable
-  - BombVisual
   layers:
   - Default
   - TransparentFX
