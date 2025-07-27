@@ -26624,13 +26624,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06468dbf7e0b12b499c403b1f579c77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8093338434495377850, guid: 76002604e33d10d46b74073bb1afed53, type: 3}
+  playerPrefab: {fileID: 5824319712743727723, guid: 7813db1c51925c74d8b412b8d9bbd8b8, type: 3}
   spawnPoints:
   - {fileID: 2069147109}
   - {fileID: 1947498123}
   - {fileID: 407687050}
   - {fileID: 492305442}
-  playerCount: 4
+  playerCount: 2
 --- !u!4 &1392836436
 Transform:
   m_ObjectHideFlags: 0
