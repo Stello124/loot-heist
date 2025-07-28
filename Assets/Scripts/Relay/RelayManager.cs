@@ -19,6 +19,9 @@ public class RelayManager : MonoBehaviour
     public TextMeshProUGUI JoinCodeText;
     public TMP_Dropdown playerCount;
 
+    // Buraya player prefab referansýný inspector'dan at
+    public GameObject playerPrefab;
+
     async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -58,13 +61,15 @@ public class RelayManager : MonoBehaviour
 
         UnityTransport transport = NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
 
-        transport.SetRelayServerData(_hostData.IPv4Address,_hostData.Port,_hostData.AllocationIDBytes,_hostData.Key,_hostData.ConnectionData);
+        transport.SetRelayServerData(_hostData.IPv4Address, _hostData.Port, _hostData.AllocationIDBytes, _hostData.Key, _hostData.ConnectionData);
+
         NetworkManager.Singleton.StartHost();
+
+        SpawnPlayer();
     }
 
     public async void OnJoinClick()
     {
-        //string code = inputField.text.Trim().ToUpper(); //  BURASI DÜZENLENDÝ
         JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(inputField.text);
 
         _joinData = new RelayJoinData()
@@ -83,10 +88,32 @@ public class RelayManager : MonoBehaviour
         UnityTransport transport = NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
 
         transport.SetRelayServerData(_joinData.IPv4Address, _joinData.Port, _joinData.AllocationIDBytes, _joinData.Key, _joinData.ConnectionData, _joinData.HostConnectionData);
+
         NetworkManager.Singleton.StartClient();
+
+        // Ýstersen join olan client'ýn spawnýný burada yapabilirsin, genelde server yapar
+        // SpawnPlayer();
     }
 
+    void SpawnPlayer()
+    {
+        if (playerPrefab == null)
+        {
+            Debug.LogError("Player prefab is not assigned!");
+            return;
+        }
+
+        var playerObj = Instantiate(playerPrefab);
+        var netObj = playerObj.GetComponent<NetworkObject>();
+        if (netObj == null)
+        {
+            Debug.LogError("Player prefab does not have a NetworkObject component!");
+            return;
+        }
+        netObj.Spawn();
+    }
 }
+
 public struct RelayHostData
 {
     public string JoinCode;

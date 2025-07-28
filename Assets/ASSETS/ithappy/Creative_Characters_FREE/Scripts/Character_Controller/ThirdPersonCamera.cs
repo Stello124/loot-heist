@@ -21,45 +21,43 @@ namespace Controller
         {
             base.SetInput(delta, scroll);
 
-            var dir = new Vector3(0, 0, -m_Distance);
-            var rot = Quaternion.Euler(m_Angles.x, m_Angles.y, 0f);
+            Vector3 dir = new Vector3(0, 0, -m_Distance);
+            Quaternion rot = Quaternion.Euler(m_Angles.x, m_Angles.y, 0f);
 
-            var playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
+            Vector3 playerPos = (m_Player == null) ? Vector3.zero : m_Player.position;
             m_LookPoint = playerPos + m_Offset * Vector3.up;
             m_TargetPos = m_LookPoint + rot * dir;
         }
 
         private void Move(float deltaTime)
         {
-            camera();
-            target();
+            UpdateCameraPosition(deltaTime);
+            UpdateTargetPosition();
+        }
 
-            void camera()
+        private void UpdateCameraPosition(float deltaTime)
+        {
+            Vector3 direction = m_TargetPos - m_Transform.position;
+            float moveStep = m_CameraSpeed * deltaTime;
+
+            if (moveStep * moveStep >= direction.sqrMagnitude)
             {
-                var direction = m_TargetPos - m_Transform.position;
-                var delta = m_CameraSpeed * deltaTime;
-
-                if(delta * delta > direction.sqrMagnitude)
-                {
-                    m_Transform.position = m_TargetPos;
-                }
-                else
-                {
-                    m_Transform.position += delta * direction.normalized;
-                }
-
-                m_Transform.LookAt(m_LookPoint);
+                m_Transform.position = m_TargetPos;
+            }
+            else
+            {
+                m_Transform.position += direction.normalized * moveStep;
             }
 
-            void target()
-            {
-                if(m_Target == null)
-                {
-                    return;
-                }
+            m_Transform.LookAt(m_LookPoint);
+        }
 
-                m_Target.position = m_Transform.position + m_Transform.forward * TargetDistance;
-            }
+        private void UpdateTargetPosition()
+        {
+            if (m_Target == null)
+                return;
+
+            m_Target.position = m_Transform.position + m_Transform.forward * TargetDistance;
         }
     }
 }

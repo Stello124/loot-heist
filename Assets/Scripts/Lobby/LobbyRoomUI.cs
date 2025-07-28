@@ -22,9 +22,6 @@ public class LobbyRoomUI : MonoBehaviour
     [Header("Güncelleme Input'ları")]
     [SerializeField] private TMP_InputField newLobbyNameInput;
 
-    [Header("Sahne Ayarları")]
-    //[SerializeField] private string gameplaySceneName = "Gameplay"; // sahne adını dilediğin gibi ver
-
     private CurrentLobby _currentLobby;
     private string lobbyId;
 
@@ -128,8 +125,24 @@ public class LobbyRoomUI : MonoBehaviour
 
     public void HandleStartGameButtonClick()
     {
-        NetworkManager.Singleton.StartHost(); // 🔥 Host başlatılır
+        string selectedMode = gameModeText.text;
 
-        SceneManager.LoadScene("DeneyK2"); // 🎯 geçilecek sahnenin adı
+        NetworkManager.Singleton.StartHost(); // 🎮 Sunucu mutlaka başlatılmalı
+
+        if (selectedMode == "Turnuva")
+        {
+            Debug.Log("🏁 Turnuva modu seçildi. Turnuva başlatılıyor...");
+            TournamentManager.Instance.TurnuvayaBasla();
+        }
+        else if (selectedMode == "Yarış" || selectedMode == "Bomba")
+        {
+            Debug.Log($"🎮 {selectedMode} modu seçildi. DeneyK2 sahnesine geçiliyor...");
+            SceneManager.LoadScene("DeneyK2");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ Geçerli bir oyun modu seçilmedi.");
+        }
     }
+
 }
