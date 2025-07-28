@@ -62,19 +62,36 @@ public class BombManager : MonoBehaviour
             yield return null;
         }
 
-        // Patlat
-        Debug.Log(currentBombHolder.name + "patladý!");
+        // Bomba patladý
+        Debug.Log(currentBombHolder.name + " patladý!");
+        SpawnManager.allPlayers.Remove(currentBombHolder);  // Listeden çýkar
         Destroy(currentBombHolder);
         currentBombHolder = null;
 
-        yield return new WaitForSeconds(1.5f);
-        AssignBombToRandomPlayer();
+        yield return new WaitForSeconds(1f);
+
+        // Kalan oyuncu sayýsýný kontrol et
+        if (SpawnManager.allPlayers.Count == 1)
+        {
+            GameObject winner = SpawnManager.allPlayers[0];
+            Debug.Log(winner.name + " kazandý!");
+
+            GameUI.Instance.ShowWinText(winner.name); // UI'ya haber ver
+            Time.timeScale = 0f; // Oyunu durdur
+        }
+        else
+        {
+            AssignBombToRandomPlayer();
+        }
     }
 
+    // Eriþim için public getter
     public GameObject GetCurrentBombHolder()
     {
         return currentBombHolder;
     }
 }
+
+
 
 
