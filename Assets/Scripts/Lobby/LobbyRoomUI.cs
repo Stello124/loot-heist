@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using System;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 
 public class LobbyRoomUI : MonoBehaviour
 {
@@ -14,6 +14,9 @@ public class LobbyRoomUI : MonoBehaviour
     [SerializeField] public TextMeshProUGUI lobbyNameText;
     [SerializeField] public TextMeshProUGUI lobbyCodeText;
     [SerializeField] public TextMeshProUGUI gameModeText;
+
+    [Header("Start Button")]
+    [SerializeField] private GameObject startGameButton;
 
     [Header("Oyuncu Listesi")]
     [SerializeField] public Transform playerListContainer;
@@ -25,6 +28,8 @@ public class LobbyRoomUI : MonoBehaviour
     private CurrentLobby _currentLobby;
     private string lobbyId;
 
+    private Dictionary<string, GameObject> playerEntries = new();
+
     void Start()
     {
         _currentLobby = GameObject.Find("LobbyManager")?.GetComponent<CurrentLobby>();
@@ -32,11 +37,35 @@ public class LobbyRoomUI : MonoBehaviour
 
         lobbyId = _currentLobby.currentLobby.Id;
 
-        // 🔥 Panel verisini hemen doldur
         UpdateLobbyUI();
+        InvokeRepeating(nameof(PollForLobbyUpdate), 1.5f, 2f);
+        UpdateStartButtonVisibility();
+    }
 
-        // 🔄 Verileri düzenli olarak güncelle
-        InvokeRepeating(nameof(PollForLobbyUpdate), 2f, 3f);
+    private void OnEnable()
+    {
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.SceneManager != null)
+        {
+            NetworkManager.Singleton.SceneManager.OnLoadComplete += OnSceneLoadComplete;
+        }
+        else
+        {
+            Debug.LogWarning("NetworkManager.Singleton veya SceneManager null OnEnable'de!");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.SceneManager != null)
+        {
+            NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnSceneLoadComplete;
+        }
+    }
+
+    private void OnSceneLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
+    {
+        Debug.Log($"Client {clientId} sahne yüklemesini tamamladı: {sceneName}");
+        // Burada spawn işlemini tetikleyebilirsin (SpawnManager gibi başka script varsa)
     }
 
     public void UpdateLobbyUI()
@@ -54,6 +83,8 @@ public class LobbyRoomUI : MonoBehaviour
         {
             AddPlayerEntry(player);
         }
+
+        UpdateStartButtonVisibility();
     }
 
     public void UpdateLobbyUIFromLobby(Lobby lobby)
@@ -69,21 +100,32 @@ public class LobbyRoomUI : MonoBehaviour
         {
             AddPlayerEntry(player);
         }
+
+        UpdateStartButtonVisibility();
     }
 
     void AddPlayerEntry(Player player)
     {
         GameObject entry = Instantiate(playerEntryPrefab, playerListContainer);
+        playerEntries[player.Id] = entry;
 
         string playerName = player.Data.ContainsKey("PlayerName") ? player.Data["PlayerName"].Value : "İsimsiz";
+        bool isHost = _currentLobby.currentLobby.HostId == player.Id;
+        bool isReady = player.Data.ContainsKey("Ready") && player.Data["Ready"].Value == "1";
 
         TMP_Text nameText = entry.GetComponentInChildren<TMP_Text>();
         nameText.text = playerName;
 
-        bool isHost = _currentLobby != null && _currentLobby.currentLobby != null &&
-                      player.Id == _currentLobby.currentLobby.HostId;
-        Transform icon = entry.transform.Find("HostIcon");
-        if (icon != null) icon.gameObject.SetActive(isHost);
+        Transform hostIcon = entry.transform.Find("HostIcon");
+        if (hostIcon != null) hostIcon.gameObject.SetActive(isHost);
+
+        Transform readyIcon = entry.transform.Find("ReadyIcon");
+        if (readyIcon != null)
+        {
+            UnityEngine.UI.Image iconImage = readyIcon.GetComponent<UnityEngine.UI.Image>();
+            iconImage.color = isReady ? Color.green : Color.red;
+            iconImage.preserveAspect = true;
+        }
     }
 
     void ClearPlayerList()
@@ -92,6 +134,8 @@ public class LobbyRoomUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        playerEntries.Clear();
     }
 
     async void PollForLobbyUpdate()
@@ -99,7 +143,7 @@ public class LobbyRoomUI : MonoBehaviour
         try
         {
             _currentLobby.currentLobby = await LobbyService.Instance.GetLobbyAsync(lobbyId);
-            UpdateLobbyUI(); // 🌟 Bu satır çok kritik
+            UpdateLobbyUI();
         }
         catch (LobbyServiceException e)
         {
@@ -123,26 +167,137 @@ public class LobbyRoomUI : MonoBehaviour
         }
     }
 
+    public async void ToggleReadyStatus()
+    {
+        if (_currentLobby == null || _currentLobby.currentLobby == null) return;
+
+        Player localPlayer = _currentLobby.currentLobby.Players.Find(p => p.Id == AuthenticationService.Instance.PlayerId);
+        if (localPlayer == null) return;
+
+        string currentStatus = localPlayer.Data.ContainsKey("Ready") ? localPlayer.Data["Ready"].Value : "0";
+        string newStatus = currentStatus == "1" ? "0" : "1";
+
+        var options = new UpdatePlayerOptions
+        {
+            Data = new Dictionary<string, PlayerDataObject>
+            {
+                { "Ready", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, newStatus) }
+            }
+        };
+
+        try
+        {
+            await LobbyService.Instance.UpdatePlayerAsync(lobbyId, AuthenticationService.Instance.PlayerId, options);
+            Debug.Log($"✅ Ready durumu güncellendi: {newStatus}");
+
+            if (playerEntries.TryGetValue(AuthenticationService.Instance.PlayerId, out GameObject entry))
+            {
+                Transform readyIcon = entry.transform.Find("ReadyIcon");
+                if (readyIcon != null)
+                {
+                    UnityEngine.UI.Image iconImage = readyIcon.GetComponent<UnityEngine.UI.Image>();
+                    iconImage.color = newStatus == "1" ? Color.green : Color.red;
+                }
+            }
+
+            UpdateLobbyUI();
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.LogError("❌ Hazır durumu güncellenemedi: " + e.Message);
+        }
+    }
+
     public void HandleStartGameButtonClick()
     {
-        string selectedMode = gameModeText.text;
+        if (!NetworkManager.Singleton.IsHost)
+        {
+            if (!NetworkManager.Singleton.IsListening)
+            {
+                Debug.Log("Host başlatılıyor...");
+                NetworkManager.Singleton.StartHost();
+            }
 
-        NetworkManager.Singleton.StartHost(); // 🎮 Sunucu mutlaka başlatılmalı
+            StartCoroutine(WaitAndStartGame());
+        }
+        else
+        {
+            if (!AreAllPlayersReady())
+            {
+                Debug.LogWarning("🚫 Tüm oyuncular hazır değil. Oyun başlatılamaz.");
+                return;
+            }
+
+            StartGameBasedOnMode();
+        }
+    }
+
+    private IEnumerator WaitAndStartGame()
+    {
+        float timeout = 1.5f;
+        float timer = 0f;
+
+        while (!NetworkManager.Singleton.IsHost && timer < timeout)
+        {
+            yield return null;
+            timer += Time.deltaTime;
+        }
+
+        if (NetworkManager.Singleton.IsHost)
+        {
+            if (!AreAllPlayersReady())
+            {
+                Debug.LogWarning("🚫 Tüm oyuncular hazır değil. Oyun başlatılamaz.");
+                yield break;
+            }
+
+            StartGameBasedOnMode();
+        }
+        else
+        {
+            Debug.LogError("❌ Host olunamadı, oyun başlatılamıyor.");
+        }
+    }
+
+    private void StartGameBasedOnMode()
+    {
+        string selectedMode = gameModeText.text;
+        Debug.Log("✅ Oyun başlatılıyor. Mod: " + selectedMode);
 
         if (selectedMode == "Turnuva")
         {
             Debug.Log("🏁 Turnuva modu seçildi. Turnuva başlatılıyor...");
             TournamentManager.Instance.TurnuvayaBasla();
+            return;
         }
-        else if (selectedMode == "Yarış" || selectedMode == "Bomba")
+
+        string sceneName = "DeneyK2";
+        if (selectedMode == "Yarış" || selectedMode == "Bomba")
         {
-            Debug.Log($"🎮 {selectedMode} modu seçildi. DeneyK2 sahnesine geçiliyor...");
-            SceneManager.LoadScene("DeneyK2");
+            sceneName = "DeneyK2";
         }
-        else
-        {
-            Debug.LogWarning("⚠️ Geçerli bir oyun modu seçilmedi.");
-        }
+
+        Debug.Log("🌍 Sahne yükleniyor: " + sceneName);
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
+    void UpdateStartButtonVisibility()
+    {
+        if (_currentLobby == null || _currentLobby.currentLobby == null || startGameButton == null) return;
+
+        startGameButton.SetActive(true); // 🔧 Tüm oyuncularda buton aktif
+    }
+
+    private bool AreAllPlayersReady()
+    {
+        foreach (var player in _currentLobby.currentLobby.Players)
+        {
+            if (!player.Data.ContainsKey("Ready") || player.Data["Ready"].Value != "1")
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
