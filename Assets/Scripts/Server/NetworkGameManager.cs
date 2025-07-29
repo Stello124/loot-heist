@@ -1,6 +1,7 @@
-using Unity.Netcode;
+ï»¿using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
 
 public class NetworkGameManager : NetworkBehaviour
@@ -12,11 +13,28 @@ public class NetworkGameManager : NetworkBehaviour
     void OnEnable()
     {
         NetworkManager.OnClientConnectedCallback += HandleClientConnected;
+        StartCoroutine(BindSceneManagerSafely());
+    }
 
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.SceneManager != null)
+    private IEnumerator BindSceneManagerSafely()
+    {
+        float timeout = 3f;
+        float elapsed = 0f;
+
+        while (NetworkManager.Singleton == null || NetworkManager.Singleton.SceneManager == null)
         {
-            NetworkManager.Singleton.SceneManager.OnLoadComplete += HandleSceneLoadComplete;
+            yield return null;
+            elapsed += Time.deltaTime;
+
+            if (elapsed > timeout)
+            {
+                Debug.LogWarning("âŒ SceneManager baÄŸlanamadÄ± (timeout).");
+                yield break;
+            }
         }
+
+        NetworkManager.Singleton.SceneManager.OnLoadComplete += HandleSceneLoadComplete;
+        Debug.Log("âœ… SceneManager event'e abone olundu.");
     }
 
     void OnDisable()
@@ -33,13 +51,13 @@ public class NetworkGameManager : NetworkBehaviour
     {
         if (IsServer)
         {
-            Debug.Log("[Server] NetworkGameManager aktif oldu. Client bağlantıları ve sahne geçişleri dinleniyor.");
+            Debug.Log("[Server] NetworkGameManager aktif oldu. Client baÄŸlantÄ±larÄ± ve sahne geÃ§iÅŸleri dinleniyor.");
         }
     }
 
     private void HandleClientConnected(ulong clientId)
     {
-        Debug.Log($"[Server] Yeni client bağlandı: {clientId}");
+        Debug.Log($"[Server] Yeni client baÄŸlandÄ±: {clientId}");
 
         if (NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject != null)
         {
@@ -52,7 +70,7 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void HandleSceneLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
     {
-        Debug.Log($"[Server] Client {clientId} sahneyi yükledi: {sceneName}");
+        Debug.Log($"[Server] Client {clientId} sahneyi yÃ¼kledi: {sceneName}");
 
         TrySpawnClient(clientId, "HandleSceneLoadComplete");
     }
@@ -67,7 +85,7 @@ public class NetworkGameManager : NetworkBehaviour
 
         if (playerPrefab == null)
         {
-            Debug.LogError("[Server] playerPrefab Inspector'da tanımlı değil. Spawn işlemi yapılamaz.");
+            Debug.LogError("[Server] playerPrefab Inspector'da tanÄ±mlÄ± deÄŸil. Spawn iÅŸlemi yapÄ±lamaz.");
             return;
         }
 
@@ -83,7 +101,7 @@ public class NetworkGameManager : NetworkBehaviour
         netObj.SpawnAsPlayerObject(clientId, true);
         spawnedClients.Add(clientId);
 
-        Debug.Log($"[Server] Client {clientId} için karakter spawn edildi. ({reason})");
+        Debug.Log($"[Server] Client {clientId} iÃ§in karakter spawn edildi. ({reason})");
     }
 
     private Vector3 GetSpawnPosition()

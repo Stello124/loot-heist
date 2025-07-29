@@ -44,14 +44,27 @@ public class LobbyRoomUI : MonoBehaviour
 
     private void OnEnable()
     {
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.SceneManager != null)
+        StartCoroutine(DelayedSceneManagerBind());
+    }
+
+    private IEnumerator DelayedSceneManagerBind()
+    {
+        float timeout = 2f;
+        float timer = 0f;
+
+        while (NetworkManager.Singleton == null || NetworkManager.Singleton.SceneManager == null)
         {
-            NetworkManager.Singleton.SceneManager.OnLoadComplete += OnSceneLoadComplete;
+            yield return null;
+            timer += Time.deltaTime;
+            if (timer > timeout)
+            {
+                Debug.LogWarning("❌ SceneManager bağlanamadı (timeout). OnEnable iptal.");
+                yield break;
+            }
         }
-        else
-        {
-            Debug.LogWarning("NetworkManager.Singleton veya SceneManager null OnEnable'de!");
-        }
+
+        NetworkManager.Singleton.SceneManager.OnLoadComplete += OnSceneLoadComplete;
+        Debug.Log("✅ SceneManager event'ine başarıyla abone olundu.");
     }
 
     private void OnDisable()
@@ -130,9 +143,19 @@ public class LobbyRoomUI : MonoBehaviour
 
     void ClearPlayerList()
     {
+        List<GameObject> toDestroy = new();
+
         foreach (Transform child in playerListContainer)
         {
-            Destroy(child.gameObject);
+            if (child != null && child.gameObject != null)
+            {
+                toDestroy.Add(child.gameObject);
+            }
+        }
+
+        foreach (var go in toDestroy)
+        {
+            Destroy(go);
         }
 
         playerEntries.Clear();
