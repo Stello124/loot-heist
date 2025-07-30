@@ -69,17 +69,65 @@ public class LobbyRoomUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.SceneManager != null)
+        if (NetworkManager.Singleton != null)
         {
-            NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnSceneLoadComplete;
+            if (NetworkManager.Singleton.SceneManager != null)
+            {
+                NetworkManager.Singleton.SceneManager.OnLoadComplete -= OnSceneLoadComplete;
+            }
+            else
+            {
+                Debug.LogWarning("OnDisable sırasında SceneManager null, unsubscribe yapılamadı.");
+            }
+
+            // Event delegate olduğu için null kontrolü yapılmaz
+            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
+        }
+        else
+        {
+            Debug.LogWarning("OnDisable sırasında NetworkManager.Singleton null, unsubscribe yapılamadı.");
         }
     }
+
+    private void HandleClientConnected(ulong clientId)
+    {
+        Debug.Log($"🔗 Client bağlandı: {clientId}");
+        // Gerekirse burada spawn veya sync işlemi tetiklenebilir
+    }
+
 
     private void OnSceneLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
     {
         Debug.Log($"Client {clientId} sahne yüklemesini tamamladı: {sceneName}");
-        // Burada spawn işlemini tetikleyebilirsin (SpawnManager gibi başka script varsa)
+
+        if (NetworkManager.Singleton.IsHost)
+        {
+            SpawnPlayer(clientId);
+        }
     }
+
+    private void SpawnPlayer(ulong clientId)
+    {
+        GameObject playerPrefab = Resources.Load<GameObject>("PlayerNetworkPrefab");
+        if (playerPrefab == null)
+        {
+            Debug.LogError("❌ Player prefab bulunamadı! Resources klasöründe 'PlayerNetworkPrefab' adında prefab olmalı.");
+            return;
+        }
+
+        GameObject playerInstance = Instantiate(playerPrefab);
+        NetworkObject networkObj = playerInstance.GetComponent<NetworkObject>();
+
+        if (networkObj == null)
+        {
+            Debug.LogError("❌ NetworkObject component eksik!");
+            return;
+        }
+
+        networkObj.SpawnWithOwnership(clientId);
+        Debug.Log($"✅ Oyuncu spawn edildi: {clientId}");
+    }
+
 
     public void UpdateLobbyUI()
     {

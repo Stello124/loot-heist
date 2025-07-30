@@ -12,8 +12,15 @@ public class NetworkGameManager : NetworkBehaviour
 
     void OnEnable()
     {
-        NetworkManager.OnClientConnectedCallback += HandleClientConnected;
-        StartCoroutine(BindSceneManagerSafely());
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.OnClientConnectedCallback += HandleClientConnected;
+            StartCoroutine(BindSceneManagerSafely());
+        }
+        else
+        {
+            Debug.LogError("NetworkManager null: OnEnable içinde tetiklenemez.");
+        }
     }
 
     private IEnumerator BindSceneManagerSafely()
@@ -39,11 +46,23 @@ public class NetworkGameManager : NetworkBehaviour
 
     void OnDisable()
     {
-        NetworkManager.OnClientConnectedCallback -= HandleClientConnected;
-
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.SceneManager != null)
+        if (NetworkManager.Singleton != null)
         {
-            NetworkManager.Singleton.SceneManager.OnLoadComplete -= HandleSceneLoadComplete;
+            // Unsubscribe güvenli bir şekilde, null kontrol gerekmez.
+            NetworkManager.OnClientConnectedCallback -= HandleClientConnected;
+
+            if (NetworkManager.Singleton.SceneManager != null)
+            {
+                NetworkManager.Singleton.SceneManager.OnLoadComplete -= HandleSceneLoadComplete;
+            }
+            else
+            {
+                Debug.LogWarning("OnDisable sırasında SceneManager null, unsubscribe yapılamadı.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("OnDisable sırasında NetworkManager.Singleton null, unsubscribe yapılamadı.");
         }
     }
 
