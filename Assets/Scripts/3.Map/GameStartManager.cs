@@ -15,7 +15,7 @@ public class GameStartManager : MonoBehaviour
 
     IEnumerator StartSequence()
     {
-        introText.text = "Bomba elindeyken baþkasýna dokun! Süre bitmeden ver!";
+        introText.text = "Bomba kimin elindeyse, 15 saniye içinde birine pasla yoksa patlarsýn!";
         introText.gameObject.SetActive(true);
         countdownText.gameObject.SetActive(false);
 
