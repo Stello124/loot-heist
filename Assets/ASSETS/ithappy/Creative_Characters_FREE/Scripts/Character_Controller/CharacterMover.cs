@@ -10,9 +10,9 @@ namespace Controller
     {
         [Header("Movement")]
         [SerializeField]
-        private float m_WalkSpeed = 1f;
+        private float m_WalkSpeed = 5f;
         [SerializeField]
-        private float m_RunSpeed = 4f;
+        private float m_RunSpeed = 10f;
         [SerializeField, Range(0f, 360f)]
         private float m_RotateSpeed = 90f;
         [SerializeField]
@@ -65,14 +65,13 @@ namespace Controller
             m_Animator = GetComponent<Animator>();
 
             m_Movement = new MovementHandler(m_Controller, m_Transform, m_WalkSpeed, m_RunSpeed, m_RotateSpeed, m_JumpHeight, m_Space);
-            m_Animation = new AnimationHandler(m_Animator, m_HorizontalID,  m_VerticalID, m_StateID, m_JumpID);
+            m_Animation = new AnimationHandler(m_Animator, m_HorizontalID, m_VerticalID, m_StateID, m_JumpID);
         }
 
         private void Update()
         {
             m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsJump, m_IsMoving, out var animAxis, out var isAir);
-            m_Animation.Animate(in animAxis, m_IsRun? 1f : 0f, isAir, Time.deltaTime);
-
+            m_Animation.Animate(in animAxis, m_IsRun ? 1f : 0f, isAir, Time.deltaTime);
         }
 
         private void OnAnimatorIK()
@@ -94,17 +93,39 @@ namespace Controller
             }
             else
             {
-                m_Axis = Vector3.ClampMagnitude(m_Axis, 1f);
+                m_Axis = Vector2.ClampMagnitude(m_Axis, 1f);
                 m_IsMoving = true;
             }
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if(hit.normal.y > m_Controller.stepOffset)
+            if (hit.normal.y > m_Controller.stepOffset)
             {
                 m_Movement.SetSurface(hit.normal);
             }
+        }
+
+        // ** SETTER & GETTER FOR BOOSTS **
+
+        public void SetRunSpeed(float speed)
+        {
+            m_Movement.SetRunSpeed(speed);
+        }
+
+        public float GetRunSpeed()
+        {
+            return m_Movement.GetRunSpeed();
+        }
+
+        public void SetJumpHeight(float jumpHeight)
+        {
+            m_Movement.SetJumpHeight(jumpHeight);
+        }
+
+        public float GetJumpHeight()
+        {
+            return m_Movement.GetJumpHeight();
         }
 
         [Serializable]
@@ -169,6 +190,26 @@ namespace Controller
                 m_JumpHeight = jumpHeight;
 
                 m_Space = space;
+            }
+
+            public void SetRunSpeed(float speed)
+            {
+                m_RunSpeed = speed;
+            }
+
+            public float GetRunSpeed()
+            {
+                return m_RunSpeed;
+            }
+
+            public void SetJumpHeight(float jumpHeight)
+            {
+                m_JumpHeight = jumpHeight;
+            }
+
+            public float GetJumpHeight()
+            {
+                return m_JumpHeight;
             }
 
             public void SetSurface(in Vector3 normal)
@@ -250,7 +291,7 @@ namespace Controller
 
             private void GenAnimationAxis(in Vector3 movement, out Vector2 animAxis)
             {
-                if(m_Space == Space.Self)
+                if (m_Space == Space.Self)
                 {
                     animAxis = new Vector2(Vector3.Dot(movement, m_Transform.right), Vector3.Dot(movement, m_Transform.forward));
                 }
@@ -280,7 +321,7 @@ namespace Controller
 
             private void UpdateRotation(float deltaTime)
             {
-                if(!m_IsRotating)
+                if (!m_IsRotating)
                 {
                     return;
                 }
@@ -342,7 +383,10 @@ namespace Controller
                 m_Animator.SetLookAtPosition(target);
                 m_Animator.SetLookAtWeight(lookWeight.weight, lookWeight.body, lookWeight.head, lookWeight.eyes);
             }
+
         }
         #endregion
     }
 }
+
+
