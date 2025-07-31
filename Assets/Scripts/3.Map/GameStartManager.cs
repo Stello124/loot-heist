@@ -4,6 +4,7 @@ using TMPro;
 
 public class GameStartManager : MonoBehaviour
 {
+    public GameObject introPanel;
     public TMP_Text introText;
     public TMP_Text countdownText;
     public float introDuration = 2.5f;
@@ -15,6 +16,7 @@ public class GameStartManager : MonoBehaviour
 
     IEnumerator StartSequence()
     {
+        introPanel.SetActive(true);
         introText.text = "Bomba kimin elindeyse, 15 saniye içinde birine pasla yoksa patlarsýn!";
         introText.gameObject.SetActive(true);
         countdownText.gameObject.SetActive(false);
@@ -31,13 +33,13 @@ public class GameStartManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        countdownText.gameObject.SetActive(false);
+        introPanel.SetActive(false);
 
-        // Güncel yöntemle GameManager'ý çaðýr
         var controller = Object.FindFirstObjectByType<GameFlowController>();
         if (controller != null)
             controller.StartGame();
     }
 }
+
 
 
