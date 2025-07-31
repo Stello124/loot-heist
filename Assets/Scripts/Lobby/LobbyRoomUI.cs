@@ -281,6 +281,30 @@ public class LobbyRoomUI : MonoBehaviour
 
     public void HandleStartGameButtonClick()
     {
+        if (!NetworkManager.Singleton.IsHost)
+        {
+            if (!NetworkManager.Singleton.IsListening)
+            {
+                Debug.Log("Host başlatılıyor...");
+                NetworkManager.Singleton.StartHost();
+            }
+
+            StartCoroutine(WaitAndStartGame());
+        }
+        else
+        {
+            if (!AreAllPlayersReady())
+            {
+                Debug.LogWarning("🚫 Tüm oyuncular hazır değil. Oyun başlatılamaz.");
+                return;
+            }
+
+            StartGameBasedOnMode();
+        }
+    }
+
+    public void ClientStartGameButtonClick()
+    {
         if (NetworkManager.Singleton.IsHost)
         {
             // Host relay bağlantısını kurmuş ve tüm oyuncular hazırsa oyunu başlatır
