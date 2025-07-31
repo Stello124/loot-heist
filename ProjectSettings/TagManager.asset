@@ -8,6 +8,9 @@ TagManager:
   - SpeedChest
   - JumpChest
   - Customizable
+  - DeathZone
+  - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

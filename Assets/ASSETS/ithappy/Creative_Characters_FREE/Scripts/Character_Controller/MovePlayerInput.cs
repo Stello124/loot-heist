@@ -67,15 +67,15 @@ namespace Controller
         public void GatherInput()
         {
             m_Axis = new Vector2(Input.GetAxis(m_HorizontalAxis), Input.GetAxis(m_VerticalAxis));
-            m_IsRun = Input.GetKey(m_RunKey);
+            m_IsRun = true; // Shift'e basmadan hep koþ
             m_IsJump = Input.GetButton(m_JumpButton);
 
             m_Target = (m_Camera == null) ? Vector3.zero : m_Camera.Target;
             m_MouseDelta = new Vector2(Input.GetAxis(m_MouseX), Input.GetAxis(m_MouseY));
             m_Scroll = Input.GetAxis(m_MouseScroll);
             m_IsCrouch = Input.GetKey(KeyCode.LeftControl);
-
         }
+
 
         public void BindMover(CharacterMover mover)
         {
@@ -100,14 +100,19 @@ namespace Controller
         }
         public void PlayMuzzleFlash()
         {
-            Debug.Log("Muzzle Flash Event Çalýþtý");  // TEST
-
             if (muzzleFlashObject != null)
             {
+                // Parent'e göre sýfýrla (konum ve yön)
+                muzzleFlashObject.transform.SetParent(muzzlePoint, false);
+                muzzleFlashObject.transform.localPosition = Vector3.zero;
+                muzzleFlashObject.transform.localRotation = Quaternion.identity;
 
                 StartCoroutine(ShowMuzzleFlash());
             }
         }
+
+
+
 
         private IEnumerator ShowMuzzleFlash()
         {
