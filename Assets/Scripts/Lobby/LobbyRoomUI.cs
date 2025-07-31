@@ -7,6 +7,10 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Netcode;
 using Unity.Services.Authentication;
+using System;
+using Unity.Netcode.Transports.UTP;
+using Unity.Services.Relay.Models;
+using Unity.Services.Relay;
 
 public class LobbyRoomUI : MonoBehaviour
 {
@@ -279,17 +283,45 @@ public class LobbyRoomUI : MonoBehaviour
         }
     }
 
-    public void HandleStartGameButtonClick()
+    public RelayManager relayManager; // Inspector'dan bağla
+
+    public async void HandleStartGameButtonClick()
     {
         if (!NetworkManager.Singleton.IsHost)
         {
             if (!NetworkManager.Singleton.IsListening)
             {
-                Debug.Log("Host başlatılıyor...");
-                NetworkManager.Singleton.StartHost();
-            }
+                Debug.Log("Relay allocation başlatılıyor...");
 
-            StartCoroutine(WaitAndStartGame());
+                try
+                {
+                    // Relay allocation oluştur
+                    Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4); // max player sayısı
+
+                    // Join kodunu al
+                    string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+                    Debug.Log($"Relay Join Code: {joinCode}");
+
+                    // NetworkManager'a relay bilgilerini ver
+                    NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
+                        allocation.RelayServer.IpV4,
+                        (ushort)allocation.RelayServer.Port,
+                        allocation.AllocationIdBytes,
+                        allocation.Key,
+                        allocation.ConnectionData
+                    );
+
+                    Debug.Log("Relay bağlantısı kuruldu. Host başlatılıyor...");
+                    NetworkManager.Singleton.StartHost();
+
+                    // Sahne geçişi ve oyun başlatma zinciri
+                    StartCoroutine(WaitAndStartGame());
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"Relay bağlantısı başarısız: {ex.Message}");
+                }
+            }
         }
         else
         {
@@ -303,11 +335,13 @@ public class LobbyRoomUI : MonoBehaviour
         }
     }
 
-    public void ClientStartGameButtonClick()
+    public RelayManager RelayManager; // Inspector'dan bağla
+    public string joinCode; // UI'dan alınmalı veya RelayManager'dan
+
+    public async void ClientStartGameButtonClick()
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            // Host relay bağlantısını kurmuş ve tüm oyuncular hazırsa oyunu başlatır
             if (!AreAllPlayersReady())
             {
                 Debug.LogWarning("🚫 Tüm oyuncular hazır değil. Oyun başlatılamaz.");
@@ -319,15 +353,42 @@ public class LobbyRoomUI : MonoBehaviour
         }
         else
         {
-            // Client sadece hosta bağlanır, host başlatmaz
             if (!NetworkManager.Singleton.IsClient)
             {
                 Debug.Log("🔗 Client olarak hosta bağlanılıyor...");
-                NetworkManager.Singleton.StartClient(); // Relay üzerinden bağlanmalı
+
+                try
+                {
+                    // Join kodu UI'dan alınmalı
+                    if (string.IsNullOrEmpty(joinCode))
+                    {
+                        Debug.LogError("❌ Join kodu boş. Client bağlanamaz.");
+                        return;
+                    }
+
+                    // Join allocation al
+                    JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+                    // Relay bağlantısını kur
+                    NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
+                        joinAllocation.RelayServer.IpV4,
+                        (ushort)joinAllocation.RelayServer.Port,
+                        joinAllocation.AllocationIdBytes,
+                        joinAllocation.Key,
+                        joinAllocation.ConnectionData,
+                        joinAllocation.HostConnectionData
+                    );
+
+                    Debug.Log("✅ Relay üzerinden client bağlantısı kuruldu.");
+                    NetworkManager.Singleton.StartClient();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"❌ Relay client bağlantısı başarısız: {ex.Message}");
+                }
             }
 
             Debug.Log("🕒 Client, hostun sahne geçişini bekliyor...");
-            // Client sahne geçişini host'tan alacak, kendi geçmeyecek
         }
     }
 

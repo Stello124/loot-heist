@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 using TMPro;
@@ -19,22 +19,21 @@ public class RelayManager : MonoBehaviour
     public TextMeshProUGUI JoinCodeText;
     public TMP_Dropdown playerCount;
 
-    // Buraya player prefab referans�n� inspector'dan at
     public GameObject playerPrefab;
 
     async void Start()
     {
         await UnityServices.InitializeAsync();
-        Debug.Log("Unity Service Init");
+        Debug.Log("✅ Unity Services Initialized");
         SignIn();
     }
 
     async void SignIn()
     {
-        Debug.Log("Signing in");
+        Debug.Log("🔐 Signing in...");
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         PlayerID = AuthenticationService.Instance.PlayerId;
-        Debug.Log("Signing in " + PlayerID);
+        Debug.Log("🆔 Signed in as: " + PlayerID);
         IdText.text = PlayerID;
     }
 
@@ -47,59 +46,70 @@ public class RelayManager : MonoBehaviour
         {
             IPv4Address = allocation.RelayServer.IpV4,
             Port = (ushort)allocation.RelayServer.Port,
-
             AllocationID = allocation.AllocationId,
             AllocationIDBytes = allocation.AllocationIdBytes,
             ConnectionData = allocation.ConnectionData,
             Key = allocation.Key,
         };
         _hostData.JoinCode = await RelayService.Instance.GetJoinCodeAsync(_hostData.AllocationID);
-        Debug.Log("Allocate Complete: " + _hostData.AllocationID);
-
-        Debug.LogWarning("JoinCode = " + _hostData.JoinCode);
+        Debug.Log("✅ Relay Allocation Complete: " + _hostData.AllocationID);
+        Debug.LogWarning("📎 JoinCode = " + _hostData.JoinCode);
         JoinCodeText.text = _hostData.JoinCode;
 
-        UnityTransport transport = NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
-
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         transport.SetRelayServerData(_hostData.IPv4Address, _hostData.Port, _hostData.AllocationIDBytes, _hostData.Key, _hostData.ConnectionData);
 
-        NetworkManager.Singleton.StartHost();
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 
-        SpawnPlayer();
+        NetworkManager.Singleton.StartHost();
+        Debug.Log("🚀 Host started");
+
+        SpawnPlayer(); // Host kendi karakterini spawn eder
     }
 
     public async void OnJoinClick()
     {
-        JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(inputField.text);
+        if (string.IsNullOrEmpty(inputField.text))
+        {
+            Debug.LogError("❌ Join Code boş! Client bağlanamaz.");
+            return;
+        }
 
+        JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(inputField.text);
         _joinData = new RelayJoinData()
         {
             IPv4Address = allocation.RelayServer.IpV4,
             Port = (ushort)allocation.RelayServer.Port,
-
             AllocationID = allocation.AllocationId,
             AllocationIDBytes = allocation.AllocationIdBytes,
             ConnectionData = allocation.ConnectionData,
             HostConnectionData = allocation.HostConnectionData,
             Key = allocation.Key,
         };
-        Debug.Log("Join Success : " + _joinData.AllocationID);
+        Debug.Log("✅ Relay Join Success: " + _joinData.AllocationID);
 
-        UnityTransport transport = NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
-
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         transport.SetRelayServerData(_joinData.IPv4Address, _joinData.Port, _joinData.AllocationIDBytes, _joinData.Key, _joinData.ConnectionData, _joinData.HostConnectionData);
 
         NetworkManager.Singleton.StartClient();
+        Debug.Log("🔗 Client started and attempting to connect");
+    }
 
-        // �stersen join olan client'�n spawn�n� burada yapabilirsin, genelde server yapar
-        // SpawnPlayer();
+    void OnClientConnected(ulong clientId)
+    {
+        Debug.Log("🎮 Client connected: " + clientId);
+
+        if (NetworkManager.Singleton.IsServer)
+        {
+            SpawnPlayer(); // Server tüm client'lar için spawn yapar
+        }
     }
 
     void SpawnPlayer()
     {
         if (playerPrefab == null)
         {
-            Debug.LogError("Player prefab is not assigned!");
+            Debug.LogError("❌ Player prefab is not assigned!");
             return;
         }
 
@@ -107,10 +117,12 @@ public class RelayManager : MonoBehaviour
         var netObj = playerObj.GetComponent<NetworkObject>();
         if (netObj == null)
         {
-            Debug.LogError("Player prefab does not have a NetworkObject component!");
+            Debug.LogError("❌ Player prefab does not have a NetworkObject component!");
             return;
         }
+
         netObj.Spawn();
+        Debug.Log("✅ Player spawned");
     }
 }
 
