@@ -10,6 +10,9 @@ using Unity.Netcode.Transports.UTP;
 
 public class RelayManager : MonoBehaviour
 {
+    public static string JoinCode; // 🔒 Kod merkezi
+
+    public static string CurrentJoinCode;
     private string PlayerID;
     private RelayHostData _hostData;
     private RelayJoinData _joinData;
@@ -123,6 +126,47 @@ public class RelayManager : MonoBehaviour
 
         netObj.Spawn();
         Debug.Log("✅ Player spawned");
+    }
+
+    public async void QuickJoin()
+    {
+        if (string.IsNullOrEmpty(CurrentJoinCode))
+        {
+            Debug.LogError("❌ QuickJoin → Kod boş. Host relay başlatılmamış olabilir.");
+            return;
+        }
+
+        try
+        {
+            JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(CurrentJoinCode);
+            _joinData = new RelayJoinData()
+            {
+                IPv4Address = allocation.RelayServer.IpV4,
+                Port = (ushort)allocation.RelayServer.Port,
+                AllocationID = allocation.AllocationId,
+                AllocationIDBytes = allocation.AllocationIdBytes,
+                ConnectionData = allocation.ConnectionData,
+                HostConnectionData = allocation.HostConnectionData,
+                Key = allocation.Key,
+            };
+
+            UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetRelayServerData(
+                _joinData.IPv4Address,
+                _joinData.Port,
+                _joinData.AllocationIDBytes,
+                _joinData.Key,
+                _joinData.ConnectionData,
+                _joinData.HostConnectionData
+            );
+
+            NetworkManager.Singleton.StartClient();
+            Debug.Log("⚡ QuickJoin → Client bağlandı");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("❌ QuickJoin → Relay hatası: " + ex.Message);
+        }
     }
 }
 

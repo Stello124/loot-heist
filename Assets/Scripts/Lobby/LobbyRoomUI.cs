@@ -14,6 +14,7 @@ using Unity.Services.Relay;
 
 public class LobbyRoomUI : MonoBehaviour
 {
+
     [Header("Lobby Bilgileri")]
     [SerializeField] public TextMeshProUGUI lobbyNameText;
     [SerializeField] public TextMeshProUGUI lobbyCodeText;
@@ -28,6 +29,8 @@ public class LobbyRoomUI : MonoBehaviour
 
     [Header("Güncelleme Input'ları")]
     [SerializeField] private TMP_InputField newLobbyNameInput;
+    public string joinCode;
+    
 
     private CurrentLobby _currentLobby;
     private string lobbyId;
@@ -42,7 +45,7 @@ public class LobbyRoomUI : MonoBehaviour
         lobbyId = _currentLobby.currentLobby.Id;
 
         UpdateLobbyUI();
-        InvokeRepeating(nameof(PollForLobbyUpdate), 1.5f, 2f);
+        InvokeRepeating(nameof(PollForLobbyUpdate), 2f, 2.5f);
         UpdateStartButtonVisibility();
     }
 
@@ -284,6 +287,7 @@ public class LobbyRoomUI : MonoBehaviour
     }
 
     public RelayManager relayManager; // Inspector'dan bağla
+    public TMP_InputField joinCodeInput;
 
     public async void HandleStartGameButtonClick()
     {
@@ -296,11 +300,17 @@ public class LobbyRoomUI : MonoBehaviour
                 try
                 {
                     // Relay allocation oluştur
-                    Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4); // max player sayısı
+                    Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4);
 
                     // Join kodunu al
-                    string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+                    joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+                    if (joinCodeInput != null)
+                        joinCodeInput.text = joinCode;
+
                     Debug.Log($"Relay Join Code: {joinCode}");
+
+                    // Relay kodunu Lobby Data'ya ekle (fire and forget - beklemeden)
+                    _ = LobbyData.Instance.SetRelayCodeToLobby(lobbyId, joinCode);
 
                     // NetworkManager'a relay bilgilerini ver
                     NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
@@ -325,6 +335,7 @@ public class LobbyRoomUI : MonoBehaviour
         }
         else
         {
+            // Zaten host ise direkt oyunu başlat
             if (!AreAllPlayersReady())
             {
                 Debug.LogWarning("🚫 Tüm oyuncular hazır değil. Oyun başlatılamaz.");
@@ -336,61 +347,43 @@ public class LobbyRoomUI : MonoBehaviour
     }
 
     public RelayManager RelayManager; // Inspector'dan bağla
-    public string joinCode; // UI'dan alınmalı veya RelayManager'dan
+
 
     public async void ClientStartGameButtonClick()
     {
-        if (NetworkManager.Singleton.IsHost)
-        {
-            if (!AreAllPlayersReady())
-            {
-                Debug.LogWarning("🚫 Tüm oyuncular hazır değil. Oyun başlatılamaz.");
-                return;
-            }
+        Debug.Log("🔄 Client relay kodunu lobby'dan alıyor...");
 
-            Debug.Log("✅ Host oyunu başlatıyor...");
-            StartGameBasedOnMode(); // Sahne geçişi burada yapılmalı
+        // Lobby'dan relay kodunu al
+        string relayCodeFromLobby = await LobbyData.Instance.GetRelayCodeFromLobby(lobbyId);
+
+        if (string.IsNullOrEmpty(relayCodeFromLobby))
+        {
+            Debug.LogError("❌ Lobby'da relay kodu bulunamadı. Host oyunu henüz başlatmamış olabilir.");
+            return;
         }
-        else
+
+        try
         {
-            if (!NetworkManager.Singleton.IsClient)
-            {
-                Debug.Log("🔗 Client olarak hosta bağlanılıyor...");
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(relayCodeFromLobby);
 
-                try
-                {
-                    // Join kodu UI'dan alınmalı
-                    if (string.IsNullOrEmpty(joinCode))
-                    {
-                        Debug.LogError("❌ Join kodu boş. Client bağlanamaz.");
-                        return;
-                    }
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
+                joinAllocation.RelayServer.IpV4,
+                (ushort)joinAllocation.RelayServer.Port,
+                joinAllocation.AllocationIdBytes,
+                joinAllocation.Key,
+                joinAllocation.ConnectionData,
+                joinAllocation.HostConnectionData
+            );
 
-                    // Join allocation al
-                    JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
-
-                    // Relay bağlantısını kur
-                    NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
-                        joinAllocation.RelayServer.IpV4,
-                        (ushort)joinAllocation.RelayServer.Port,
-                        joinAllocation.AllocationIdBytes,
-                        joinAllocation.Key,
-                        joinAllocation.ConnectionData,
-                        joinAllocation.HostConnectionData
-                    );
-
-                    Debug.Log("✅ Relay üzerinden client bağlantısı kuruldu.");
-                    NetworkManager.Singleton.StartClient();
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError($"❌ Relay client bağlantısı başarısız: {ex.Message}");
-                }
-            }
-
-            Debug.Log("🕒 Client, hostun sahne geçişini bekliyor...");
+            Debug.Log("✅ Client relay bağlantısı kuruldu.");
+            NetworkManager.Singleton.StartClient();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"❌ Relay client bağlantısı başarısız: {ex.Message}");
         }
     }
+
 
     private IEnumerator WaitAndStartGame()
     {

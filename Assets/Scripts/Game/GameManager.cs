@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Unity.Services.CloudSave;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-using System.Threading.Tasks;
 using Unity.Services.CloudSave.Models;
 
 public class GameManager : MonoBehaviour
@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // 🎯 Oyun başlangıcı event'i
+        AnalyticsReporter.Instance?.ReportEvent("game_started");
+
         await CheckOrDefaultCharacter();
 
         var visualSetup = Object.FindFirstObjectByType<PlayerVisualSetup>();
@@ -47,11 +50,11 @@ public class GameManager : MonoBehaviour
         await ApplyCustomizationDirectly();
     }
 
-    private async Task ApplyCustomizationDirectly()
+    private async System.Threading.Tasks.Task ApplyCustomizationDirectly()
     {
         if (isCustomizationApplied) return;
 
-        await Task.Delay(500); // Sahne otursun
+        await System.Threading.Tasks.Task.Delay(500); // Sahne otursun
 
         GameObject containerGO = GameObject.Find("VisualContainer");
         if (containerGO == null)
@@ -87,9 +90,17 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("✅ GameManager → Kayıtlı karakter görünümü sahneye uygulandı.");
         isCustomizationApplied = true;
+
+        // 🎯 Özelleştirme uygulandı event'i
+        AnalyticsReporter.Instance?.ReportEvent("customization_applied", new Dictionary<string, object>
+        {
+            { "prefabId", data.PrefabId },
+            { "skin", data.SelectedSkin },
+            { "customizationCount", data.CustomizationData?.Count ?? 0 }
+        });
     }
 
-    public async Task CheckOrDefaultCharacter()
+    public async System.Threading.Tasks.Task CheckOrDefaultCharacter()
     {
         var result = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { Key });
 
@@ -166,5 +177,12 @@ public class GameManager : MonoBehaviour
         defaultData.BakeCustomizationData();
         GameState.LocalPlayerData = defaultData;
         Debug.Log("🎭 Varsayılan karakter hazırlandı: palyaco.");
+
+        // 🎯 Varsayılan karakter atandı event'i
+        AnalyticsReporter.Instance?.ReportEvent("default_character_applied", new Dictionary<string, object>
+        {
+            { "prefabId", defaultPrefabId },
+            { "skin", "Basic" }
+        });
     }
 }

@@ -1618,6 +1618,8 @@ GameObject:
   - component: {fileID: 5129022314701823651}
   - component: {fileID: -2180905807155581362}
   - component: {fileID: -1404265153598016073}
+  - component: {fileID: 9032241786997987503}
+  - component: {fileID: -8403350854608129269}
   m_Layer: 0
   m_Name: palyaco
   m_TagString: Untagged
@@ -1875,6 +1877,35 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   syncedPosition:
     m_InternalValue: {x: 0, y: 0, z: 0}
+--- !u!114 &9032241786997987503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4517559686769518521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95a4dee5b4ad2784e9a673914bf46c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  characterBuilder: {fileID: 5129022314701823651}
+--- !u!114 &-8403350854608129269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4517559686769518521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 7352565068199970286}
 --- !u!1 &4538112476731279682
 GameObject:
   m_ObjectHideFlags: 0

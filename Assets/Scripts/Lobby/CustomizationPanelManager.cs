@@ -42,10 +42,6 @@ public class CustomizationPanelManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Bu fonksiyon GameManager tarafından da tetiklenebilir.
-    /// Panel açılmadan görünüm uygulamak için kullanılır.
-    /// </summary>
     public void ApplySavedCustomizationInstantly()
     {
         if (builder == null)
@@ -79,7 +75,6 @@ public class CustomizationPanelManager : MonoBehaviour
         }
     }
 
-    // Randomize tuşuna basınca tetiklenecek fonksiyon
     public void OnRandomizeButtonClicked()
     {
         if (builder == null)
@@ -96,13 +91,28 @@ public class CustomizationPanelManager : MonoBehaviour
         }
 
         builder.ApplyRandomCustomization(data);  // PlayerData'daki görünümü rastgele değiştirir
-
         builder.ApplyCustomization(data);        // Yeni görünümü sahneye uygular
-
         data.BakeCustomizationData();            // Dictionary ve List dönüştürme işlemi
-
         CustomizationSaveManager.Instance.SaveCustomizationToCloud(data);  // Cloud'a kaydet
 
-        Debug.Log("✅ Random + Apply + Cloud Save başarıyla tamamlandı.");
+        Debug.Log($"✅ Random + Apply + Cloud Save tamamlandı → {data.CustomizationData?.Count ?? 0} slot güncellendi.");
+
+        // 🎯 Event gönderimi: Randomize işlemi yapıldı
+        if (AnalyticsReporter.Instance != null)
+        {
+            var eventData = new Dictionary<string, object>
+            {
+                { "prefabId", data.PrefabId },
+                { "skin", data.SelectedSkin },
+                { "customizationCount", data.CustomizationData?.Count ?? 0 }
+            };
+
+            AnalyticsReporter.Instance.ReportEvent("customization_randomized", eventData);
+            Debug.Log($"📤 Event gönderildi → customization_randomized: {eventData.Count} parametre");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ AnalyticsReporter.Instance null → event gönderilemedi.");
+        }
     }
 }

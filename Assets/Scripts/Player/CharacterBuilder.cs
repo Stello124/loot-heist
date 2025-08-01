@@ -93,6 +93,25 @@ public class CharacterBuilder : MonoBehaviour
 
         data.BakeCustomizationData(); // 🔧 Cloud Save için veri listeye dönüştürüldü
         Debug.Log($"✅ Random sonrası {config.Count} mesh → CustomizationData güncellendi ve bake edildi.");
+
+        // 📤 Event gönderimi → fallback olarak burada da tetiklenir
+        if (AnalyticsReporter.Instance != null)
+        {
+            var eventData = new Dictionary<string, object>
+            {
+                { "prefabId", data.PrefabId },
+                { "skin", data.SelectedSkin },
+                { "customizationCount", config.Count },
+                { "source", "CharacterBuilder" }
+            };
+
+            AnalyticsReporter.Instance.ReportEvent("customization_randomized", eventData);
+            Debug.Log($"📤 Event gönderildi → customization_randomized: {eventData.Count} parametre");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ AnalyticsReporter.Instance null → event gönderilemedi.");
+        }
     }
 
     private void AssignRandomMesh(SkinnedMeshRenderer renderer, string slotName, Dictionary<string, string> config)

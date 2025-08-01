@@ -51,6 +51,14 @@ public class CustomizationSaveManager : MonoBehaviour
 
         await CloudSaveService.Instance.Data.Player.SaveAsync(payload);
         Debug.Log("✅ Cloud Save → karakter görünümü yazıldı.");
+
+        // 🎯 Event gönderimi: Özelleştirme Cloud'a kaydedildi
+        AnalyticsReporter.Instance?.ReportEvent("customization_saved_to_cloud", new Dictionary<string, object>
+        {
+            { "customizationCount", data.CustomizationData.Count },
+            { "prefabId", data.PrefabId },
+            { "skin", data.SelectedSkin }
+        });
     }
 
     // 🔹 2. Cloud Save’den okuma
