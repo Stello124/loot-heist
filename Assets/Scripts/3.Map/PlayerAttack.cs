@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : NetworkBehaviour
 {
     public float attackRange = 2f;
     public LayerMask playerLayer;
@@ -16,6 +17,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        // Sadece owner için input al
+        if (!IsOwner) return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             TryAttack();
@@ -33,14 +37,29 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (BombManager.Instance.GetCurrentBombHolder() == this.gameObject)
                 {
-                    BombManager.Instance.SetBombHolder(hitPlayer);
-                    Debug.Log($"{gameObject.name} passed bomb to {hitPlayer.name} with punch!");
-
-                    // Ses efekti
-                    if (punchSound != null && audioSource != null)
-                        audioSource.PlayOneShot(punchSound);
+                    NetworkObject hitNetObj = hitPlayer.GetComponent<NetworkObject>();
+                    if (hitNetObj != null)
+                    {
+                        Debug.Log($"{gameObject.name} passed bomb to {hitPlayer.name} with punch!");
+                        
+                        // Server'a bomba transferi isteği gönder
+                        AttackTransferBombServerRpc(hitNetObj.OwnerClientId);
+                        
+                        // Ses efekti - sadece saldıran oyuncu duyar
+                        if (punchSound != null && audioSource != null)
+                            audioSource.PlayOneShot(punchSound);
+                    }
                 }
             }
+        }
+    }
+    
+    [ServerRpc]
+    private void AttackTransferBombServerRpc(ulong targetClientId)
+    {
+        if (BombManager.Instance != null)
+        {
+            BombManager.Instance.TransferBombToClient(targetClientId);
         }
     }
 }

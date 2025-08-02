@@ -446,25 +446,49 @@ public class LobbyRoomUI : MonoBehaviour
 
     private void StartGameBasedOnMode()
     {
+        // 🎯 gameModeText'ten modu al
         string selectedMode = gameModeText.text;
+        Debug.Log($"🔍 gameModeText'ten alınan mod: '{selectedMode}'");
+
+        // 🔧 Boşsa default ata
+        if (string.IsNullOrEmpty(selectedMode))
+        {
+            selectedMode = "DeneyK2";
+            Debug.LogWarning($"⚠️ gameModeText boş! Default atandı: '{selectedMode}'");
+        }
+
         Debug.Log("✅ Oyun başlatılıyor. Mod: " + selectedMode);
+        string sceneName = ""; // Varsayılan sahne ismi
 
-        if (selectedMode == "Turnuva")
+        // Seçilen moda göre sahne ismini belirle
+        switch (selectedMode)
         {
-            Debug.Log("🏁 Turnuva modu seçildi. Turnuva başlatılıyor...");
-            TournamentManager.Instance.TurnuvayaBasla();
-            return;
+            case "DeneyK2":
+                sceneName = "DeneyK2"; // DeneyK2 sahnesi
+                break;
+            case "Köprü":
+                sceneName = "4.map"; // Köprü sahnesi
+                break;
+            case "Bomba":
+                sceneName = "3.map"; // Bomba sahnesi
+                break;
+            case "Yarış":
+                sceneName = "1.map"; // Yarış sahnesi
+                break;
+            default:
+                Debug.LogWarning("❌ Geçersiz oyun modu seçildi: " + selectedMode);
+                return;
         }
 
-        string sceneName = "DeneyK2";
-        if (selectedMode == "Yarış" || selectedMode == "Bomba")
+        // Sahne yükle
+        if (!string.IsNullOrEmpty(sceneName))
         {
-            sceneName = "DeneyK2";
+            Debug.Log("🌍 Sahne yükleniyor: " + sceneName);
+            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
-
-        Debug.Log("🌍 Sahne yükleniyor: " + sceneName);
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
+
+
 
     void UpdateStartButtonVisibility()
     {

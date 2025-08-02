@@ -1,60 +1,139 @@
 using UnityEngine;
+using Unity.Netcode;
 using System.Collections;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
-public class BombManager : MonoBehaviour
+public class BombManager : NetworkBehaviour
 {
     public static BombManager Instance;
 
     public GameObject bombPrefab;
-    public float bombTimer = 5f;
+    public float bombTimer = 555f;
 
-    private GameObject currentBombHolder;
+    private NetworkVariable<ulong> currentBombHolderClientId = new NetworkVariable<ulong>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     private GameObject bombVisual;
     private Coroutine countdownCoroutine;
+    private bool gameStarted = false;
 
     void Awake()
     {
         Instance = this;
+        
+        // Scene değişiminde bomba temizle
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+    {
+        // 3.map dışında bomba görselini temizle
+        if (scene.name != "3.map" && bombVisual != null)
+        {
+            Debug.Log($"💣 Scene değişti ({scene.name}) - Bomba görseli temizlendi");
+            Destroy(bombVisual);
+            bombVisual = null;
+        }
+    }
+
+    public void StartBombGame()
+    {
+        if (!IsServer) return;
+        
+        gameStarted = true;
+        AssignBombToRandomPlayer();
+    }
+    
+    public void OnPlayerCountChanged()
+    {
+        if (!IsServer || !gameStarted) return;
+        
+        CheckGameEnd();
     }
 
     public void AssignBombToRandomPlayer()
     {
-        int randomIndex = Random.Range(0, SpawnManager.allPlayers.Count);
-        SetBombHolder(SpawnManager.allPlayers[randomIndex]);
-    }
-
-    public void SetBombHolder(GameObject newHolder)
-    {
-        if (currentBombHolder == newHolder) return;
-
-        if (bombVisual != null)
-            Destroy(bombVisual);
-
-        currentBombHolder = newHolder;
-
-        // Karakterin i�indeki "RightHand" objesini bul
-        Transform hand = currentBombHolder.GetComponentsInChildren<Transform>()
-            .FirstOrDefault(t => t.name == "RightHand");
-
-        if (hand == null)
+        if (!IsServer) return;
+        
+        var players = NetworkSpawnManager3Map.GetAllNetworkPlayers();
+        if (players.Count == 0)
         {
-            Debug.LogError("RightHand bulunamad�! Prefabda do�ru isimli nesne oldu�undan emin ol.");
+            Debug.LogWarning("💣 Bomba atanacak oyuncu yok!");
             return;
         }
+        
+        int randomIndex = Random.Range(0, players.Count);
+        GameObject selectedPlayer = players[randomIndex];
+        
+        NetworkObject netObj = selectedPlayer.GetComponent<NetworkObject>();
+        if (netObj != null)
+        {
+            SetBombHolderServerRpc(netObj.OwnerClientId);
+        }
+    }
 
-        // Bombay� spawn et ve ele yap��t�r
-        bombVisual = Instantiate(bombPrefab, hand.position, hand.rotation, hand);
-        bombVisual.transform.localPosition = Vector3.zero;
-
+    [ServerRpc(RequireOwnership = false)]
+    private void SetBombHolderServerRpc(ulong clientId)
+    {
+        currentBombHolderClientId.Value = clientId;
+        UpdateBombVisualClientRpc(clientId);
+        
         if (countdownCoroutine != null)
             StopCoroutine(countdownCoroutine);
 
         countdownCoroutine = StartCoroutine(BombCountdown());
+        
+        Debug.Log($"💣 Bomba client {clientId}'ye atandı");
+    }
+    
+    [ClientRpc]
+    private void UpdateBombVisualClientRpc(ulong clientId)
+    {
+        // 🚨 SADECE 3.MAP'TE BOMBA GÖSTERSİN!
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (currentScene != "3.map")
+        {
+            Debug.Log($"💣 Bomba görseli iptal edildi - Sahne: {currentScene} (3.map değil)");
+            return;
+        }
+        
+        // Önceki bomba görselini temizle
+        if (bombVisual != null)
+            Destroy(bombVisual);
+            
+        // Yeni bomba sahibini bul
+        GameObject newHolder = GetPlayerByClientId(clientId);
+        if (newHolder == null)
+        {
+            Debug.LogError($"💣 Client {clientId} için oyuncu bulunamadı!");
+            return;
+        }
+
+        // Karakterin içindeki "RightHand" objesini bul
+        Transform hand = newHolder.GetComponentsInChildren<Transform>()
+            .FirstOrDefault(t => t.name == "RightHand");
+
+        if (hand == null)
+        {
+            Debug.LogError("💣 RightHand bulunamadı! Prefabda doğru isimli nesne olduğundan emin ol.");
+            return;
+        }
+
+        // Bombayı spawn et ve ele yapıştır
+        bombVisual = Instantiate(bombPrefab, hand.position, hand.rotation, hand);
+        bombVisual.transform.localPosition = Vector3.zero;
+        
+        Debug.Log($"💣 Bomba görseli {newHolder.name} için oluşturuldu (3.map'te)");
     }
 
     IEnumerator BombCountdown()
     {
+        if (!IsServer) yield break;
+        
         float time = bombTimer;
         while (time > 0)
         {
@@ -62,35 +141,105 @@ public class BombManager : MonoBehaviour
             yield return null;
         }
 
-        // Bomba patlad�
-        Debug.Log(currentBombHolder.name + " patlad�!");
-        SpawnManager.allPlayers.Remove(currentBombHolder);  // Listeden ��kar
-        Destroy(currentBombHolder);
-        currentBombHolder = null;
+        // Bomba patladı - Server'da işle
+        ulong explodedClientId = currentBombHolderClientId.Value;
+        GameObject explodedPlayer = GetPlayerByClientId(explodedClientId);
+        
+        if (explodedPlayer != null)
+        {
+            Debug.Log($"💥 {explodedPlayer.name} patladı! (Client: {explodedClientId})");
+            
+            // Oyuncuyu yok et
+            NetworkObject netObj = explodedPlayer.GetComponent<NetworkObject>();
+            if (netObj != null)
+            {
+                netObj.Despawn();
+            }
+        }
+        
+        // Bomba görselini temizle
+        DestroyBombVisualClientRpc();
+        currentBombHolderClientId.Value = 0; // Reset
 
         yield return new WaitForSeconds(1f);
 
-        // Kalan oyuncu say�s�n� kontrol et
-        if (SpawnManager.allPlayers.Count == 1)
+        CheckGameEnd();
+    }
+    
+    [ClientRpc]
+    private void DestroyBombVisualClientRpc()
+    {
+        if (bombVisual != null)
         {
-            GameObject winner = SpawnManager.allPlayers[0];
-            Debug.Log(winner.name + " kazand�!");
-
-            GameUI.Instance.ShowWinText(winner.name); // UI'ya haber ver
-            Time.timeScale = 0f; // Oyunu durdur
+            Destroy(bombVisual);
+            bombVisual = null;
         }
-        else
+    }
+    
+    private void CheckGameEnd()
+    {
+        if (!IsServer) return;
+        
+        var remainingPlayers = NetworkSpawnManager3Map.GetAllNetworkPlayers();
+        
+        if (remainingPlayers.Count == 1)
+        {
+            GameObject winner = remainingPlayers[0];
+            Debug.Log($"🏆 {winner.name} kazandı!");
+
+            ShowWinnerClientRpc(winner.name);
+        }
+        else if (remainingPlayers.Count > 1)
         {
             AssignBombToRandomPlayer();
         }
+        else
+        {
+            Debug.Log("🤷 Hiç oyuncu kalmadı!");
+        }
+    }
+    
+    [ClientRpc]
+    private void ShowWinnerClientRpc(string winnerName)
+    {
+        if (GameUI.Instance != null)
+        {
+            GameUI.Instance.ShowWinText(winnerName);
+        }
+        Time.timeScale = 0f;
     }
 
-    // Eri�im i�in public getter
+    // Erişim için public getter
     public GameObject GetCurrentBombHolder()
     {
-        return currentBombHolder;
+        return GetPlayerByClientId(currentBombHolderClientId.Value);
+    }
+    
+    private GameObject GetPlayerByClientId(ulong clientId)
+    {
+        if (clientId == 0) return null;
+        
+        var players = NetworkSpawnManager3Map.GetAllNetworkPlayers();
+        foreach (var player in players)
+        {
+            NetworkObject netObj = player.GetComponent<NetworkObject>();
+            if (netObj != null && netObj.OwnerClientId == clientId)
+            {
+                return player;
+            }
+        }
+        
+        return null;
+    }
+    
+    // Public method for PlayerBombToucher and PlayerAttack to transfer bomb
+    public void TransferBombToClient(ulong targetClientId)
+    {
+        if (!IsServer) return;
+        SetBombHolderServerRpc(targetClientId);
     }
 }
+
 
 
 
