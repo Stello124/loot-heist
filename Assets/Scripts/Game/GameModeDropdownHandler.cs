@@ -15,7 +15,7 @@ public class GameModeDropdownHandler : MonoBehaviour
     private void Start()
     {
         gameModeDropdown.ClearOptions();
-        gameModeDropdown.AddOptions(new System.Collections.Generic.List<string> { "Turnuva" });
+        gameModeDropdown.AddOptions(new System.Collections.Generic.List<string> { "DeneyK2", "Köprü","Bomba","Yarış" }); // Seçenekleri ekledik
 
         gameModeDropdown.onValueChanged.AddListener(OnGameModeChanged);
         gameModeDropdown.value = 0;

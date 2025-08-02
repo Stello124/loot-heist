@@ -1009,7 +1009,13 @@ MonoBehaviour:
     - m_Text: "Yar\u0131\u015F"
       m_Image: {fileID: 0}
       m_Color: {r: 0, g: 0, b: 0, a: 0}
-    - m_Text: Turnuva
+    - m_Text: "K\xF6pr\xFC"
+      m_Image: {fileID: 0}
+      m_Color: {r: 0, g: 0, b: 0, a: 0}
+    - m_Text: "K\xF6pr\xFC"
+      m_Image: {fileID: 0}
+      m_Color: {r: 0, g: 0, b: 0, a: 0}
+    - m_Text: DeneyK2
       m_Image: {fileID: 0}
       m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_OnValueChanged:
@@ -10578,6 +10584,7 @@ MonoBehaviour:
   - 
   - 
   - 
+  characterAnimator: {fileID: 0}
 --- !u!1 &1799548719
 GameObject:
   m_ObjectHideFlags: 0

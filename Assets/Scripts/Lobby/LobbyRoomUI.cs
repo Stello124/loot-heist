@@ -446,25 +446,39 @@ public class LobbyRoomUI : MonoBehaviour
 
     private void StartGameBasedOnMode()
     {
-        string selectedMode = gameModeText.text;
+        string selectedMode = GameModeDropdownHandler.SelectedGameMode; // Seçilen modu al
         Debug.Log("✅ Oyun başlatılıyor. Mod: " + selectedMode);
 
-        if (selectedMode == "Turnuva")
+        string sceneName = ""; // Varsayılan sahne ismi
+
+        // Seçilen moda göre sahne ismini belirle
+        switch (selectedMode)
         {
-            Debug.Log("🏁 Turnuva modu seçildi. Turnuva başlatılıyor...");
-            TournamentManager.Instance.TurnuvayaBasla();
-            return;
+            case "DeneyK2":
+                sceneName = "DeneyK2"; // DeneyK2 sahnesi
+                break;
+            case "Köprü":
+                sceneName = "Köprü"; // Köprü sahnesi
+                break;
+            case "Bomba":
+                sceneName = "Bomba"; // Bomba sahnesi
+                break;
+            case "Yarış":
+                sceneName = "Yarış"; // Yarış sahnesi
+                break;
+            default:
+                Debug.LogWarning("❌ Geçersiz oyun modu seçildi: " + selectedMode);
+                return;
         }
 
-        string sceneName = "DeneyK2";
-        if (selectedMode == "Yarış" || selectedMode == "Bomba")
+        // Sahne yükle
+        if (!string.IsNullOrEmpty(sceneName))
         {
-            sceneName = "DeneyK2";
+            Debug.Log("🌍 Sahne yükleniyor: " + sceneName);
+            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
-
-        Debug.Log("🌍 Sahne yükleniyor: " + sceneName);
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
+
 
     void UpdateStartButtonVisibility()
     {
