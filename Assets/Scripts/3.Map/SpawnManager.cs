@@ -11,10 +11,10 @@ public class SpawnManager : MonoBehaviour
     public Transform[] spawnPoints;
     public int playerCount = 4;
 
-    // DEPRECATED: NetworkPlayerSpawnerK.allPlayers kullanın
+    // DEPRECATED: GlobalPlayerSpawner.allPlayers kullanın
     public static List<GameObject> allPlayers
     {
-        get { return NetworkPlayerSpawnerK.GetAllNetworkPlayers(); }
+        get { return GlobalPlayerSpawner.GetAllPlayers(); }
     }
 
     void Start()

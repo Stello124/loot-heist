@@ -37,6 +37,9 @@ public class NetworkSpawnManager3Map : NetworkBehaviour
     {
         if (!IsServer) return;
 
+        Debug.LogWarning("⚠️ NetworkSpawnManager3Map DEPRECATED! GlobalPlayerSpawner kullanın.");
+        return; // Devre dışı
+        
         DebugLog("🚀 NetworkSpawnManager3Map aktif - Server modunda");
 
         // Event'lere abone ol

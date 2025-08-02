@@ -463,8 +463,8 @@ public class LobbyRoomUI : MonoBehaviour
         // Seçilen moda göre sahne ismini belirle
         switch (selectedMode)
         {
-            case "DeneyK2":
-                sceneName = "DeneyK2"; // DeneyK2 sahnesi
+            case "Tırman":
+                sceneName = "DeneyK2"; // Tırmanma sahnesi
                 break;
             case "Köprü":
                 sceneName = "4.map"; // Köprü sahnesi
