@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System.Collections;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class BombManager : NetworkBehaviour
 {
@@ -18,6 +19,25 @@ public class BombManager : NetworkBehaviour
     void Awake()
     {
         Instance = this;
+        
+        // Scene değişiminde bomba temizle
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+    {
+        // 3.map dışında bomba görselini temizle
+        if (scene.name != "3.map" && bombVisual != null)
+        {
+            Debug.Log($"💣 Scene değişti ({scene.name}) - Bomba görseli temizlendi");
+            Destroy(bombVisual);
+            bombVisual = null;
+        }
     }
 
     public void StartBombGame()
@@ -73,6 +93,14 @@ public class BombManager : NetworkBehaviour
     [ClientRpc]
     private void UpdateBombVisualClientRpc(ulong clientId)
     {
+        // 🚨 SADECE 3.MAP'TE BOMBA GÖSTERSİN!
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (currentScene != "3.map")
+        {
+            Debug.Log($"💣 Bomba görseli iptal edildi - Sahne: {currentScene} (3.map değil)");
+            return;
+        }
+        
         // Önceki bomba görselini temizle
         if (bombVisual != null)
             Destroy(bombVisual);
@@ -99,7 +127,7 @@ public class BombManager : NetworkBehaviour
         bombVisual = Instantiate(bombPrefab, hand.position, hand.rotation, hand);
         bombVisual.transform.localPosition = Vector3.zero;
         
-        Debug.Log($"💣 Bomba görseli {newHolder.name} için oluşturuldu");
+        Debug.Log($"💣 Bomba görseli {newHolder.name} için oluşturuldu (3.map'te)");
     }
 
     IEnumerator BombCountdown()

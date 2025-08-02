@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 public class NetworkPlayerSpawnerK_1Map : NetworkBehaviour
 {
@@ -11,7 +12,6 @@ public class NetworkPlayerSpawnerK_1Map : NetworkBehaviour
     [SerializeField] private int maxPlayers = 4;
     
     private HashSet<ulong> spawnedClients = new HashSet<ulong>();
-    private int currentSpawnIndex = 0; // Sıra ile spawn için
 
     public override void OnNetworkSpawn()
     {
@@ -91,9 +91,10 @@ public class NetworkPlayerSpawnerK_1Map : NetworkBehaviour
             return;
         }
 
-        // 🏁 SADECE BURASINI DEĞİŞTİRDİM - 1.Map spawn point'leri kullan
-        Vector3 spawnPos = GetRaceSpawnPosition();
-        Quaternion spawnRot = GetRaceSpawnRotation();
+        // 🏁 SADECE BURASINI DEĞİŞTİRDİM - Client ID'ye göre spawn point
+        int clientSpawnIndex = GetSpawnIndexForClient(clientId);
+        Vector3 spawnPos = GetRaceSpawnPosition(clientSpawnIndex);
+        Quaternion spawnRot = GetRaceSpawnRotation(clientSpawnIndex);
         
         GameObject obj = Instantiate(selectedPrefab, spawnPos, spawnRot);
         NetworkObject netObj = obj.GetComponent<NetworkObject>();
@@ -112,37 +113,52 @@ public class NetworkPlayerSpawnerK_1Map : NetworkBehaviour
         // Özelleştirme uygula (SENİN MANUEL KODUN - DEĞİŞTİRMEDİM!)
         ApplyCustomization(obj, clientId);
 
-        Debug.Log($"🏁 Yarışçı spawn edildi: {selectedPrefab.name} → Pozisyon: {currentSpawnIndex} → Client: {clientId} ({reason})");
+        Debug.Log($"🏁 Yarışçı spawn edildi: {selectedPrefab.name} → Pozisyon: {clientSpawnIndex} → Client: {clientId} ({reason})");
     }
 
-    // 🏁 YENİ: 1.Map spawn point'leri için pozisyon hesaplama
-    private Vector3 GetRaceSpawnPosition()
+    // 🏁 YENİ: Client ID'ye göre spawn index hesapla
+    private int GetSpawnIndexForClient(ulong clientId)
+    {
+        // Host her zaman 0. pozisyonda (başlangıç çizgisi)
+        if (clientId == NetworkManager.Singleton.LocalClientId && NetworkManager.Singleton.IsHost)
+        {
+            return 0;
+        }
+        
+        // Connected client'ları ID'ye göre sırala ve index ver
+        var sortedClientIds = NetworkManager.Singleton.ConnectedClientsIds.OrderBy(id => id).ToList();
+        int index = sortedClientIds.IndexOf(clientId);
+        
+        Debug.Log($"🏁 Client {clientId} spawn index: {index} (Sorted IDs: {string.Join(",", sortedClientIds)})");
+        return index;
+    }
+    
+    // 🏁 YENİ: 1.Map spawn point'leri için pozisyon hesaplama (index ile)
+    private Vector3 GetRaceSpawnPosition(int spawnIndex)
     {
         if (raceSpawnPoints != null && raceSpawnPoints.Length > 0)
         {
-            // Sıra ile spawn point kullan
-            Transform spawnPoint = raceSpawnPoints[currentSpawnIndex % raceSpawnPoints.Length];
+            // Belirtilen index'teki spawn point kullan
+            Transform spawnPoint = raceSpawnPoints[spawnIndex % raceSpawnPoints.Length];
             return spawnPoint.position;
         }
         else
         {
             // Fallback: Sıra halinde spawn (eski sistem)
-            return new Vector3(currentSpawnIndex * 2f, 0f, 0f);
+            return new Vector3(spawnIndex * 2f, 0f, 0f);
         }
     }
     
-    // 🏁 YENİ: 1.Map spawn point'leri için rotasyon
-    private Quaternion GetRaceSpawnRotation()
+    // 🏁 YENİ: 1.Map spawn point'leri için rotasyon (index ile)
+    private Quaternion GetRaceSpawnRotation(int spawnIndex)
     {
         if (raceSpawnPoints != null && raceSpawnPoints.Length > 0)
         {
-            Transform spawnPoint = raceSpawnPoints[currentSpawnIndex % raceSpawnPoints.Length];
-            currentSpawnIndex++; // Sonraki spawn için index artır
+            Transform spawnPoint = raceSpawnPoints[spawnIndex % raceSpawnPoints.Length];
             return spawnPoint.rotation;
         }
         else
         {
-            currentSpawnIndex++;
             return Quaternion.identity;
         }
     }

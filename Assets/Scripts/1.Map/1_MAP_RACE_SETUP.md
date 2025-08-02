@@ -12,8 +12,10 @@ SENİN MANUEL NetworkPlayerSpawnerK kodun 1.Map için düzenlendi!
 - ✅ Network multiplayer uyumlu
 
 **Sadece Değişen:**
-- ✅ Spawn pozisyonu: spawn point'leri kullanıyor
+- ✅ Spawn pozisyonu: Client ID'ye göre spawn point'lerde
 - ✅ Maksimum 4 oyuncu (yarış için)
+- ✅ Bomb visibility: Bomba sadece 3.map'te görünür 💣
+- ✅ Spawn indexing: Host=0, Client1=1, Client2=2, Client3=3
 
 ## 🚀 KURULUM
 
@@ -65,13 +67,14 @@ SpawnPoints parent: (-165.67, 5.73, -4.57)
 
 ## 🎮 ÇALIŞMA MANTIĞI
 
-### Spawn Sırası (SENİN MANUEL SİSTEMİN)
+### Spawn Sırası (CLIENT ID BAZLI)
 ```
-1. Client bağlanır → GetPrefabIdForClient() → Resources load → SpawnPoint_01
-2. Client bağlanır → GetPrefabIdForClient() → Resources load → SpawnPoint_02  
-3. Client bağlanır → GetPrefabIdForClient() → Resources load → SpawnPoint_03
-4. Client bağlanır → GetPrefabIdForClient() → Resources load → SpawnPoint_04
-5. Her spawn → ApplyCustomization() → Animasyonlar + Görünüm ✅
+1. Host (Client ID en küçük) → SpawnPoint_01 
+2. Client (Client ID 2. sıra) → SpawnPoint_02  
+3. Client (Client ID 3. sıra) → SpawnPoint_03
+4. Client (Client ID 4. sıra) → SpawnPoint_04
+5. Her spawn → GetSpawnIndexForClient() → Doğru pozisyon ✅
+6. Her spawn → ApplyCustomization() → Animasyonlar + Görünüm ✅
 ```
 
 ### Oyuncu Akışı
