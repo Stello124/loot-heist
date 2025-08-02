@@ -33,7 +33,6 @@ public class BombManager : MonoBehaviour
 
         currentBombHolder = newHolder;
 
-        // Karakterin içindeki "RightHand" objesini bul
         Transform hand = currentBombHolder.GetComponentsInChildren<Transform>()
             .FirstOrDefault(t => t.name == "RightHand");
 
@@ -43,7 +42,6 @@ public class BombManager : MonoBehaviour
             return;
         }
 
-        // Bombayý spawn et ve ele yapýþtýr
         bombVisual = Instantiate(bombPrefab, hand.position, hand.rotation, hand);
         bombVisual.transform.localPosition = Vector3.zero;
 
@@ -62,22 +60,21 @@ public class BombManager : MonoBehaviour
             yield return null;
         }
 
-        // Bomba patladý
+
         Debug.Log(currentBombHolder.name + " patladý!");
-        SpawnManager.allPlayers.Remove(currentBombHolder);  // Listeden çýkar
+        SpawnManager.allPlayers.Remove(currentBombHolder); 
         Destroy(currentBombHolder);
         currentBombHolder = null;
 
         yield return new WaitForSeconds(1f);
 
-        // Kalan oyuncu sayýsýný kontrol et
         if (SpawnManager.allPlayers.Count == 1)
         {
             GameObject winner = SpawnManager.allPlayers[0];
             Debug.Log(winner.name + " kazandý!");
 
-            GameUI.Instance.ShowWinText(winner.name); // UI'ya haber ver
-            Time.timeScale = 0f; // Oyunu durdur
+            GameUI.Instance.ShowWinText(winner.name);
+            Time.timeScale = 0f;
         }
         else
         {
@@ -85,7 +82,6 @@ public class BombManager : MonoBehaviour
         }
     }
 
-    // Eriþim için public getter
     public GameObject GetCurrentBombHolder()
     {
         return currentBombHolder;
