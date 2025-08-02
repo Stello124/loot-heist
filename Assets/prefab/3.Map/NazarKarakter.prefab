@@ -1995,6 +1995,8 @@ MonoBehaviour:
   chestRespawnTime: 3
   boostedJump: 7
   boostedSpeed: 7
+  jumpBoostSound: {fileID: 8300000, guid: 9c2726ac49dab2749a3c47c66f3e815b, type: 3}
+  speedBoostSound: {fileID: 8300000, guid: 67849c4aaaf84c44d80f03ce8625c058, type: 3}
 --- !u!136 &6203912600273925364
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2049,7 +2051,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.177
   m_Pitch: 1
   Loop: 0
   Mute: 0
