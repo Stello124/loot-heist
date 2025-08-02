@@ -9,6 +9,7 @@ TagManager:
   - JumpChest
   - Customizable
   - BombVisual
+  - DeathZone
   layers:
   - Default
   - TransparentFX
