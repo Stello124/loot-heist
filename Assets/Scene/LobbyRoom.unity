@@ -566,7 +566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &154196773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -812,6 +812,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1062047746}
         m_TargetAssemblyTypeName: LobbyRoomUI, Assembly-CSharp
         m_MethodName: HandleStartGameButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1062047746}
+        m_TargetAssemblyTypeName: LobbyRoomUI, Assembly-CSharp
+        m_MethodName: OnHostStartPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1315,18 +1327,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LobbyRoomUI, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2107,6 +2107,9 @@ MonoBehaviour:
   lobbyNameText: {fileID: 87980968}
   lobbyCodeText: {fileID: 1444949236}
   gameModeText: {fileID: 569931438}
+  startButton: {fileID: 235600044}
+  clientButton: {fileID: 2015467572}
+  readyButton: {fileID: 523531977}
   startGameButton: {fileID: 235600044}
   playerListContainer: {fileID: 1916948679}
   playerEntryPrefab: {fileID: 5658619222252952219, guid: f2903b578f0a5d041b0b38e0bc599eef, type: 3}
@@ -3143,7 +3146,7 @@ GameObject:
   - component: {fileID: 2015467575}
   - component: {fileID: 2015467574}
   m_Layer: 5
-  m_Name: StartGamee
+  m_Name: ClientStartGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

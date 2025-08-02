@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Netcode;
-using Controller; // E�er namespace farkl�ysa g�ncelle
+using Controller; // Eğer namespace farklıysa güncelle
 
 namespace Controller
 {
@@ -41,25 +41,37 @@ namespace Controller
         {
             if (!IsOwner)
             {
-                // Yerel olmayan oyuncular�n input ve kamera kontrol� kapans�n
+                // Non-owner'ların sadece input'u kapansın, kamera kalabilir
                 enabled = false;
-                if (m_Camera != null)
-                {
-                    m_Camera.gameObject.SetActive(false);
-                }
                 return;
             }
 
-            // Yerel oyuncu i�in kamera atamas� ve cursor ayarlar�
+            // ✅ Owner için kamera ve cursor ayarları
             if (m_Camera == null)
             {
-                m_Camera = Camera.main == null ? null : Camera.main.GetComponent<PlayerCamera>();
+                // Aktif kamerayı bul
+                Camera mainCam = Camera.main;
+                if (mainCam != null)
+                {
+                    m_Camera = mainCam.GetComponent<PlayerCamera>();
+                }
+
+                // Yoksa scene'de PlayerCamera ara
+                if (m_Camera == null)
+                {
+                    m_Camera = FindObjectOfType<PlayerCamera>();
+                }
             }
 
             if (m_Camera != null)
             {
                 m_Camera.SetPlayer(transform);
                 m_Camera.gameObject.SetActive(true);
+                Debug.Log($"🎥 Kamera owner'a atandı: {OwnerClientId}");
+            }
+            else
+            {
+                Debug.LogError($"❌ PlayerCamera bulunamadı! Owner: {OwnerClientId}");
             }
 
             SetCursorState(CursorLockMode.Locked);
@@ -67,7 +79,7 @@ namespace Controller
 
         private void Update()
         {
-            if (!IsOwner) return; // Sadece yerel oyuncu input al�r
+            if (!IsOwner) return; // Sadece yerel oyuncu input alır
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -128,12 +140,24 @@ namespace Controller
         {
             if (m_Mover != null)
             {
+                // 🔍 DEBUG: Target ve Camera durumunu logla
+               
+
                 m_Mover.SetInput(in m_Axis, in m_Target, in m_IsRun, m_IsJump);
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ m_Mover null!");
             }
 
             if (m_Camera != null && Cursor.lockState == CursorLockMode.Locked)
             {
+                
                 m_Camera.SetInput(in m_MouseDelta, m_Scroll);
+            }
+            else if (m_Camera == null)
+            {
+                Debug.LogWarning($"⚠️ Camera null! Owner: {IsOwner}");
             }
         }
     }

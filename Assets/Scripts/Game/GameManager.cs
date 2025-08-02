@@ -8,6 +8,9 @@ using Unity.Services.CloudSave.Models;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+    public DanceSelectionManager danceManager;
+
     private string defaultPrefabId = "palyaco";
     private const string Key = "CustomizationData";
 
@@ -185,4 +188,6 @@ public class GameManager : MonoBehaviour
             { "skin", "Basic" }
         });
     }
+
+    
 }

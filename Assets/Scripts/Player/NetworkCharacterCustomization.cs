@@ -9,8 +9,8 @@ public class NetworkCharacterCustomization : NetworkBehaviour
     [Header("Customization")]
     public CharacterBuilder characterBuilder;
 
-    private NetworkVariable<FixedString512Bytes> customizationJson =
-        new NetworkVariable<FixedString512Bytes>("", NetworkVariableReadPermission.Everyone);
+    private NetworkVariable<FixedString4096Bytes> customizationJson =
+        new NetworkVariable<FixedString4096Bytes>("", NetworkVariableReadPermission.Everyone);
 
     void Update()
     {
@@ -146,7 +146,7 @@ public class NetworkCharacterCustomization : NetworkBehaviour
         customizationJson.Value = json;
     }
 
-    private void OnCustomizationChanged(FixedString512Bytes oldValue, FixedString512Bytes newValue)
+    private void OnCustomizationChanged(FixedString4096Bytes oldValue, FixedString4096Bytes newValue)
     {
         Debug.Log($"🔄 JSON değişti! ClientID: {OwnerClientId}, Old: '{oldValue}', New: '{newValue}'");
         Debug.Log($"🔍 IsOwner: {IsOwner}, JSON boş mu: {string.IsNullOrEmpty(newValue.ToString())}");
@@ -174,37 +174,45 @@ public class NetworkCharacterCustomization : NetworkBehaviour
                 return;
             }
 
+            // CharacterBuilder bileşenini al
+            characterBuilder = GetComponent<CharacterBuilder>() ?? GetComponentInChildren<CharacterBuilder>();
+
             if (characterBuilder == null)
             {
-                characterBuilder = GetComponent<CharacterBuilder>();
-                if (characterBuilder == null)
-                {
-                    characterBuilder = GetComponentInChildren<CharacterBuilder>();
-                }
-
-                if (characterBuilder == null)
-                {
-                    Debug.LogError($"❌ CharacterBuilder null! ClientID: {OwnerClientId}");
-                    return;
-                }
-            }
-
-            PlayerData playerData = JsonUtility.FromJson<PlayerData>(json);
-
-            if (playerData == null)
-            {
-                Debug.LogError($"❌ JSON parse başarısız! ClientID: {OwnerClientId}");
+                Debug.LogError($"❌ CharacterBuilder null! ClientID: {OwnerClientId}");
                 return;
             }
 
+            // JSON'u PlayerData'ya parse et
+            PlayerData playerData;
+
+            // JSON parse işlemi
+            try
+            {
+                playerData = JsonUtility.FromJson<PlayerData>(json);
+                if (playerData == null)
+                {
+                    Debug.LogError($"❌ JSON parse başarısız! ClientID: {OwnerClientId}, JSON: {json}");
+                    return;
+                }
+            }
+            catch (System.Exception jsonEx)
+            {
+                Debug.LogError($"❌ JSON parse hatası: {jsonEx.Message} - ClientID: {OwnerClientId}, JSON: {json}");
+                return;
+            }
+
+            // Özelleştirmeyi uygula
             characterBuilder.ApplyCustomization(playerData);
             Debug.Log($"✅ Network'ten özelleştirme uygulandı: ClientID {OwnerClientId}");
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"❌ JSON parse hatası: {ex.Message}, JSON: {json}, ClientID: {OwnerClientId}");
+            Debug.LogError($"❌ Beklenmedik hata: {ex.Message}, ClientID: {OwnerClientId}");
         }
     }
+
+
 
     void OnDestroy()
     {
