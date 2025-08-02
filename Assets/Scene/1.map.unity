@@ -5643,6 +5643,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   spawnablePrefabs:
   - {fileID: 4517559686769518521, guid: c1240bc1439ad4542a38116933737414, type: 3}
+  dontDestroyOnLoad: 1
 --- !u!114 &907020464
 MonoBehaviour:
   m_ObjectHideFlags: 0
