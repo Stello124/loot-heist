@@ -2610,15 +2610,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: d0223f77114284b47a0e8b317e71e4dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -212.8
+      value: -47.200012
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: d0223f77114284b47a0e8b317e71e4dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.88
+      value: -14.9800005
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: d0223f77114284b47a0e8b317e71e4dc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.2
+      value: 25.12647
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: d0223f77114284b47a0e8b317e71e4dc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6036,7 +6036,7 @@ Transform:
   m_GameObject: {fileID: 980235002}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1926932, y: 0, z: 0, w: 0.98125905}
-  m_LocalPosition: {x: -181, y: 23.4, z: -36.86}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6101,7 +6101,7 @@ MonoBehaviour:
   m_SensitivityX: 0.1
   m_SensitivityY: 0.1
   m_Zoom: 0.5
-  m_SensetivityZoom: 0.1
+  m_ZoomSensitivity: 0.1
   m_MinAngle: 0
   m_MaxAngle: 50
   m_Offset: 1.5
@@ -10442,15 +10442,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5063792230117622152, guid: fdeb14b6b1d857a4e97752d1f07b49b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -209.7
+      value: -44.100006
       objectReference: {fileID: 0}
     - target: {fileID: 5063792230117622152, guid: fdeb14b6b1d857a4e97752d1f07b49b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9
+      value: -20.1
       objectReference: {fileID: 0}
     - target: {fileID: 5063792230117622152, guid: fdeb14b6b1d857a4e97752d1f07b49b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.2
+      value: 25.12647
       objectReference: {fileID: 0}
     - target: {fileID: 5063792230117622152, guid: fdeb14b6b1d857a4e97752d1f07b49b7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14317,7 +14317,7 @@ Transform:
   m_GameObject: {fileID: 5491177059853266154}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -105.6, y: 0, z: 23.273531}
+  m_LocalPosition: {x: 60, y: -11.1, z: 27.2}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children:
