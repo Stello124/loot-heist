@@ -41,6 +41,9 @@ public class NetworkPlayerSpawnerK : NetworkBehaviour
     {
         if (!IsServer) return;
 
+        Debug.LogWarning("⚠️ NetworkPlayerSpawnerK DEPRECATED! GlobalPlayerSpawner kullanın.");
+        return; // Devre dışı
+        
         Debug.Log("🚀 GLOBAL NetworkPlayerSpawnerK aktif - Server modunda");
 
         // Event'lere abone ol
