@@ -13,7 +13,15 @@ public class HoverZoneTrigger : MonoBehaviour
 
     void Start()
     {
-        characterRenderer = transform.parent.GetComponent<Renderer>();
+        // Renderer'ý prefabýn içindeki herhangi bir child objeden al
+        characterRenderer = transform.parent.GetComponentInChildren<Renderer>();
+
+        if (characterRenderer == null)
+        {
+            Debug.LogError("Renderer bulunamadý: Hover efekti çalýþmayacak.");
+            return;
+        }
+
         baseColor = characterRenderer.material.GetColor("_BaseColor");
         hoverColor = new Color(
             Mathf.Clamp01(baseColor.r + 0.2f),
@@ -25,19 +33,25 @@ public class HoverZoneTrigger : MonoBehaviour
 
     void OnMouseEnter()
     {
-        characterRenderer.material.SetColor("_BaseColor", hoverColor);
-        isMouseInside = true;
+        if (characterRenderer != null)
+        {
+            characterRenderer.material.SetColor("_BaseColor", hoverColor);
+            isMouseInside = true;
+        }
     }
 
     void OnMouseExit()
     {
-        characterRenderer.material.SetColor("_BaseColor", baseColor);
-        isMouseInside = false;
+        if (characterRenderer != null)
+        {
+            characterRenderer.material.SetColor("_BaseColor", baseColor);
+            isMouseInside = false;
+        }
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isMouseInside)
+        if (Input.GetMouseButtonDown(0) && isMouseInside && customizationPanel != null)
         {
             bool isActive = customizationPanel.activeSelf;
             customizationPanel.SetActive(!isActive);
