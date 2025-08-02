@@ -20,6 +20,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/ASSETS/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scene/1.map.unity
+    guid: 003240716c96be947809cb798987b844
+  - enabled: 1
+    path: Assets/Scene/dogaMap.unity
+    guid: 6a86ef0fccbcd0b4fa442c4212bc36c0
+  - enabled: 1
+    path: Assets/Scene/2.map.unity
+    guid: 991db0b253dfc4847a86dc155daf1e10
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -50,8 +50,6 @@ namespace Controller
         public Vector3 Target => m_Target;
         public bool IsRun => m_IsRun;
 
-        private bool m_IsDead = false;
-
         private void OnValidate()
         {
             m_WalkSpeed = Mathf.Max(m_WalkSpeed, 0f);
@@ -73,28 +71,10 @@ namespace Controller
         private void Update()
         {
 
-            if (m_IsDead)
-                return;
-
             m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsJump, m_IsMoving, out var animAxis, out var isAir);
             m_Animation.Animate(in animAxis, m_IsRun ? 1f : 0f, isAir, Time.deltaTime);
         }
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("DeathZone") && !m_IsDead)
-            {
-                // Ölüm animasyonu baþlasýn ama CharacterController’ý biraz sonra kapat
-                m_Animator.SetBool("IsDead", true);
-
-                // 1 saniye sonra hareketi tamamen dondur
-                Invoke(nameof(DisableController), 4.0f);
-            }
-        }
-
-        private void DisableController()
-        {
-            m_Controller.enabled = false;
-        }
+       
 
         private void OnAnimatorIK()
         {
@@ -130,7 +110,11 @@ namespace Controller
             }
         }
 
-        // ** SETTER & GETTER FOR BOOSTS **
+        public void SetSpeed(float speed)
+        {
+            m_Movement.SetRunSpeed(speed);
+        }
+
 
         public void SetRunSpeed(float speed)
         {
