@@ -1,12 +1,13 @@
-using System;
+﻿using System;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace Controller
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(Animator))]
     [DisallowMultipleComponent]
-    public class CharacterMover : MonoBehaviour
+    public class CharacterMover : NetworkBehaviour
     {
         [Header("Movement")]
         [SerializeField]
@@ -46,11 +47,15 @@ namespace Controller
 
         private bool m_IsMoving;
 
+        // 🎯 RPC için animasyon state tracking
+        private Vector2 m_LastAnimAxis;
+        private float m_LastAnimState;
+        private bool m_LastAnimJump;
+
         public Vector2 Axis => m_Axis;
         public Vector3 Target => m_Target;
         public bool IsRun => m_IsRun;
 
-        private bool m_IsDead = false;
         private void OnValidate()
         {
             m_WalkSpeed = Mathf.Max(m_WalkSpeed, 0f);
@@ -71,28 +76,72 @@ namespace Controller
 
         private void Update()
         {
-
-            if (m_IsDead)
-                return;
-
-            m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsJump, m_IsMoving, out var animAxis, out var isAir);
-            m_Animation.Animate(in animAxis, m_IsRun ? 1f : 0f, isAir, Time.deltaTime);
-        }
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("DeathZone") && !m_IsDead)
+            // ✅ SADECE OWNER hareket etsin ve input alsın
+            if (IsOwner)
             {
-                // �l�m animasyonu ba�las�n ama CharacterController�� biraz sonra kapat
-                m_Animator.SetBool("IsDead", true);
+                m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsJump, m_IsMoving, out var animAxis, out var isAir);
 
-                // 1 saniye sonra hareketi tamamen dondur
-                Invoke(nameof(DisableController), 4.0f);
+                // Local animasyon güncelle
+                float animState = m_IsRun ? 1f : 0f;
+                m_Animation.Animate(in animAxis, animState, isAir, Time.deltaTime);
+
+                // 🎯 Animasyon değişikliği kontrolü ve RPC gönderimi
+                CheckAndSendAnimationRPC(animAxis, animState, isAir);
+            }
+            // ✅ NON-OWNER'lar hiçbir hareket yapmasın - sadece RPC'leri dinlesin
+        }
+
+        // 🎯 Animasyon değişikliği kontrolü
+        private void CheckAndSendAnimationRPC(Vector2 animAxis, float animState, bool isJump)
+        {
+            // Değişiklik threshold'u
+            float axisThreshold = 0.1f;
+            float stateThreshold = 0.1f;
+
+            bool axisChanged = Vector2.Distance(m_LastAnimAxis, animAxis) > axisThreshold;
+            bool stateChanged = Mathf.Abs(m_LastAnimState - animState) > stateThreshold;
+            bool jumpChanged = m_LastAnimJump != isJump;
+
+            if (axisChanged || stateChanged || jumpChanged)
+            {
+                // RPC gönder
+                SyncAnimationRPC(animAxis.x, animAxis.y, animState, isJump);
+
+                // Last değerleri güncelle
+                m_LastAnimAxis = animAxis;
+                m_LastAnimState = animState;
+                m_LastAnimJump = isJump;
             }
         }
 
-        private void DisableController()
+        // 🎯 Animasyon senkronizasyonu RPC
+        [Rpc(SendTo.Everyone)]
+        private void SyncAnimationRPC(float horizontal, float vertical, float state, bool isJump)
         {
-            m_Controller.enabled = false;
+            // Tüm clientlarda (owner dahil) animasyonu güncelle
+            Vector2 animAxis = new Vector2(horizontal, vertical);
+            m_Animation.SetAnimationValues(animAxis, state, isJump);
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            if (!IsOwner)
+            {
+                // Non-owner'ların CharacterController'ını kapat
+                var controller = GetComponent<CharacterController>();
+                if (controller != null)
+                {
+                    controller.enabled = false;
+                }
+
+                Debug.Log($"[Non-Owner] Karakter spawn oldu, CharacterController kapatıldı: {NetworkObjectId}");
+            }
+            else
+            {
+                Debug.Log($"[Owner] Karakter spawn oldu: {NetworkObjectId}");
+            }
         }
 
         private void OnAnimatorIK()
@@ -365,21 +414,17 @@ namespace Controller
         private class AnimationHandler
         {
             private readonly Animator m_Animator;
-
             private readonly string m_HorizontalID;
             private readonly string m_VerticalID;
             private readonly string m_StateID;
             private readonly string m_JumpID;
-
             private readonly float k_InputFlow = 4.5f;
-
             private float m_FlowState;
             private Vector2 m_FlowAxis;
 
             public AnimationHandler(Animator animator, string horizontalID, string verticalID, string stateID, string jumpID)
             {
                 m_Animator = animator;
-
                 m_HorizontalID = horizontalID;
                 m_VerticalID = verticalID;
                 m_StateID = stateID;
@@ -388,15 +433,27 @@ namespace Controller
 
             public void Animate(in Vector2 axis, float state, bool isJump, float deltaTime)
             {
+                // Smooth axis ve state update
+                m_FlowAxis = Vector2.ClampMagnitude(m_FlowAxis + k_InputFlow * deltaTime * (axis - m_FlowAxis).normalized, 1f);
+                m_FlowState = Mathf.Clamp01(m_FlowState + k_InputFlow * deltaTime * Mathf.Sign(state - m_FlowState));
+
+                // Animator'ı güncelle
+                m_Animator.SetFloat(m_HorizontalID, m_FlowAxis.x);
+                m_Animator.SetFloat(m_VerticalID, m_FlowAxis.y);
+                m_Animator.SetFloat(m_StateID, Mathf.Clamp01(m_FlowState));
+                m_Animator.SetBool(m_JumpID, isJump);
+            }
+
+            // 🎯 RPC'den gelen değerleri direkt set etmek için
+            public void SetAnimationValues(Vector2 axis, float state, bool isJump)
+            {
+                m_FlowAxis = axis;
+                m_FlowState = state;
 
                 m_Animator.SetFloat(m_HorizontalID, m_FlowAxis.x);
                 m_Animator.SetFloat(m_VerticalID, m_FlowAxis.y);
-
                 m_Animator.SetFloat(m_StateID, Mathf.Clamp01(m_FlowState));
                 m_Animator.SetBool(m_JumpID, isJump);
-
-                m_FlowAxis = Vector2.ClampMagnitude(m_FlowAxis + k_InputFlow * deltaTime * (axis - m_FlowAxis).normalized, 1f);
-                m_FlowState = Mathf.Clamp01(m_FlowState + k_InputFlow * deltaTime * Mathf.Sign(state - m_FlowState));
             }
 
             public void AnimateIK(in Vector3 target, in LookWeight lookWeight)
@@ -404,10 +461,7 @@ namespace Controller
                 m_Animator.SetLookAtPosition(target);
                 m_Animator.SetLookAtWeight(lookWeight.weight, lookWeight.body, lookWeight.head, lookWeight.eyes);
             }
-
         }
         #endregion
     }
 }
-
-
