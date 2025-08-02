@@ -446,9 +446,18 @@ public class LobbyRoomUI : MonoBehaviour
 
     private void StartGameBasedOnMode()
     {
-        string selectedMode = GameModeDropdownHandler.SelectedGameMode; // Seçilen modu al
-        Debug.Log("✅ Oyun başlatılıyor. Mod: " + selectedMode);
+        // 🎯 gameModeText'ten modu al
+        string selectedMode = gameModeText.text;
+        Debug.Log($"🔍 gameModeText'ten alınan mod: '{selectedMode}'");
 
+        // 🔧 Boşsa default ata
+        if (string.IsNullOrEmpty(selectedMode))
+        {
+            selectedMode = "DeneyK2";
+            Debug.LogWarning($"⚠️ gameModeText boş! Default atandı: '{selectedMode}'");
+        }
+
+        Debug.Log("✅ Oyun başlatılıyor. Mod: " + selectedMode);
         string sceneName = ""; // Varsayılan sahne ismi
 
         // Seçilen moda göre sahne ismini belirle
@@ -458,13 +467,13 @@ public class LobbyRoomUI : MonoBehaviour
                 sceneName = "DeneyK2"; // DeneyK2 sahnesi
                 break;
             case "Köprü":
-                sceneName = "Köprü"; // Köprü sahnesi
+                sceneName = "4.map"; // Köprü sahnesi
                 break;
             case "Bomba":
-                sceneName = "Bomba"; // Bomba sahnesi
+                sceneName = "3.map"; // Bomba sahnesi
                 break;
             case "Yarış":
-                sceneName = "Yarış"; // Yarış sahnesi
+                sceneName = "1.map"; // Yarış sahnesi
                 break;
             default:
                 Debug.LogWarning("❌ Geçersiz oyun modu seçildi: " + selectedMode);
@@ -478,6 +487,7 @@ public class LobbyRoomUI : MonoBehaviour
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
     }
+
 
 
     void UpdateStartButtonVisibility()

@@ -7,7 +7,7 @@ public class BombManager : MonoBehaviour
     public static BombManager Instance;
 
     public GameObject bombPrefab;
-    public float bombTimer = 5f;
+    public float bombTimer = 555f;
 
     private GameObject currentBombHolder;
     private GameObject bombVisual;
