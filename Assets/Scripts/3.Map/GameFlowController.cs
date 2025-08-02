@@ -1,11 +1,17 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class GameFlowController : MonoBehaviour
+public class GameFlowController : NetworkBehaviour
 {
     public void StartGame()
     {
-        Debug.Log("Oyun baþladý!");
-        // Buraya: bomba daðýt, timer baþlat, oyuncu hareketi aç gibi þeyler yaz
+        Debug.Log("ðŸŽ® Oyun baÅŸladÄ±!");
+        
+        // Sadece server oyunu baÅŸlatÄ±r
+        if (IsServer && BombManager.Instance != null)
+        {
+            BombManager.Instance.StartBombGame();
+        }
     }
 }
 
