@@ -7,7 +7,7 @@ public class BombManager : MonoBehaviour
     public static BombManager Instance;
 
     public GameObject bombPrefab;
-    public float bombTimer = 15f;
+    public float bombTimer = 5f;
 
     private GameObject currentBombHolder;
     private GameObject bombVisual;
@@ -91,6 +91,8 @@ public class BombManager : MonoBehaviour
         return currentBombHolder;
     }
 }
+
+
 
 
 
