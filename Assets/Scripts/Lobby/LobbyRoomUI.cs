@@ -465,15 +465,19 @@ public class LobbyRoomUI : MonoBehaviour
         {
             case "Tırman":
                 sceneName = "DeneyK2"; // Tırmanma sahnesi
+                Debug.Log($"🧗 Tırman seçildi → {sceneName}");
                 break;
             case "Köprü":
-                sceneName = "4.map"; // Köprü sahnesi
+                sceneName = "4.map"; // Köprü sahnesi  
+                Debug.Log($"🌉 Köprü seçildi → {sceneName}");
                 break;
             case "Bomba":
                 sceneName = "3.map"; // Bomba sahnesi
+                Debug.Log($"💣 Bomba seçildi → {sceneName}");
                 break;
             case "Yarış":
                 sceneName = "1.map"; // Yarış sahnesi
+                Debug.Log($"🏁 Yarış seçildi → {sceneName}");
                 break;
             default:
                 Debug.LogWarning("❌ Geçersiz oyun modu seçildi: " + selectedMode);
@@ -483,8 +487,20 @@ public class LobbyRoomUI : MonoBehaviour
         // Sahne yükle
         if (!string.IsNullOrEmpty(sceneName))
         {
-            Debug.Log("🌍 Sahne yükleniyor: " + sceneName);
-            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            Debug.Log($"🌍 Sahne yükleme başlıyor: {sceneName}");
+            try
+            {
+                NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+                Debug.Log($"✅ Sahne yükleme komutu gönderildi: {sceneName}");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"❌ Sahne yükleme hatası ({sceneName}): {ex.Message}");
+            }
+        }
+        else
+        {
+            Debug.LogError("❌ Scene name boş!");
         }
     }
 

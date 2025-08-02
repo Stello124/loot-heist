@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Controller;
 
 public class GlobalPlayerSpawner : NetworkBehaviour
 {
@@ -180,6 +181,8 @@ public class GlobalPlayerSpawner : NetworkBehaviour
 
         Debug.Log($"✅ Player spawn edildi: {selectedPrefab.name} → Scene: {SceneManager.GetActiveScene().name} → Client: {clientId} ({reason})");
     }
+
+
 
     // 🎨 CUSTOMIZATION UYGULA (SENİN KODUN)
     private void ApplyPlayerCustomization(GameObject playerObj, ulong clientId)
