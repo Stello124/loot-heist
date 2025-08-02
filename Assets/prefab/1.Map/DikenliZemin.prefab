@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4888706940742306414}
   - component: {fileID: 538904175006603692}
   - component: {fileID: 7857832547401657124}
+  - component: {fileID: 3590188516671238432}
   m_Layer: 0
   m_Name: Diken
   m_TagString: Untagged
@@ -86,6 +87,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3590188516671238432
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954893384804904793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2806953395882273590, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}
 --- !u!1 &4889239158923414355
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +121,7 @@ GameObject:
   - component: {fileID: 4779809989426627862}
   - component: {fileID: 6416065023666853101}
   - component: {fileID: 5159772179825121125}
+  - component: {fileID: 239838433915201474}
   m_Layer: 0
   m_Name: DikenliZemin
   m_TagString: Untagged
@@ -195,3 +219,25 @@ MonoBehaviour:
   speed: 2
   stayUpTime: 3
   stayDownTime: 2
+--- !u!64 &239838433915201474
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4889239158923414355}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1258035341741586828, guid: f184ba4911fbaaa4195a4f967a69e3bf, type: 3}

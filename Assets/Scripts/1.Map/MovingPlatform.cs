@@ -5,7 +5,7 @@ public class MovingPlatform : MonoBehaviour
     public Transform pointA;
     public Transform pointB;
     public float speed = 2f;
-    public float waitTime = 1f; // Ulaştığında kaç saniye beklesin
+    public float waitTime = 1f;
 
     private Transform target;
     private bool isWaiting = false;
@@ -13,6 +13,20 @@ public class MovingPlatform : MonoBehaviour
 
     void Start()
     {
+        if (pointA == null || pointB == null)
+        {
+            // Eğer pointA ve B atanmadıysa, objenin altındaki çocuklardan al
+            pointA = transform.Find("PointA");
+            pointB = transform.Find("PointB");
+
+            if (pointA == null || pointB == null)
+            {
+                Debug.LogError("PointA ve/veya PointB atanmadı ve obje içinde bulunamadı!");
+                enabled = false;
+                return;
+            }
+        }
+
         target = pointB;
     }
 
@@ -26,13 +40,11 @@ public class MovingPlatform : MonoBehaviour
                 isWaiting = false;
                 target = (target == pointA) ? pointB : pointA;
             }
-            return; // Bekliyorken hareket etmesin
+            return;
         }
 
-        // Hedefe doğru hareket
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
-        // Hedefe ulaştıysa beklemeye başla
         if (Vector3.Distance(transform.position, target.position) < 0.05f)
         {
             isWaiting = true;
