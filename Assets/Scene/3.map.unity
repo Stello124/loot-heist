@@ -7832,6 +7832,7 @@ GameObject:
   - component: {fileID: 425315550}
   - component: {fileID: 425315551}
   - component: {fileID: 425315549}
+  - component: {fileID: 425315552}
   m_Layer: 0
   m_Name: BombManager
   m_TagString: Untagged
@@ -7853,7 +7854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   bombPrefab: {fileID: 4099838000333980797, guid: b635293ce5fc295408cd47fdb6d33618, type: 3}
-  bombTimer: 8.75
+  bombTimer: 10
 --- !u!4 &425315550
 Transform:
   m_ObjectHideFlags: 0
@@ -7894,6 +7895,20 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &425315552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425315548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e12415a14e02cb42a978d16cb81fee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bombGameUI: {fileID: 0}
 --- !u!1001 &430691857
 PrefabInstance:
   m_ObjectHideFlags: 0
