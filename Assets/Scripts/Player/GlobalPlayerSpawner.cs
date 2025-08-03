@@ -481,7 +481,27 @@ public class GlobalPlayerSpawner : NetworkBehaviour
         return null;
     }
 
-    // 🔧 SCENE-SPECİFİC COMPONENT'LER
+    // 🎯 RAYCAST İÇİN COLLİDER KONTROLÜ
+    private void EnsurePlayerHasCollider(GameObject playerObj)
+    {
+        Collider existingCollider = playerObj.GetComponent<Collider>();
+        
+        if (existingCollider != null)
+        {
+            Debug.Log($"✅ Collider mevcut: {playerObj.name} - {existingCollider.GetType().Name}");
+            return;
+        }
+        
+        // Collider yoksa CapsuleCollider ekle
+        CapsuleCollider capsule = playerObj.AddComponent<CapsuleCollider>();
+        capsule.height = 2f;
+        capsule.radius = 0.5f;
+        capsule.center = new Vector3(0, 1f, 0); // Karakterin ortasında
+        
+        Debug.Log($"🎯 CapsuleCollider eklendi: {playerObj.name} (Raycast için)");
+    }
+
+    // 🔧 SCENE-SPECİFİK COMPONENT'LER
     private void AddSceneSpecificComponents(GameObject playerObj)
     {
         string sceneName = SceneManager.GetActiveScene().name;
@@ -489,11 +509,33 @@ public class GlobalPlayerSpawner : NetworkBehaviour
         switch (sceneName)
         {
             case "3.map":
+                // Raycast için Collider kontrolü
+                EnsurePlayerHasCollider(playerObj);
+                
                 // Bomba oyunu için BoostReceiver ekle
                 if (playerObj.GetComponent<BoostReceiver>() == null)
                 {
                     playerObj.AddComponent<BoostReceiver>();
                     Debug.Log($"💣 BoostReceiver eklendi: {playerObj.name}");
+                }
+                
+                // Bomba oyunu için PlayerAttack ekle
+                if (playerObj.GetComponent<PlayerAttack>() == null)
+                {
+                    PlayerAttack attackComp = playerObj.AddComponent<PlayerAttack>();
+                    attackComp.attackRange = 4f; // Vurma mesafesi artırıldı
+                    Debug.Log($"👊 PlayerAttack EKLENDİ: {playerObj.name} (Range: 4m, 3.map) ✅");
+                }
+                else
+                {
+                    Debug.Log($"👊 PlayerAttack ZATEN VAR: {playerObj.name}");
+                }
+                
+                // Bomba oyunu için PlayerBombToucher ekle
+                if (playerObj.GetComponent<PlayerBombToucher>() == null)
+                {
+                    playerObj.AddComponent<PlayerBombToucher>();
+                    Debug.Log($"🤝 PlayerBombToucher eklendi: {playerObj.name} (3.map)");
                 }
                 break;
                 
@@ -508,6 +550,33 @@ public class GlobalPlayerSpawner : NetworkBehaviour
             case "DeneyK2":
                 // Tırmanma için özel component'ler (şimdilik yok)
                 break;
+        }
+        
+        // 💃 HER SCENE'DE EMOTE CONTROLLER EKLE
+        AddEmoteController(playerObj);
+    }
+    
+    /// <summary>
+    /// Tüm oyunculara EmoteController ekler (T tuşu + dans sistemi)
+    /// </summary>
+    private void AddEmoteController(GameObject playerObj)
+    {
+        if (playerObj.GetComponent<EmoteController>() == null)
+        {
+            EmoteController emoteComp = playerObj.AddComponent<EmoteController>();
+            
+            // Animator referansını ata
+            Animator animator = playerObj.GetComponent<Animator>();
+            if (animator != null)
+            {
+                emoteComp.playerAnimator = animator;
+            }
+            
+            Debug.Log($"💃 EmoteController eklendi: {playerObj.name} (T tuşu + dans sistemi)");
+        }
+        else
+        {
+            Debug.Log($"💃 EmoteController zaten var: {playerObj.name}");
         }
     }
 

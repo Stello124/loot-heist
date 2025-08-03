@@ -9,12 +9,17 @@ public class BombManager : NetworkBehaviour
     public static BombManager Instance;
 
     public GameObject bombPrefab;
-    public float bombTimer = 555f;
+    public float bombTimer = 15f; // Normal bomba süresi
 
     private NetworkVariable<ulong> currentBombHolderClientId = new NetworkVariable<ulong>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     private GameObject bombVisual;
     private Coroutine countdownCoroutine;
     private bool gameStarted = false;
+
+    // Simple Waiting System
+    private NetworkVariable<int> gamePhase = new NetworkVariable<int>(0); // 0=waiting, 1=active
+    private NetworkVariable<float> phaseTimer = new NetworkVariable<float>(40f);
+    public float waitingTime = 40f; // Uzun bekleme: 40s (panel süresinden daha uzun)
 
     void Awake()
     {
@@ -26,33 +31,104 @@ public class BombManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return;
-
-        Debug.Log("💣 BombManager Server aktif!");
+        if (IsServer)
+        {
+            Debug.Log("💣 BombManager Server aktif!");
+            
+            // Oyunu otomatik başlat
+            StartCoroutine(AutoStartGameDelayed());
+        }
+        else
+        {
+            Debug.Log("💣 BombManager Client aktif!");
+        }
         
-        // Oyunu otomatik başlat
-        StartCoroutine(AutoStartGameDelayed());
+        // Her client'ta UI oluştur
+        StartCoroutine(CreateUIAfterDelay());
+    }
+
+    private IEnumerator CreateUIAfterDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        
+        // BombGameUI oluştur (her client'ta)
+        BombGameUI bombUI = FindObjectOfType<BombGameUI>();
+        if (bombUI == null)
+        {
+            Debug.Log("💻 Client'ta BombGameUI oluşturuluyor...");
+            GameObject uiObj = new GameObject("BombGameUI");
+            bombUI = uiObj.AddComponent<BombGameUI>();
+            Debug.Log("✅ Client'ta BombGameUI oluştu");
+        }
+        else
+        {
+            Debug.Log("💻 BombGameUI zaten mevcut");
+        }
+        
+        // UI artık baştan gizli oluşturuluyor, ekstra ResetUI gerekmiyor
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("🔒 BombGameUI otomatik olarak gizli oluşturuldu");
     }
 
     private IEnumerator AutoStartGameDelayed()
     {
         Debug.Log("⏰ Oyuncuların spawn olmasını bekliyorum...");
         
-        // 2 saniye bekle ki oyuncular spawn olsun
-        yield return new WaitForSeconds(2f);
+        // 1 saniye bekle ki oyuncular spawn olsun
+        yield return new WaitForSeconds(1f);
         
-        // En az 2 oyuncu varsa oyunu başlat
-        var players = GlobalPlayerSpawner.GetAllPlayers();
-        if (players.Count >= 2)
-        {
-            Debug.Log($"🎮 {players.Count} oyuncu ile bomba oyunu başlatılıyor!");
-            StartBombGame();
-        }
-        else
-        {
-            Debug.Log("⚠️ Oyun başlatılamadı: En az 2 oyuncu gerekli");
-        }
+        // Waiting fazını başlat
+        StartWaitingPhase();
     }
+
+    private void StartWaitingPhase()
+    {
+        if (!IsServer) return;
+
+        gamePhase.Value = 0; // Waiting phase
+        phaseTimer.Value = waitingTime;
+
+        Debug.Log($"⏰ Basit bekleme fazı başladı - {waitingTime} saniye, oyuncular serbest, bomba yok");
+        
+        // Timer başlat
+        StartCoroutine(SimpleWaitingTimer());
+    }
+
+    private System.Collections.IEnumerator SimpleWaitingTimer()
+    {
+        Debug.Log($"⏰ {waitingTime} saniye bekleniyor... (Manual Canvas'lar silindi, temiz ekran, bomba YOK)");
+        
+        while (phaseTimer.Value > 0 && gamePhase.Value == 0)
+        {
+            yield return new WaitForSeconds(1f);
+            phaseTimer.Value = Mathf.Max(0, phaseTimer.Value - 1f);
+            
+            if (phaseTimer.Value % 5 == 0) // Her 5 saniyede log
+            {
+                Debug.Log($"⏰ Kalan bekleme süresi: {phaseTimer.Value} saniye (Bomba {waitingTime} saniyede gelecek)");
+            }
+        }
+        
+        // 40 saniye bitti, bomba oyununu başlat
+        StartBombGame();
+    }
+
+    private void StartBombGame()
+    {
+        if (!IsServer) return;
+
+        gamePhase.Value = 1; // Active phase (basit: 0=waiting, 1=active)
+        gameStarted = true;
+
+        Debug.Log($"💣 {waitingTime} saniye bitti! Bomba oyunu başladı! (Panel bitiminden {waitingTime-30} saniye sonra, Bomba süresi: {bombTimer}s)");
+        
+        // Bomba ata
+        AssignBombToRandomPlayer();
+    }
+
+    // Freeze sistemi 3.map için kullanılmıyor - oyuncular hep serbest
+
+    // UI metotları kaldırıldı - Sadece kazanan ekranı kullanılacak
     
     void OnDestroy()
     {
@@ -70,18 +146,20 @@ public class BombManager : NetworkBehaviour
         }
     }
 
-    public void StartBombGame()
-    {
-        if (!IsServer) return;
-        
-        gameStarted = true;
-        AssignBombToRandomPlayer();
-    }
+    // Bu metot artık private StartBombGame() ile değiştirildi
     
     public void OnPlayerCountChanged()
     {
         if (!IsServer || !gameStarted) return;
         
+        // Ek güvenlik: Sadece ACTIVE fazda kontrol et
+        if (gamePhase.Value != 1)
+        {
+            Debug.Log($"❌ OnPlayerCountChanged: Oyun henüz aktif değil (faz: {gamePhase.Value})");
+            return;
+        }
+        
+        Debug.Log("🔍 OnPlayerCountChanged: Oyun aktif, CheckGameEnd çağrılıyor");
         CheckGameEnd();
     }
 
@@ -89,21 +167,31 @@ public class BombManager : NetworkBehaviour
     {
         if (!IsServer) return;
         
-        var players = GlobalPlayerSpawner.GetAllPlayers();
-        if (players.Count == 0)
+        // SADECE ACTIVE PHASE'DE BOMBA ATA!
+        if (gamePhase.Value != 1)
         {
-            Debug.LogWarning("💣 Bomba atanacak oyuncu yok!");
+            Debug.LogWarning($"💣 Bomba atama iptal - Yanlış phase: {gamePhase.Value} (1 olmalı, gameStarted: {gameStarted})");
             return;
         }
         
-        int randomIndex = Random.Range(0, players.Count);
-        GameObject selectedPlayer = players[randomIndex];
+        // Sadece aktif player'ları al
+        var activePlayers = FindObjectsOfType<NetworkObject>()
+            .Where(obj => obj.CompareTag("Player") && obj.IsSpawned)
+            .ToList();
+            
+        Debug.Log($"💣 Bomba atanacak aktif oyuncu sayısı: {activePlayers.Count}");
         
-        NetworkObject netObj = selectedPlayer.GetComponent<NetworkObject>();
-        if (netObj != null)
+        if (activePlayers.Count == 0)
         {
-            SetBombHolderServerRpc(netObj.OwnerClientId);
+            Debug.LogWarning("💣 Bomba atanacak aktif oyuncu yok!");
+            return;
         }
+        
+        int randomIndex = Random.Range(0, activePlayers.Count);
+        NetworkObject selectedPlayer = activePlayers[randomIndex];
+        
+        Debug.Log($"💣 Bomba {selectedPlayer.name} (Client {selectedPlayer.OwnerClientId})'e atanıyor - ACTIVE PHASE");
+        SetBombHolderServerRpc(selectedPlayer.OwnerClientId);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -210,28 +298,47 @@ public class BombManager : NetworkBehaviour
     {
         if (!IsServer) return;
         
-        var remainingPlayers = GlobalPlayerSpawner.GetAllPlayers();
+        // Aktif player'ları say (Despawn olan'ları sayma)
+        var allPlayers = FindObjectsOfType<NetworkObject>()
+            .Where(obj => obj.CompareTag("Player") && obj.IsSpawned)
+            .ToList();
         
-        if (remainingPlayers.Count == 1)
+        Debug.Log($"🔍 Aktif oyuncu sayısı: {allPlayers.Count}");
+        
+        if (allPlayers.Count == 1)
         {
-            GameObject winner = remainingPlayers[0];
-            NetworkObject winnerNetObj = winner.GetComponent<NetworkObject>();
+            // KAZANAN!
+            NetworkObject winnerNetObj = allPlayers[0];
+            Debug.Log($"🏆 KAZANAN: {winnerNetObj.name} (Client: {winnerNetObj.OwnerClientId})");
             
-            if (winnerNetObj != null)
+            // Oyunu durdur
+            gameStarted = false;
+            if (countdownCoroutine != null)
             {
-                Debug.Log($"🏆 {winner.name} kazandı! (Client: {winnerNetObj.OwnerClientId})");
-                
-                // Kazanan kişiden ismini iste
-                RequestWinnerNameClientRpc(winnerNetObj.OwnerClientId);
+                StopCoroutine(countdownCoroutine);
+                countdownCoroutine = null;
             }
+            
+            // Kazanan kişiden ismini iste
+            RequestWinnerNameClientRpc(winnerNetObj.OwnerClientId);
         }
-        else if (remainingPlayers.Count > 1)
+        else if (allPlayers.Count > 1)
         {
-            AssignBombToRandomPlayer();
+            Debug.Log($"🔄 {allPlayers.Count} oyuncu kaldı, yeni bomba atanıyor...");
+            // Sadece ACTIVE fazda bomba ata
+            if (gamePhase.Value == 1)
+            {
+                AssignBombToRandomPlayer();
+            }
+            else
+            {
+                Debug.Log("❌ Oyun henüz aktif değil, bomba atanmıyor");
+            }
         }
         else
         {
             Debug.Log("🤷 Hiç oyuncu kalmadı!");
+            gameStarted = false;
         }
     }
     
@@ -277,17 +384,26 @@ public class BombManager : NetworkBehaviour
     {
         Debug.Log($"🏆 Bomba kazananı ismiyle gösteriliyor: {winnerName} (Client {winnerClientId})");
         
-        BombGameUI bombUI = FindObjectOfType<BombGameUI>();
-        if (bombUI != null)
-        {
-            bombUI.ShowWinner(winnerName, winnerClientId);
-        }
-        else
-        {
-            Debug.LogError("❌ BombGameUI bulunamadı!");
-        }
+        StartCoroutine(ShowWinnerUICoroutine(winnerName, winnerClientId));
+    }
 
-        Debug.Log($"🏆 Bomba oyunu bitti! Kazanan: {winnerName} (Client {winnerClientId})");
+    private IEnumerator ShowWinnerUICoroutine(string winnerName, ulong winnerClientId)
+    {
+        Debug.Log($"🎯 ShowWinnerUICoroutine başladı: {winnerName}");
+        
+        // BombGameUI'yi bul (her client'ta oluşturulmuş olmalı)
+        BombGameUI bombUI = FindObjectOfType<BombGameUI>();
+        
+        if (bombUI == null)
+        {
+            Debug.LogError("❌ BombGameUI bulunamadı! Client'ta UI oluşturulmamış.");
+            yield break;
+        }
+        
+        Debug.Log($"✅ BombGameUI bulundu, winner gösteriliyor: {winnerName}");
+        bombUI.ShowWinner(winnerName, winnerClientId);
+        
+        Debug.Log($"🏆 UI gösterildi: {winnerName} (Client {winnerClientId})");
     }
 
     // Erişim için public getter
@@ -298,26 +414,59 @@ public class BombManager : NetworkBehaviour
     
     private GameObject GetPlayerByClientId(ulong clientId)
     {
-        if (clientId == 0) return null;
+        Debug.Log($"🔍 GetPlayerByClientId aranıyor: Client {clientId}");
         
-        var players = GlobalPlayerSpawner.GetAllPlayers();
-        foreach (var player in players)
+        // Aktif NetworkObject'leri direkt kontrol et
+        var allNetworkObjects = FindObjectsOfType<NetworkObject>();
+        
+        foreach (var netObj in allNetworkObjects)
         {
-            NetworkObject netObj = player.GetComponent<NetworkObject>();
-            if (netObj != null && netObj.OwnerClientId == clientId)
+            if (netObj.CompareTag("Player") && netObj.IsSpawned && netObj.OwnerClientId == clientId)
             {
-                return player;
+                Debug.Log($"✅ Client {clientId} için oyuncu bulundu: {netObj.name}");
+                return netObj.gameObject;
             }
         }
         
+        Debug.LogWarning($"❌ Client {clientId} için oyuncu bulunamadı!");
         return null;
     }
     
     // Public method for PlayerBombToucher and PlayerAttack to transfer bomb
     public void TransferBombToClient(ulong targetClientId)
     {
-        if (!IsServer) return;
+        if (IsServer)
+        {
+            // Server'daysa direkt transfer et
+            GameObject currentHolder = GetPlayerByClientId(currentBombHolderClientId.Value);
+            GameObject newHolder = GetPlayerByClientId(targetClientId);
+            
+            Debug.Log($"🔄 SERVER BOMBA TRANSFERİ! {currentHolder?.name} → {newHolder?.name}");
+            SetBombHolderServerRpc(targetClientId);
+        }
+        else
+        {
+            // Client'taysa Server'a istek gönder
+            Debug.Log($"📡 CLIENT'TAN TRANSFER İSTEĞİ BAŞLATIYOR: Target {targetClientId}");
+            RequestBombTransferServerRpc(targetClientId);
+            Debug.Log($"📡 CLIENT: RequestBombTransferServerRpc ÇAĞRILDI - Target {targetClientId}");
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void RequestBombTransferServerRpc(ulong targetClientId)
+    {
+        Debug.Log($"📨 SERVER: RequestBombTransferServerRpc ÇAĞRILDI! Target: {targetClientId}");
+        Debug.Log($"📨 SERVER: İstek başarıyla alındı, transfer başlıyor...");
+        
+        GameObject currentHolder = GetPlayerByClientId(currentBombHolderClientId.Value);
+        GameObject newHolder = GetPlayerByClientId(targetClientId);
+        
+        Debug.Log($"📨 SERVER: CurrentHolder: {currentHolder?.name}, NewHolder: {newHolder?.name}");
+        Debug.Log($"🔄 SERVER BOMBA TRANSFERİ! {currentHolder?.name} → {newHolder?.name}");
+        
         SetBombHolderServerRpc(targetClientId);
+        Debug.Log($"📨 SERVER: SetBombHolderServerRpc ÇAĞRILDI - Target {targetClientId}");
     }
 }
 

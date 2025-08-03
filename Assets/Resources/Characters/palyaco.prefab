@@ -1619,6 +1619,8 @@ GameObject:
   - component: {fileID: -2180905807155581362}
   - component: {fileID: -1404265153598016073}
   - component: {fileID: 9032241786997987503}
+  - component: {fileID: 2098150604156244341}
+  - component: {fileID: -8156342691063530811}
   m_Layer: 0
   m_Name: palyaco
   m_TagString: Player
@@ -1891,6 +1893,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   characterBuilder: {fileID: 5129022314701823651}
+--- !u!136 &2098150604156244341
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4517559686769518521}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-8156342691063530811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4517559686769518521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a544994acd52ad34bb2ad5329508f9e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  playerAnimator: {fileID: 0}
+  movementThreshold: 0.1
 --- !u!1 &4538112476731279682
 GameObject:
   m_ObjectHideFlags: 0

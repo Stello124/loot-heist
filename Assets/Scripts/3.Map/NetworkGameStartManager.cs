@@ -32,8 +32,8 @@ public class NetworkGameStartManager : NetworkBehaviour
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
             
-            // Başlangıç countdown'u başlat
-            StartWaitingForPlayers();
+            // BombManager artık kendi sistemini kullanıyor, bu UI devre dışı
+            Debug.Log("🎮 NetworkGameStartManager: BombManager otomatik çalışıyor, UI sistemi devre dışı");
         }
         
         // UI güncellemelerini dinle
@@ -160,11 +160,8 @@ public class NetworkGameStartManager : NetworkBehaviour
         if (IsServer)
         {
             gameStarted = true;
-            var bombManager = FindObjectOfType<BombManager>();
-            if (bombManager != null)
-            {
-                bombManager.StartBombGame();
-            }
+            // BombManager artık otomatik başlıyor - manuel çağrı gerekmiyor
+            Debug.Log("🎮 NetworkGameStartManager: BombManager otomatik başlatıldı");
             
             var gameFlowController = FindObjectOfType<GameFlowController>();
             if (gameFlowController != null)
