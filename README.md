@@ -5,9 +5,9 @@
 
 | Fotoğraf | İsim | Rol |
 |---|---|---|
-| 🧑‍🎓 | Kartal Enbiya Onar | Product Owner / Developer |
-| 🧑‍🏫 | Samet Cantaş | Scrum Master / Designer |
-| 👨‍💻 | Nazar Güner | Developer / Designer |
+| 🧑‍🎓 | Kartal Enbiya Onar | Product Owner |
+| 🧑‍🏫 | Samet Cantaş | Scrum Master |
+| 👨‍💻 | Nazar Güner | Developer |
 | 👩‍💻 | Doğa Çalkap | Developer |
 
 # 🎮 Oyun İsmi  
@@ -17,20 +17,19 @@
 
 # 📌 Oyun Açıklaması
 
-Box Games, 20 oyuncuya kadar destekleyen çevrim içi çok oyunculu, mini oyun temelli bir eğlence oyunudur. Oyuncular, her biri farklı beceriler ve stratejiler gerektiren mini oyunlarla dolu bir arenada hayatta kalmaya ve rakiplerini geride bırakmaya çalışır. Yarış, ebelemece, FPS shooter gibi farklı türde oyun modları; her turda rastgele sırayla oynatılır. Her mini oyunun sonunda elenen oyuncular olur, sona kalan kişi galip gelir. Hız, refleks, strateji ve takım çalışması başarının anahtarıdır. Renkli low-poly grafikleri ve enerjik atmosferiyle arkadaş grupları için eğlenceli bir rekabet ortamı sunar.
+Box Games, 4 oyuncuya kadar destekleyen çevrim içi çok oyunculu, mini oyun temelli bir eğlence oyunudur. Oyuncular, her biri farklı beceriler ve stratejiler gerektiren mini oyunlarla dolu bir arenada hayatta kalmaya ve rakiplerini geride bırakmaya çalışır. Her mini oyunun sonunda kazanan bir oyuncu olur. Renkli low-poly grafikleri ve enerjik atmosferiyle arkadaş grupları için eğlenceli bir rekabet ortamı sunar.
 
 ---
 
 # ⚙️ Oyun Özellikleri
 
-- 🎯 FPS kamera
-- 👥 20 kişiye kadar çevrim içi multiplayer
-- 🎮 3 farklı mini oyun türü: yarış, ebelemece, shooter
+- 🎯 TPS kamera
+- 👥 4 kişiye kadar çevrim içi multiplayer
+- 🎮 2 farklı mini oyun türü: yarış, ebelemece, shooter
 - 🧩 Low poly, stilize grafik tasarımı
 - ⚙️ Fizik tabanlı dinamik oyunlar
 - 🧢 Kozmetik özelleştirme (şapka vb.)
 - 🚪 Elenme ve hayatta kalma temelli ilerleyiş
-- 💸 Para kazanma ve harcama mekaniği  
 
 ---
 
@@ -118,7 +117,7 @@ Oyun mekaniği, temel altyapı, harita tasarımı ve teknik hazırlıklar üzeri
 
 # 🚀 Sprint 2
 ## 🎯 Sprint Notları
-Sprint 2’de oyunun türü ve temel yapısı tamamen pivotlandı. Başlangıçta planlanan 1-4 kişilik gizemli co-op FPS oyun yapısı yerine, artık 20 kişiye kadar oyuncunun oynayabileceği çevrimiçi multiplayer mini oyun sistemi seçildi.
+Sprint 2’de oyunun türü ve temel yapısı tamamen pivotlandı. Başlangıçta planlanan 1-4 kişilik gizemli co-op FPS oyun yapısı yerine, artık 4 kişiye kadar oyuncunun oynayabileceği çevrimiçi multiplayer mini oyun sistemi seçildi.
 Oyun farklı mini oyun modlarıyla oynanacak.
 
 Bu değişiklik, oyuncu etkileşimi ve eğlence dinamiğini artırmaya yönelik olarak yapıldı.
@@ -187,64 +186,80 @@ Sprint Board Screenshot:
 # 🚀 Sprint 3
 
 ## 🎯 Sprint Notları
-Bu sprintte proje tamamlanma aşamasına geldi. Tüm mini oyunlar tamamlandı ve multiplayer senkronizasyon sistemi entegre edildi. Oyunun oynanabilir ve sunuma hazır hale gelmesi sağlandı.
+Bu sprintte çok oyunculu altyapısı başarıyla tamamlandı. Oyun artık çok oyunculu olarak oynanabiliyor, oyuncular aynı lobide buluşup farklı mini oyunlarda rekabet edebiliyor. Geliştirme sürecinde karşılaşılan bazı teknik hatalar doğrultusunda "Köprü" temalı mini oyun çıkarıldı. Öncelikler yeniden belirlendi ve en sağlam, oynanabilir içerikler üzerine odaklanıldı. Böylece oyun keyifli ve sunuma hazır bir hale getirildi.
 
 ## 📌 Sprint İçinde Tamamlanması Tahmin Edilen Puan
-100 Puan
+100 Puan → Gerçekleşen: 90 Puan
 
 ## 🧮 Puanlama Mantığı
-Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte yaklaşık 100 puanlık iş tamamlanması planlanmıştır. Sprint 3 ile birlikte toplam 300 puanlık hedef başarıyla tamamlanmıştır.
+Toplam 300 puanlık proje kapsamı 3 sprint'e bölünmüştü. Sprint 3’te, kullanıcı deneyimini doğrudan etkileyen sistemler önceliklendirildi. Bazı teknik aksaklıklar nedeniyle içerik tarafında sapmalar olsa da, sprint hedefleri büyük oranda tamamlandı.
 
 ## 🗂️ Sprint Board Update
 Sprint Board Screenshot:
-📸 Ekran görüntüsü buraya eklenecek
+<img width="716" height="780" alt="image" src="https://github.com/user-attachments/assets/b0d72ea2-95f5-4f00-87c6-3569b68c5168" />
 
 ## 🧠 Backlog Item’ları
-Bu sprintte oyun deneyimini tamamlayıcı tüm ana bileşenlere odaklanıldı:
+Bu sprintte oyun deneyimini tamamlayıcı bileşenlere odaklanıldı:
 
-- Multiplayer senkronizasyon
-- Tüm mini oyunların tamamlanması
+- Multiplayer senkronizasyonu
+- Mini oyun haritalarının entegrasyonu
 - UI geliştirmeleri
-- Ses ve müzik entegrasyonu
+- Ses ve müzik geliştirmeleri
 - Karakter özelleştirme
 - Lobi sistemi ve oyun geçişleri
 
 ## 📌 Tamamlananlar
 
-1. ✅ Unity Netcode kullanılarak multiplayer senkronizasyonu tamamlandı. Oyuncular artık aynı lobiye bağlanıp senkron şekilde oynayabiliyor.
-2. ✅ 4 farklı mini oyun haritası tamamen bitirildi:
+1. Unity Netcode kullanılarak multiplayer senkronizasyonu sağlandı. Oyuncular artık aynı lobide birlikte oynayabilir.
+2. :Lobby sistemi kuruldu oyuncuların bir araya gelmesi, countdown sonrası oyunun başlaması ve sahne geçişleri gerçekleştirildi.
+3. 2 farklı mini oyun oynanabilir duruma getirildi ve online entegrasyonu yapıldı:
 
 - Yarış
 - Bomba
-- Köprü
-- Dönence
 
-3. ✅ Bomba mekaniği geliştirildi: Bomba taşıma, patlama ve karakter ölümleri multiplayer uyumlu hale getirildi. 
-4. ✅ Her mini oyun haritasına özel mekanikler entegre edildi (örneğin yarış haritasında hareketli spike objeleri, dönen platformlar vb.)
-5. ✅ Lobi oluşturma, lobiye katılma ve oyuncu sayısına göre başlatma sistemi tamamlandı.
-6. ✅ Karakter özelleştirme için temel bir randomize sistemi geliştirildi.
-7. ✅ Her harita için özel ses efektleri ve arka plan müzikleri entegre edildi.
-8. ✅ UI sisteminde görsel bütünlüğe uygun kapsamlı çalışmalar yapıldı:
+6. Karakter özelleştirme için bir randomize sistemi geliştirildi.
+7. Haritalara özel ses efekti ve arka plan müziği eklendi.
+8. UI sisteminde görsel bütünlüğe uygun kapsamlı çalışmalar yapıldı.
 
-- Ana giriş ve lobi ekranları
-- Countdown ve durum göstergeleri
-- Estetik ve okunabilir UI düzenlemeleri
+<details>
+  <summary><b>🖼️ Ürün Durumu</b></summary>
 
-## 🖼️ Ürün Durumu: Ekran Görüntüleri
-📸 Final oyun içi görüntüler buraya eklenecek
+<img width="1265" height="710" alt="image" src="https://github.com/user-attachments/assets/bbeb57dd-e0e3-4ef8-9c1e-5b1769430031" />
+<img width="1251" height="713" alt="image" src="https://github.com/user-attachments/assets/efbfcac0-164e-44b4-b7da-f8bdf4187001" />
+<img width="1211" height="669" alt="image" src="https://github.com/user-attachments/assets/5ef3987d-f083-4ecf-867f-0ef37b92ad61" />
+<img width="1225" height="693" alt="image" src="https://github.com/user-attachments/assets/36b6a797-a83b-4d5f-8aa8-ff3cf089ad12" />
+<img width="1221" height="707" alt="image" src="https://github.com/user-attachments/assets/9538a560-7985-4620-b47a-e74f9f549916" />
+
+</details>
 
 ## 🧠 Daily Scrum
 
 - Slack ve Whatsapp üzerinden günlük iletişim sürdürüldü, sesli konuşmalar yapıldı.
-- Jira üzerinden güncellemeler ve sprint takibi yapıldı.
+- Jira üzerinden sprint takibi yapıldı.
 
 ## 📋 Sprint Review
 
-- Tüm oyun sistemleri takım içinde test edildi ve geliştirildi.
+- Multiplayer sistem ve oyun akışı takım içinde başarılı şekilde test edildi.
+- Oynanabilirlik, teknik sağlamlık ve kullanıcı deneyimi bu sprintin merkezindeydi.
 - UI ve ses sistemlerinin kullanıcı deneyimine olumlu katkısı gözlemlendi.
 
 ## 🔁 Sprint Retrospective
 
 - Geri bildirimlere göre post-bootcamp geliştirmeleri planlandı.
+- Eksik kalan içerikler için sonraki geliştirme adımları not edildi.
+- Teknik olarak en karmaşık sprint olmasına rağmen ekibin birlikte çalışma ve sorun çözme refleksi güçlüydü.
 - (..◜ᴗ◝..)
 
+---
+
+<details><summary><b>🖼️ Kullanılan Asset'ler</b></summary>
+
+https://assetstore.unity.com/packages/3d/environments/brawl-battle-arena-freebie-307330
+https://assetstore.unity.com/packages/3d/props/simple-gems-and-items-ultimate-animated-customizable-pack-73764
+https://assetstore.unity.com/packages/3d/characters/humanoids/creative-characters-free-animated-low-poly-3d-models-304841
+https://assetstore.unity.com/packages/2d/gui/icons/2d-casual-ui-hd-82080
+https://assetstore.unity.com/packages/3d/environments/dungeons/low-poly-dungeons-lite-177937
+https://assetstore.unity.com/packages/3d/environments/poly-style-platformer-starter-pack-284167
+https://assetstore.unity.com/packages/3d/environments/simple-sky-cartoon-assets-42373
+
+</details>
