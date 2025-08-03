@@ -179,6 +179,72 @@ Sprint Board Screenshot:
 
 ## 🔁 Sprint Retrospective
 - Karakter animasyonları ve çarpışmalar güçlendirilecek.
-- Shooter haritası Sprint 3’te tamamlanacak.
 - Lobby, skor ekranı ve oyun geçiş yapısı geliştirilecek.
 - UI tasarımı bitirilecek.
+
+---
+
+# 🚀 Sprint 3
+
+## 🎯 Sprint Notları
+Bu sprintte proje tamamlanma aşamasına geldi. Tüm mini oyunlar tamamlandı ve multiplayer senkronizasyon sistemi başarıyla entegre edildi. Oyunun oynanabilir ve sunuma hazır hale gelmesi sağlandı.
+
+## 📌 Sprint İçinde Tamamlanması Tahmin Edilen Puan
+100 Puan
+
+## 🧮 Puanlama Mantığı
+Proje boyunca toplamda 300 puanlık iş belirlenmiştir. Bu işler 3 sprint'e eşit olarak bölünerek, her sprintte yaklaşık 100 puanlık iş tamamlanması planlanmıştır. Sprint 3 ile birlikte toplam 300 puanlık hedef başarıyla tamamlanmıştır.
+
+## 🗂️ Sprint Board Update
+Sprint Board Screenshot:
+📸 Ekran görüntüsü buraya eklenecek
+
+## 🧠 Backlog Item’ları
+Bu sprintte oyun deneyimini tamamlayıcı tüm ana bileşenlere odaklanıldı:
+
+- Multiplayer senkronizasyon
+- Tüm mini oyunların tamamlanması
+- UI geliştirmeleri
+- Ses ve müzik entegrasyonu
+- Karakter özelleştirme
+- Lobi sistemi ve oyun geçişleri
+
+## 📌 Tamamlananlar
+
+✅ Unity Netcode kullanılarak multiplayer senkronizasyonu tamamlandı. Oyuncular artık aynı lobiye bağlanıp farklı haritalarda senkron şekilde oynayabiliyor.
+✅ 4 farklı mini oyun haritası tamamen bitirildi:
+
+- Yarış
+- Bomba
+- Köprü
+- Dönence
+
+✅ Bomba mekaniği geliştirildi: Bomba taşıma, patlama ve karakter ölümleri multiplayer uyumlu hale getirildi.
+✅ Her mini oyun haritasına özel mekanikler entegre edildi (örneğin yarış haritasında hareketli spike objeleri, dönen platformlar vb.)
+✅ Lobi oluşturma, lobiye katılma ve oyuncu sayısına göre başlatma sistemi tamamlandı.
+✅ Karakter özelleştirme için temel bir randomize sistemi geliştirildi.
+✅ Her harita için özel ses efektleri ve arka plan müzikleri entegre edildi.
+✅ UI sisteminde görsel bütünlüğe uygun kapsamlı çalışmalar yapıldı:
+
+- Ana giriş ve lobi ekranları
+- Countdown ve durum göstergeleri
+- Estetik ve okunabilir UI düzenlemeleri
+
+## 🖼️ Ürün Durumu: Ekran Görüntüleri
+📸 Final oyun içi görüntüler buraya eklenecek
+
+## 🧠 Daily Scrum
+
+- Slack ve Whatsapp üzerinden günlük iletişim sürdürüldü, sesli konuşmalar yapıldı.
+- Jira üzerinden güncellemeler ve sprint takibi yapıldı.
+
+## 📋 Sprint Review
+
+- Tüm oyun sistemleri takım içinde test edildi ve geliştirildi.
+- UI ve ses sistemlerinin kullanıcı deneyimine olumlu katkısı gözlemlendi.
+
+## 🔁 Sprint Retrospective
+
+- Geri bildirimlere göre post-bootcamp geliştirmeleri planlandı.
+- (..◜ᴗ◝..)
+
