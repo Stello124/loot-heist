@@ -125,6 +125,10 @@ public class NetworkSpawnManager3Map : NetworkBehaviour
         Quaternion spawnRot = GetSpawnRotation();
         
         GameObject obj = Instantiate(selectedPrefab, spawnPos, spawnRot);
+        
+        // 🔧 CLONE ANİMATOR DÜZELTMESİ!
+        FixAnimatorOnClone(obj);
+        
         NetworkObject netObj = obj.GetComponent<NetworkObject>();
 
         if (netObj == null)
@@ -249,6 +253,13 @@ public class NetworkSpawnManager3Map : NetworkBehaviour
             var boostReceiver = playerObj.AddComponent<BoostReceiver>();
             DebugLog($"🔧 BoostReceiver eklendi (sadece 3.Map için): {playerObj.name}");
         }
+        
+        // SpectateManager ekle
+        if (playerObj.GetComponent<SpectateManager>() == null)
+        {
+            var spectateManager = playerObj.AddComponent<SpectateManager>();
+            DebugLog($"🎥 SpectateManager eklendi: {playerObj.name}");
+        }
     }
 
     private void AddPlayerToNetworkList(NetworkObject playerNetObj)
@@ -370,6 +381,51 @@ public class NetworkSpawnManager3Map : NetworkBehaviour
 #if UNITY_EDITOR
             UnityEditor.Handles.Label(spawnPoints[i].position + Vector3.up, $"SP {i}");
 #endif
+        }
+    }
+    
+    // 🔧 CLONE ANİMATOR DÜZELTMESİ
+    private void FixAnimatorOnClone(GameObject clonedObject)
+    {
+        Animator animator = clonedObject.GetComponent<Animator>();
+        if (animator != null)
+        {
+            // Mevcut controller'ı kaydet
+            RuntimeAnimatorController currentController = animator.runtimeAnimatorController;
+            
+            if (currentController != null)
+            {
+                // Controller'ı yeniden ata (referansları yenile)
+                animator.runtimeAnimatorController = null;
+                animator.runtimeAnimatorController = currentController;
+                
+                DebugLog($"🔧 CLONE ANİMATOR DÜZELDİ! Controller: {currentController.name}");
+                
+                // Avatar kontrolü
+                if (animator.avatar == null)
+                {
+                    DebugLog($"⚠️ Clone'da Avatar eksik: {clonedObject.name}");
+                }
+                else
+                {
+                    DebugLog($"✅ Clone Avatar OK: {animator.avatar.name}");
+                }
+                
+                // Animator state kontrolü  
+                if (animator.layerCount > 0)
+                {
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    DebugLog($"🎬 Clone Animator State: {stateInfo.fullPathHash} (Length: {stateInfo.length})");
+                }
+            }
+            else
+            {
+                DebugLog($"❌ Clone'da AnimatorController NULL: {clonedObject.name}");
+            }
+        }
+        else
+        {
+            DebugLog($"❌ Clone'da Animator eksik: {clonedObject.name}");
         }
     }
 }

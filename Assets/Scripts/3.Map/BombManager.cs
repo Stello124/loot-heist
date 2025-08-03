@@ -267,6 +267,17 @@ public class BombManager : NetworkBehaviour
         {
             Debug.Log($"💥 {explodedPlayer.name} patladı! (Client: {explodedClientId})");
             
+            // Spectate sistemini başlat - ölen oyuncunun SpectateManager'ını bul
+            SpectateManager spectateManager = explodedPlayer.GetComponent<SpectateManager>();
+            if (spectateManager != null)
+            {
+                spectateManager.OnPlayerDied(explodedClientId);
+            }
+            else
+            {
+                Debug.LogWarning($"❌ SpectateManager bulunamadı: {explodedPlayer.name}");
+            }
+            
             // Oyuncuyu yok et
             NetworkObject netObj = explodedPlayer.GetComponent<NetworkObject>();
             if (netObj != null)
@@ -310,6 +321,13 @@ public class BombManager : NetworkBehaviour
             // KAZANAN!
             NetworkObject winnerNetObj = allPlayers[0];
             Debug.Log($"🏆 KAZANAN: {winnerNetObj.name} (Client: {winnerNetObj.OwnerClientId})");
+            
+            // Tüm spectate modlarını durdur - tüm oyuncuları kontrol et
+            var allSpectateManagers = FindObjectsOfType<SpectateManager>();
+            foreach (var spectateManager in allSpectateManagers)
+            {
+                spectateManager.OnGameEnded();
+            }
             
             // Oyunu durdur
             gameStarted = false;

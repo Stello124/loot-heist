@@ -124,6 +124,10 @@ public class NetworkPlayerSpawnerK : NetworkBehaviour
         Quaternion spawnRot = GetSpawnRotationForScene(clientId);
         
         GameObject obj = Instantiate(selectedPrefab, spawnPos, spawnRot);
+        
+        // 🔧 CLONE ANİMATOR DÜZELTMESİ!
+        FixAnimatorOnClone(obj);
+        
         NetworkObject netObj = obj.GetComponent<NetworkObject>();
 
         if (netObj == null)
@@ -424,5 +428,50 @@ public class NetworkPlayerSpawnerK : NetworkBehaviour
         Debug.Log($"❌ Client ayrıldı: {clientId}");
         spawnedClients.Remove(clientId);
         RemoveFromGlobalPlayerList(clientId);
+    }
+    
+    // 🔧 CLONE ANİMATOR DÜZELTMESİ
+    private void FixAnimatorOnClone(GameObject clonedObject)
+    {
+        Animator animator = clonedObject.GetComponent<Animator>();
+        if (animator != null)
+        {
+            // Mevcut controller'ı kaydet
+            RuntimeAnimatorController currentController = animator.runtimeAnimatorController;
+            
+            if (currentController != null)
+            {
+                // Controller'ı yeniden ata (referansları yenile)
+                animator.runtimeAnimatorController = null;
+                animator.runtimeAnimatorController = currentController;
+                
+                Debug.Log($"🔧 CLONE ANİMATOR DÜZELDİ! Controller: {currentController.name}");
+                
+                // Avatar kontrolü
+                if (animator.avatar == null)
+                {
+                    Debug.LogWarning($"⚠️ Clone'da Avatar eksik: {clonedObject.name}");
+                }
+                else
+                {
+                    Debug.Log($"✅ Clone Avatar OK: {animator.avatar.name}");
+                }
+                
+                // Animator state kontrolü  
+                if (animator.layerCount > 0)
+                {
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    Debug.Log($"🎬 Clone Animator State: {stateInfo.fullPathHash} (Length: {stateInfo.length})");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"❌ Clone'da AnimatorController NULL: {clonedObject.name}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"❌ Clone'da Animator eksik: {clonedObject.name}");
+        }
     }
 }

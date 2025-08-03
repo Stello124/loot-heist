@@ -23,6 +23,7 @@ namespace Controller
         [SerializeField, Range(0.01f, 1f)] private float mouseSensitivity = 0.1f;
 
         private CharacterMover m_Mover;
+        private Animator m_Animator;
 
         private Vector2 m_Axis;
         private bool m_IsRun;
@@ -35,6 +36,7 @@ namespace Controller
         private void Awake()
         {
             m_Mover = GetComponent<CharacterMover>();
+            m_Animator = GetComponent<Animator>();
         }
 
         public override void OnNetworkSpawn()
@@ -88,6 +90,13 @@ namespace Controller
 
             GatherInput();
             SetInput();
+            
+            // 🥊 Attack input'u - LobbyBrowserScene dışında çalışır
+            string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if (currentScene != "LobbyBrowserScene")
+            {
+                HandleMouseInput();
+            }
         }
 
         private void ToggleCursorLock()
@@ -134,6 +143,22 @@ namespace Controller
         public void BindMover(CharacterMover mover)
         {
             m_Mover = mover;
+        }
+
+        private void HandleMouseInput()
+        {
+            if (Input.GetMouseButtonDown(0)) // Left click = Punch
+            {
+                if (m_Animator != null)
+                {
+                    m_Animator.SetTrigger("attack");
+                    Debug.Log("🥊 Attack trigger gönderildi!");
+                }
+                else
+                {
+                    Debug.LogWarning("❌ Animator bulunamadı - attack tetiklenemedi!");
+                }
+            }
         }
 
         public void SetInput()

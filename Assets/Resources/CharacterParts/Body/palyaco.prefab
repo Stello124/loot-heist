@@ -1612,6 +1612,7 @@ GameObject:
   - component: {fileID: 7352565068199970286}
   - component: {fileID: 4352335494634547038}
   - component: {fileID: 4021727942360043872}
+  - component: {fileID: -1521454673187336762}
   - component: {fileID: 7141759086254507494}
   - component: {fileID: 7537873831961681202}
   - component: {fileID: 5129022314701823651}
@@ -1661,7 +1662,7 @@ Animator:
   m_GameObject: {fileID: 4517559686769518521}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ad472b939cd48144e9521d873c2e3018, type: 3}
-  m_Controller: {fileID: 9100000, guid: fac54571ff27f2b46b28cd6d82cd3c4c, type: 2}
+  m_Controller: {fileID: 9100000, guid: d16a1e98254f09443afa6295c1c9948e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1713,6 +1714,31 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &-1521454673187336762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4517559686769518521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 384698368
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &7141759086254507494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1725,6 +1751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75db5b538eef814b9775d744f05e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   m_WalkSpeed: 1
   m_RunSpeed: 4
   m_RotateSpeed: 90
@@ -1751,6 +1778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c67ce836140b4479603ebcf944cddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_JumpButton: Jump
@@ -1759,6 +1787,7 @@ MonoBehaviour:
   m_MouseX: Mouse X
   m_MouseY: Mouse Y
   m_MouseScroll: Mouse ScrollWheel
+  mouseSensitivity: 0.1
 --- !u!114 &5129022314701823651
 MonoBehaviour:
   m_ObjectHideFlags: 0
