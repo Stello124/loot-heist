@@ -40,6 +40,7 @@ public class CountdownManager : MonoBehaviour
 
         panelUI.SetActive(false);
         rotatingObject.GetComponent<Rotator>().enabled = true;
+        GameStarterManager.GameStarted = true;
     }
 }
 
