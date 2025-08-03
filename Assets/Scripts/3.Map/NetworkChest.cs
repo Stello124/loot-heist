@@ -156,9 +156,10 @@ public class NetworkChest : NetworkBehaviour
     private System.Collections.IEnumerator ApplyJumpBoostCoroutine(Controller.CharacterMover mover)
     {
         float originalJump = mover.GetJumpHeight();
-        float boostedJump = 7f;
+        float boostedJump = originalJump * 2f; // Mevcut zıplamanın 2 katı
         float boostDuration = 4f;
         
+        Debug.Log($"🦘 Jump boost: {originalJump} → {boostedJump}");
         mover.SetJumpHeight(boostedJump);
         yield return new WaitForSeconds(boostDuration);
         mover.SetJumpHeight(originalJump);
@@ -169,9 +170,10 @@ public class NetworkChest : NetworkBehaviour
     private System.Collections.IEnumerator ApplySpeedBoostCoroutine(Controller.CharacterMover mover)
     {
         float originalSpeed = mover.GetRunSpeed();
-        float boostedSpeed = 7f;
+        float boostedSpeed = originalSpeed * 2f; // Mevcut hızın 2 katı
         float boostDuration = 4f;
         
+        Debug.Log($"⚡ Speed boost: {originalSpeed} → {boostedSpeed}");
         mover.SetRunSpeed(boostedSpeed);
         yield return new WaitForSeconds(boostDuration);
         mover.SetRunSpeed(originalSpeed);

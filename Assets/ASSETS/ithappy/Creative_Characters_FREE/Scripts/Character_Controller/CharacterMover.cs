@@ -11,15 +11,15 @@ namespace Controller
     {
         [Header("Movement")]
         [SerializeField]
-        private float m_WalkSpeed = 5f;
+        private float m_WalkSpeed = 24f;
         [SerializeField]
-        private float m_RunSpeed = 10f;
+        private float m_RunSpeed = 48f;
         [SerializeField, Range(0f, 360f)]
         private float m_RotateSpeed = 90f;
         [SerializeField]
         private Space m_Space = Space.Self;
         [SerializeField]
-        private float m_JumpHeight = 5f;
+        private float m_JumpHeight = 0.1f;
 
         [Header("Animator")]
         [SerializeField]

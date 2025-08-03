@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models;
 using System.Threading.Tasks;
+using System.Reflection;
 
 public class DanceSlotManager : MonoBehaviour
 {
@@ -51,6 +52,9 @@ public class DanceSlotManager : MonoBehaviour
         {
             Invoke("EnsurePlayerAttack", 1f); // Biraz daha geç, player spawn olduktan sonra
         }
+        
+        // TÜM SAHNELERDE hareket hızlarını düzelt
+        Invoke("ForceMovementSettings", 1.5f);
     }
     
     /// <summary>
@@ -119,6 +123,56 @@ public class DanceSlotManager : MonoBehaviour
                 break;
             }
         }
+    }
+    
+    /// <summary>
+    /// TÜM KARAKTERLERDE hareket ayarlarını zorla uygula (Prefab override problemi için)
+    /// </summary>
+    void ForceMovementSettings()
+    {
+        Debug.Log("🚀 ForceMovementSettings çağrıldı - Hareket hızları force ediliyor...");
+        
+        // Tüm CharacterMover'ları bul
+        var characterMovers = FindObjectsOfType<Controller.CharacterMover>();
+        Debug.Log($"🔍 {characterMovers.Length} CharacterMover bulundu");
+        
+        foreach (var mover in characterMovers)
+        {
+            // Eski değerleri al
+            float oldWalk = mover.GetComponent<Controller.CharacterMover>().GetType()
+                .GetField("m_WalkSpeed", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(mover) as float? ?? 0f;
+            float oldRun = mover.GetRunSpeed();
+            float oldJump = mover.GetJumpHeight();
+            
+            Debug.Log($"🔧 {mover.name} - Eski: Walk={oldWalk}, Run={oldRun}, Jump={oldJump}");
+            
+            // Yeni değerleri force et
+            var walkField = mover.GetType().GetField("m_WalkSpeed", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var runField = mover.GetType().GetField("m_RunSpeed", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var jumpField = mover.GetType().GetField("m_JumpHeight", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            
+            // 3.map için özel zıplama, diğer map'ler için normal
+            string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            float jumpValue = (currentScene == "3.map") ? 5f : 4f;
+            
+            walkField?.SetValue(mover, 9f);
+            runField?.SetValue(mover, 22f);
+            jumpField?.SetValue(mover, jumpValue);
+            
+            // Movement handler'ı da güncelle
+            var movementField = mover.GetType().GetField("m_Movement", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var movementHandler = movementField?.GetValue(mover);
+            
+            if (movementHandler != null)
+            {
+                var setStatsMethod = movementHandler.GetType().GetMethod("SetStats");
+                setStatsMethod?.Invoke(movementHandler, new object[] { 9f / 3.6f, 22f / 3.6f, 90f, jumpValue, UnityEngine.Space.Self });
+            }
+            
+            Debug.Log($"✅ {mover.name} - Yeni: Walk=9, Run=22, Jump={jumpValue} UYGULANДИ! (Scene: {currentScene})");
+        }
+        
+        Debug.Log($"🎯 {characterMovers.Length} karakterin hareket ayarları güncellendi!");
     }
 
     /// <summary>
