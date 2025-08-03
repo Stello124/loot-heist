@@ -11,13 +11,15 @@ public class GameStartManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(StartSequence());
+        // BombManager artık kendi sistemini kullanıyor, bu UI devre dışı
+        Debug.Log("🎮 GameStartManager: BombManager otomatik çalışıyor, UI sistemi devre dışı");
+        // StartCoroutine(StartSequence()); // Devre dışı
     }
 
     IEnumerator StartSequence()
     {
         introPanel.SetActive(true);
-        introText.text = "Bomba kimin elindeyse, 15 saniye i�inde birine pasla yoksa patlars�n!";
+        introText.text = "Bomba kimin elindeyse, 15 saniye i�inde birine pasla yoksa patlars�n!";
         introText.gameObject.SetActive(true);
         countdownText.gameObject.SetActive(false);
 
@@ -26,7 +28,7 @@ public class GameStartManager : MonoBehaviour
         introText.gameObject.SetActive(false);
         countdownText.gameObject.SetActive(true);
 
-        string[] countdownWords = { "3", "2", "1", "BA�LA!" };
+        string[] countdownWords = { "3", "2", "1", "BA�LA!" };
         foreach (string word in countdownWords)
         {
             countdownText.text = word;

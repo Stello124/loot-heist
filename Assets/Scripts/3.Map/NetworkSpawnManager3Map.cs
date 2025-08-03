@@ -76,9 +76,9 @@ public class NetworkSpawnManager3Map : NetworkBehaviour
             SpawnPlayerForClient(clientId, "Existing Client");
         }
 
-        // Tüm oyuncular spawn edildikten sonra bomba sistemini başlat
+        // BombManager artık otomatik başlıyor, manuel çağrı gerekmiyor
         yield return new WaitForSeconds(0.5f);
-        StartBombGame();
+        Debug.Log("🎮 NetworkSpawnManager3Map: BombManager otomatik olarak başlayacak");
     }
 
     private void OnClientConnected(ulong clientId)
@@ -287,11 +287,8 @@ public class NetworkSpawnManager3Map : NetworkBehaviour
     {
         DebugLog($"🔄 Player listesi değişti. Yeni sayı: {networkPlayers.Count}");
         
-        // BombManager'a haber ver
-        if (IsServer && BombManager.Instance != null)
-        {
-            BombManager.Instance.OnPlayerCountChanged();
-        }
+        // BombManager artık otomatik çalışıyor, manuel player count değişikliği gerekmiyor
+        Debug.Log("🎮 NetworkSpawnManager3Map: Player listesi değişti, BombManager otomatik yönetiyor");
     }
 
     private void StartBombGame()
@@ -302,7 +299,8 @@ public class NetworkSpawnManager3Map : NetworkBehaviour
         
         if (BombManager.Instance != null && networkPlayers.Count > 0)
         {
-            BombManager.Instance.StartBombGame();
+            // BombManager artık otomatik başlıyor
+            Debug.Log("🎮 NetworkSpawnManager3Map: BombManager otomatik başlatıldı");
         }
     }
 

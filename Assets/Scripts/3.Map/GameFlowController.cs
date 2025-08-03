@@ -10,7 +10,8 @@ public class GameFlowController : NetworkBehaviour
         // Sadece server oyunu başlatır
         if (IsServer && BombManager.Instance != null)
         {
-            BombManager.Instance.StartBombGame();
+            // BombManager artık otomatik başlıyor
+            Debug.Log("🎮 GameFlowController: BombManager otomatik başlatıldı");
         }
     }
 }

@@ -36,7 +36,8 @@ public class SpawnManager : MonoBehaviour
             
             if (BombManager.Instance != null)
             {
-                BombManager.Instance.StartBombGame();
+                // BombManager artık otomatik başlıyor
+                Debug.Log("🎮 SpawnManager: BombManager otomatik başlatıldı");
             }
         }
     }

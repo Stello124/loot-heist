@@ -35,26 +35,60 @@ public class NetworkChest : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Sadece server'da çalışır
-        if (!IsServer) return;
-        
-        // Chest müsait değilse hiçbir şey yapma
-        if (!isAvailable.Value) return;
+        Debug.Log($"🎯 CHEST TRİGGER: {other.name} ({other.tag}) - IsServer: {IsServer}");
         
         // Player kontrol et
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player")) 
+        {
+            Debug.Log($"❌ Player tag'i değil: {other.tag}");
+            return;
+        }
         
         // NetworkObject kontrol et
         NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj == null) return;
+        if (playerNetObj == null) 
+        {
+            Debug.Log("❌ NetworkObject component yok!");
+            return;
+        }
         
-        Debug.Log($"📦 {chestType} chest alındı - Client: {playerNetObj.OwnerClientId}");
+        // Eğer server'daysa direkt işlem yap
+        if (IsServer)
+        {
+            Debug.Log("✅ Server'da trigger - direkt işlem yapıyor");
+            HandleChestPickup(playerNetObj.OwnerClientId);
+        }
+        // Eğer client'taysa ve bu oyuncunun own ettiği player'ıysa server'a RPC gönder
+        else if (playerNetObj.IsOwner)
+        {
+            Debug.Log("✅ Client'ta trigger - Server'a RPC gönderiyor");
+            RequestChestPickupServerRpc(playerNetObj.OwnerClientId);
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestChestPickupServerRpc(ulong clientId)
+    {
+        Debug.Log($"🎯 Server RPC alındı! Client: {clientId}");
+        HandleChestPickup(clientId);
+    }
+    
+    private void HandleChestPickup(ulong clientId)
+    {
+        // Chest müsait değilse hiçbir şey yapma
+        if (!isAvailable.Value) 
+        {
+            Debug.Log("❌ Chest müsait değil!");
+            return;
+        }
+        
+        Debug.Log($"✅📦 {chestType} chest alındı - Client: {clientId}");
         
         // Chest'i devre dışı bırak
         isAvailable.Value = false;
         
         // Oyuncuya boost ver
-        ApplyBoostToPlayerClientRpc(playerNetObj.OwnerClientId);
+        ApplyBoostToPlayerClientRpc(clientId);
         
         // Pickup effect göster
         ShowPickupEffectClientRpc();
@@ -66,21 +100,40 @@ public class NetworkChest : NetworkBehaviour
     [ClientRpc]
     private void ApplyBoostToPlayerClientRpc(ulong targetClientId)
     {
+        Debug.Log($"🎯 ClientRPC alındı! Target: {targetClientId}, LocalClient: {NetworkManager.Singleton.LocalClientId}");
+        
         // Sadece hedef client boost alsın
-        if (NetworkManager.Singleton.LocalClientId != targetClientId) return;
+        if (NetworkManager.Singleton.LocalClientId != targetClientId) 
+        {
+            Debug.Log("❌ Bu client'a gönderilmemiş, ignore ediliyor");
+            return;
+        }
+        
+        Debug.Log($"✅ Bu client'a gönderilmiş! Player aranıyor...");
         
         // Oyuncuyu bul
         var networkObjects = FindObjectsOfType<NetworkObject>();
+        Debug.Log($"🔍 {networkObjects.Length} NetworkObject bulundu");
+        
         foreach (var netObj in networkObjects)
         {
+            Debug.Log($"🔍 Kontrol: {netObj.name} - Owner: {netObj.OwnerClientId} - Tag: {netObj.tag}");
+            
             if (netObj.OwnerClientId == targetClientId && netObj.CompareTag("Player"))
             {
+                Debug.Log($"✅ Player bulundu: {netObj.name}");
+                
                 // CharacterMover'a direkt boost uygula (BoostReceiver'a gerek yok!)
                 var characterMover = netObj.GetComponent<Controller.CharacterMover>();
                 if (characterMover != null)
                 {
+                    Debug.Log($"✅ CharacterMover bulundu, boost uygulanıyor...");
                     ApplyBoostDirectly(characterMover, chestType);
                     break;
+                }
+                else
+                {
+                    Debug.LogWarning($"❌ {netObj.name}'de CharacterMover component yok!");
                 }
             }
         }

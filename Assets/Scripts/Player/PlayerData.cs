@@ -10,6 +10,10 @@ public class PlayerData
 
     public List<CustomizationRecord> CustomizationRecords = new List<CustomizationRecord>();
     public Dictionary<string, string> CustomizationData = new Dictionary<string, string>();
+    
+    // Dans/Emote Sistemi
+    public string[] DanceSlots = new string[4]; // 4 dans slotu
+    public List<DanceSlotRecord> DanceSlotRecords = new List<DanceSlotRecord>();
 
     public void RestoreCustomizationData()
     {
@@ -70,6 +74,68 @@ public class PlayerData
             return CustomizationData != null && CustomizationData.Count > 0;
         }
     }
+    
+    // Dans Sistemi Metotları
+    public void RestoreDanceSlots()
+    {
+        if (DanceSlots == null)
+            DanceSlots = new string[4];
+
+        if (DanceSlotRecords == null || DanceSlotRecords.Count == 0)
+        {
+            Debug.LogWarning("❌ RestoreDanceSlots iptal edildi → DanceSlotRecords boş.");
+            return;
+        }
+
+        for (int i = 0; i < DanceSlotRecords.Count && i < DanceSlots.Length; i++)
+        {
+            DanceSlots[i] = DanceSlotRecords[i].DanceName;
+        }
+
+        Debug.Log("✅ RestoreDanceSlots başarıyla tamamlandı.");
+    }
+
+    public void BakeDanceSlots()
+    {
+        DanceSlotRecords = new List<DanceSlotRecord>();
+
+        if (DanceSlots == null)
+        {
+            Debug.LogWarning("❌ BakeDanceSlots iptal edildi → DanceSlots boş.");
+            return;
+        }
+
+        for (int i = 0; i < DanceSlots.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(DanceSlots[i]))
+            {
+                DanceSlotRecords.Add(new DanceSlotRecord
+                {
+                    SlotIndex = i,
+                    DanceName = DanceSlots[i]
+                });
+            }
+        }
+
+        Debug.Log("✅ BakeDanceSlots başarıyla tamamlandı.");
+    }
+
+    public void EnsureDanceSlotsReady()
+    {
+        if (DanceSlots == null)
+            DanceSlots = new string[4];
+
+        if (DanceSlotRecords == null)
+            DanceSlotRecords = new List<DanceSlotRecord>();
+    }
+
+    public bool IsDanceSlotsLoaded
+    {
+        get
+        {
+            return DanceSlots != null && DanceSlots.Length > 0;
+        }
+    }
 }
 
 [System.Serializable]
@@ -77,4 +143,11 @@ public class CustomizationRecord
 {
     public string Slot;
     public string MeshName;
+}
+
+[System.Serializable]
+public class DanceSlotRecord
+{
+    public int SlotIndex;
+    public string DanceName;
 }
