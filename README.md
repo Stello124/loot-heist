@@ -211,7 +211,7 @@ Bu sprintte oyun deneyimini tamamlayıcı bileşenlere odaklanıldı:
 ## 📌 Tamamlananlar
 
 1. Unity Netcode kullanılarak multiplayer senkronizasyonu sağlandı. Oyuncular artık aynı lobide birlikte oynayabilir.
-2. :Lobby sistemi kuruldu oyuncuların bir araya gelmesi, countdown sonrası oyunun başlaması ve sahne geçişleri gerçekleştirildi.
+2. Lobby sistemi kuruldu oyuncuların bir araya gelmesi, countdown sonrası oyunun başlaması ve sahne geçişleri gerçekleştirildi.
 3. 2 farklı mini oyun oynanabilir duruma getirildi ve online entegrasyonu yapıldı:
 
 - Yarış
