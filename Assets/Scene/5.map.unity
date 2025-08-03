@@ -2688,6 +2688,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3229967980566484898, guid: 32b919b4bcec6a847ac075de1950b1c1, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4234914079
+      objectReference: {fileID: 0}
     - target: {fileID: 5263446895104707862, guid: 32b919b4bcec6a847ac075de1950b1c1, type: 3}
       propertyPath: m_Name
       value: NazarKarakter
