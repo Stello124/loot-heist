@@ -13,5 +13,15 @@ public class Rotator : MonoBehaviour
 
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (!GameStarterManager.GameStarted) return;
+        HealthController health = other.GetComponent<HealthController>();
+        if (health != null)
+        {
+            health.TakeDamage(1);
+        }
+    }
+
 }
 
