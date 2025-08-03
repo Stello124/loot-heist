@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Controller;
 
 public class GlobalPlayerSpawner : NetworkBehaviour
 {
@@ -126,6 +127,8 @@ public class GlobalPlayerSpawner : NetworkBehaviour
 
     private void SpawnPlayerForClient(ulong clientId, string reason)
     {
+        Debug.Log($"🚀 SpawnPlayerForClient çağrıldı! ClientID: {clientId}, Reason: {reason}");
+        
         if (spawnedClients.Contains(clientId))
         {
             Debug.Log($"⚠️ Client {clientId} zaten spawn edildi ({reason})");
@@ -151,8 +154,10 @@ public class GlobalPlayerSpawner : NetworkBehaviour
         }
 
         // Spawn pozisyonu hesapla
+        Debug.Log($"📍 Spawn pozisyonu hesaplanıyor... ClientID: {clientId}, Scene: {SceneManager.GetActiveScene().name}");
         Vector3 spawnPos = GetSpawnPositionForCurrentScene(clientId);
         Quaternion spawnRot = GetSpawnRotationForCurrentScene(clientId);
+        Debug.Log($"📍 Final spawn pozisyonu: {spawnPos}");
 
         // Instantiate ve spawn
         GameObject obj = Instantiate(selectedPrefab, spawnPos, spawnRot);
@@ -179,7 +184,29 @@ public class GlobalPlayerSpawner : NetworkBehaviour
         AddSceneSpecificComponents(obj);
 
         Debug.Log($"✅ Player spawn edildi: {selectedPrefab.name} → Scene: {SceneManager.GetActiveScene().name} → Client: {clientId} ({reason})");
+        
+        // RaceGameManager'a yeni oyuncu bildirimi (1.map için)
+        NotifyRaceGameManager(clientId);
     }
+
+    private void NotifyRaceGameManager(ulong clientId)
+    {
+        // Sadece 1.map'te çalışsın
+        if (SceneManager.GetActiveScene().name != "1.map") return;
+
+        var raceGameManager = FindObjectOfType<RaceGameManager>();
+        if (raceGameManager != null)
+        {
+            Debug.Log($"🏁 RaceGameManager'a yeni oyuncu bildiriliyor: {clientId}");
+            raceGameManager.OnNewPlayerSpawned(clientId);
+        }
+        else
+        {
+            Debug.Log("⚠️ RaceGameManager bulunamadı (1.map değil veya henüz yüklenmedi)");
+        }
+    }
+
+
 
     // 🎨 CUSTOMIZATION UYGULA (SENİN KODUN)
     private void ApplyPlayerCustomization(GameObject playerObj, ulong clientId)
@@ -284,6 +311,11 @@ public class GlobalPlayerSpawner : NetworkBehaviour
     {
         var sortedClientIds = NetworkManager.Singleton.ConnectedClientsIds.OrderBy(id => id).ToList();
         int index = sortedClientIds.IndexOf(clientId);
+        
+        Debug.Log($"🔢 GetPlayerIndex - ClientID: {clientId}");
+        Debug.Log($"🔢 Connected IDs: [{string.Join(", ", sortedClientIds)}]");
+        Debug.Log($"🔢 Calculated Index: {index}");
+        
         return Mathf.Max(0, index);
     }
 
@@ -388,43 +420,64 @@ public class GlobalPlayerSpawner : NetworkBehaviour
     // 🔍 SPAWN POINT'LERİ BULMAK
     private Transform[] FindSpawnPointsInScene(string parentName)
     {
+        Debug.Log($"🔍 FindSpawnPointsInScene başladı: '{parentName}'");
+        
         // Specific parent ara
         GameObject parent = GameObject.Find(parentName);
         if (parent != null && parent.transform.childCount > 0)
         {
+            Debug.Log($"✅ '{parentName}' bulundu! Child count: {parent.transform.childCount}");
             Transform[] points = new Transform[parent.transform.childCount];
             for (int i = 0; i < points.Length; i++)
             {
                 points[i] = parent.transform.GetChild(i);
+                Debug.Log($"   📍 Spawn Point {i}: {points[i].name} at {points[i].position}");
             }
             return points;
+        }
+        else
+        {
+            Debug.LogWarning($"⚠️ '{parentName}' bulunamadı veya child yok");
         }
 
         // Genel SpawnPoints ara
         parent = GameObject.Find("SpawnPoints");
         if (parent != null && parent.transform.childCount > 0)
         {
+            Debug.Log($"✅ Genel 'SpawnPoints' bulundu! Child count: {parent.transform.childCount}");
             Transform[] points = new Transform[parent.transform.childCount];
             for (int i = 0; i < points.Length; i++)
             {
                 points[i] = parent.transform.GetChild(i);
+                Debug.Log($"   📍 Spawn Point {i}: {points[i].name} at {points[i].position}");
             }
             return points;
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ Genel 'SpawnPoints' bulunamadı veya child yok");
         }
 
         // Tag ile ara
         GameObject[] spawnObjs = GameObject.FindGameObjectsWithTag("SpawnPoint");
         if (spawnObjs.Length > 0)
         {
+            Debug.Log($"✅ Tag ile spawn point bulundu! Count: {spawnObjs.Length}");
             System.Array.Sort(spawnObjs, (a, b) => a.name.CompareTo(b.name));
             Transform[] points = new Transform[spawnObjs.Length];
             for (int i = 0; i < spawnObjs.Length; i++)
             {
                 points[i] = spawnObjs[i].transform;
+                Debug.Log($"   📍 Spawn Point {i}: {points[i].name} at {points[i].position}");
             }
             return points;
         }
+        else
+        {
+            Debug.LogWarning("⚠️ Hiçbir 'SpawnPoint' tag'i bulunamadı");
+        }
 
+        Debug.LogError($"❌ Hiçbir spawn point bulunamadı: '{parentName}'");
         return null;
     }
 

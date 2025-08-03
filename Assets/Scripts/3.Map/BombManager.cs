@@ -23,6 +23,36 @@ public class BombManager : NetworkBehaviour
         // Scene değişiminde bomba temizle
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsServer) return;
+
+        Debug.Log("💣 BombManager Server aktif!");
+        
+        // Oyunu otomatik başlat
+        StartCoroutine(AutoStartGameDelayed());
+    }
+
+    private IEnumerator AutoStartGameDelayed()
+    {
+        Debug.Log("⏰ Oyuncuların spawn olmasını bekliyorum...");
+        
+        // 2 saniye bekle ki oyuncular spawn olsun
+        yield return new WaitForSeconds(2f);
+        
+        // En az 2 oyuncu varsa oyunu başlat
+        var players = GlobalPlayerSpawner.GetAllPlayers();
+        if (players.Count >= 2)
+        {
+            Debug.Log($"🎮 {players.Count} oyuncu ile bomba oyunu başlatılıyor!");
+            StartBombGame();
+        }
+        else
+        {
+            Debug.Log("⚠️ Oyun başlatılamadı: En az 2 oyuncu gerekli");
+        }
+    }
     
     void OnDestroy()
     {
@@ -59,7 +89,7 @@ public class BombManager : NetworkBehaviour
     {
         if (!IsServer) return;
         
-        var players = NetworkSpawnManager3Map.GetAllNetworkPlayers();
+        var players = GlobalPlayerSpawner.GetAllPlayers();
         if (players.Count == 0)
         {
             Debug.LogWarning("💣 Bomba atanacak oyuncu yok!");
@@ -180,14 +210,20 @@ public class BombManager : NetworkBehaviour
     {
         if (!IsServer) return;
         
-        var remainingPlayers = NetworkSpawnManager3Map.GetAllNetworkPlayers();
+        var remainingPlayers = GlobalPlayerSpawner.GetAllPlayers();
         
         if (remainingPlayers.Count == 1)
         {
             GameObject winner = remainingPlayers[0];
-            Debug.Log($"🏆 {winner.name} kazandı!");
-
-            ShowWinnerClientRpc(winner.name);
+            NetworkObject winnerNetObj = winner.GetComponent<NetworkObject>();
+            
+            if (winnerNetObj != null)
+            {
+                Debug.Log($"🏆 {winner.name} kazandı! (Client: {winnerNetObj.OwnerClientId})");
+                
+                // Kazanan kişiden ismini iste
+                RequestWinnerNameClientRpc(winnerNetObj.OwnerClientId);
+            }
         }
         else if (remainingPlayers.Count > 1)
         {
@@ -200,13 +236,58 @@ public class BombManager : NetworkBehaviour
     }
     
     [ClientRpc]
-    private void ShowWinnerClientRpc(string winnerName)
+    private void RequestWinnerNameClientRpc(ulong winnerClientId)
     {
-        if (GameUI.Instance != null)
+        // Sadece kazanan kişi cevap versin
+        if (NetworkManager.Singleton.LocalClientId != winnerClientId) return;
+
+        string myName = "Host"; // Default
+        
+        // StartupManager'dan gerçek ismi al
+        if (!string.IsNullOrEmpty(StartupManager.PlayerName))
         {
-            GameUI.Instance.ShowWinText(winnerName);
+            myName = StartupManager.PlayerName;
         }
-        Time.timeScale = 0f;
+        else if (winnerClientId == 0)
+        {
+            myName = "Host";
+        }
+        else
+        {
+            myName = $"Player {winnerClientId}";
+        }
+
+        Debug.Log($"🏆 Bomba oyunu kazanan olarak ismimi gönderiyorum: {myName}");
+        
+        // İsmimi server'a gönder
+        SendWinnerNameServerRpc(myName, winnerClientId);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SendWinnerNameServerRpc(string winnerName, ulong winnerClientId)
+    {
+        Debug.Log($"🏆 Server aldı bomba kazanan ismi: {winnerName} (Client {winnerClientId})");
+        
+        // Tüm client'lara kazananın gerçek ismini gönder
+        ShowWinnerWithNameClientRpc(winnerName, winnerClientId);
+    }
+
+    [ClientRpc]
+    private void ShowWinnerWithNameClientRpc(string winnerName, ulong winnerClientId)
+    {
+        Debug.Log($"🏆 Bomba kazananı ismiyle gösteriliyor: {winnerName} (Client {winnerClientId})");
+        
+        BombGameUI bombUI = FindObjectOfType<BombGameUI>();
+        if (bombUI != null)
+        {
+            bombUI.ShowWinner(winnerName, winnerClientId);
+        }
+        else
+        {
+            Debug.LogError("❌ BombGameUI bulunamadı!");
+        }
+
+        Debug.Log($"🏆 Bomba oyunu bitti! Kazanan: {winnerName} (Client {winnerClientId})");
     }
 
     // Erişim için public getter
@@ -219,7 +300,7 @@ public class BombManager : NetworkBehaviour
     {
         if (clientId == 0) return null;
         
-        var players = NetworkSpawnManager3Map.GetAllNetworkPlayers();
+        var players = GlobalPlayerSpawner.GetAllPlayers();
         foreach (var player in players)
         {
             NetworkObject netObj = player.GetComponent<NetworkObject>();
