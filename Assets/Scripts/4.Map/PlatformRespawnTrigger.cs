@@ -55,7 +55,7 @@ public class PlatformRespawnTrigger : NetworkBehaviour
                 Debug.Log($"💀 Player eliminate ediliyor: {playerId} (4.map)");
                 
                 // Fall effect'lerini tüm client'larda göster
-                ShowFallEffectsClientRpc(other.transform.position, playerId);
+                ShowFallEffectsClientRpc(other.transform.position);
                 
                 // Eliminate et
                 platformManager.PlayerEliminated(playerId);
@@ -65,7 +65,7 @@ public class PlatformRespawnTrigger : NetworkBehaviour
                 Debug.Log($"🔄 Player respawn ediliyor: {playerId} (4.map)");
                 
                 // Fall effect'lerini tüm client'larda göster
-                ShowFallEffectsClientRpc(other.transform.position, playerId);
+                ShowFallEffectsClientRpc(other.transform.position);
                 
                 // Respawn et
                 StartCoroutine(RespawnPlayer(other.gameObject, playerId));
@@ -89,9 +89,6 @@ public class PlatformRespawnTrigger : NetworkBehaviour
             yield break;
         }
 
-        // Respawn effect'lerini tüm client'larda göster
-        ShowRespawnEffectsClientRpc(respawnPoint.position, playerId);
-        
         // Hemen teleport et (gecikme olmadan)
         TeleportPlayerClientRpc(playerId, respawnPoint.position);
         Debug.Log($"🔄 Player hemen respawn edildi: {playerId} at {respawnPoint.position} (4.map)");
@@ -114,18 +111,16 @@ public class PlatformRespawnTrigger : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void ShowFallEffectsClientRpc(Vector3 fallPosition, ulong playerId)
+    private void ShowFallEffectsClientRpc(Vector3 fallPosition)
     {
-        Debug.Log($"💧 ShowFallEffects çağrıldı: Player {playerId} at {fallPosition} (4.map)");
-        
-        // Fall effect göster (tüm client'larda)
+        // Fall effect göster
         if (fallEffect != null)
         {
             GameObject effect = Instantiate(fallEffect, fallPosition, Quaternion.identity);
             Destroy(effect, 3f); // 3 saniye sonra sil
         }
 
-        // Fall sound çal (tüm client'larda)
+        // Fall sound çal
         if (fallSound != null)
         {
             AudioSource.PlayClipAtPoint(fallSound, fallPosition);
@@ -222,33 +217,7 @@ public class PlatformRespawnTrigger : NetworkBehaviour
         Debug.Log("✅ Bu trigger elimination mode'a ayarlandı (4.map)");
     }
 
-    // Respawn effect'lerini göster (tüm client'larda)
-    [ClientRpc]
-    private void ShowRespawnEffectsClientRpc(Vector3 respawnPosition, ulong playerId)
-    {
-        Debug.Log($"✨ ShowRespawnEffects çağrıldı: Player {playerId} at {respawnPosition} (4.map)");
-        
-        // Respawn effect göster (teleport effect gibi)
-        if (fallEffect != null)
-        {
-            GameObject effect = Instantiate(fallEffect, respawnPosition, Quaternion.identity);
-            // Respawn için farklı renk - yeşil
-            var renderer = effect.GetComponent<Renderer>();
-            if (renderer != null) renderer.material.color = Color.green;
-            
-            Destroy(effect, 2f); // 2 saniye sonra efekti sil
-        }
 
-        // Respawn sound çal (farklı pitch ile)
-        if (fallSound != null)
-        {
-            var audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = fallSound;
-            audioSource.pitch = 1.2f; // Daha yüksek pitch
-            audioSource.Play();
-            Destroy(audioSource, 2f);
-        }
-    }
 
     // Respawn points'leri göster
     void OnDrawGizmosSelected()
