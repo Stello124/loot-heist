@@ -91,6 +91,7 @@ public class JoinLobby : MonoBehaviour
             LobbyStatic.LogPlayersInLobby(lobby);
 
             lobbySetupPanel.SetActive(false);
+            
             LobbyStatic.LoadLobbyRoom();
         }
         catch (Exception e)
@@ -129,6 +130,7 @@ public class JoinLobby : MonoBehaviour
             LobbyStatic.LogPlayersInLobby(lobby);
 
             lobbySetupPanel.SetActive(false);
+            
             LobbyStatic.LoadLobbyRoom();
         }
         catch (LobbyServiceException e)
