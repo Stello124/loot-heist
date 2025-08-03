@@ -187,7 +187,7 @@ Sprint Board Screenshot:
 # 🚀 Sprint 3
 
 ## 🎯 Sprint Notları
-Bu sprintte proje tamamlanma aşamasına geldi. Tüm mini oyunlar tamamlandı ve multiplayer senkronizasyon sistemi başarıyla entegre edildi. Oyunun oynanabilir ve sunuma hazır hale gelmesi sağlandı.
+Bu sprintte proje tamamlanma aşamasına geldi. Tüm mini oyunlar tamamlandı ve multiplayer senkronizasyon sistemi entegre edildi. Oyunun oynanabilir ve sunuma hazır hale gelmesi sağlandı.
 
 ## 📌 Sprint İçinde Tamamlanması Tahmin Edilen Puan
 100 Puan
