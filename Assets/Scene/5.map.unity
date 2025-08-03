@@ -3188,8 +3188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 17
-  maxSpeed: 90
-  acceleration: 8
+  maxSpeed: 100
+  acceleration: 5
 --- !u!65 &2105101953
 BoxCollider:
   m_ObjectHideFlags: 0
