@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEditor.PackageManager;
 
 public class CountdownManager : MonoBehaviour
 {
@@ -20,7 +19,7 @@ public class CountdownManager : MonoBehaviour
     IEnumerator StartGame()
     {
         panelUI.SetActive(true);
-        introText.text = "Dikkatli ol, düþme!";
+        introText.text = "Dikkatli ol, dï¿½ï¿½me!";
         countdownText.text = "";
 
         yield return new WaitForSeconds(2f);
@@ -33,7 +32,7 @@ public class CountdownManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        countdownText.text = "BAÞLA!";
+        countdownText.text = "BAï¿½LA!";
         yield return new WaitForSeconds(1f);
 
         countdownText.gameObject.SetActive(false);
