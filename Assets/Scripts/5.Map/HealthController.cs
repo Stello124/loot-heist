@@ -8,6 +8,7 @@ public class HealthController : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        UIManager.Instance.UpdateHearts(currentHealth);
     }
 
     public void TakeDamage(int amount)
@@ -15,6 +16,7 @@ public class HealthController : MonoBehaviour
         if (!GameStarterManager.GameStarted) return;
         currentHealth -= amount;
         Debug.Log("Can kaldý: " + currentHealth);
+        UIManager.Instance.UpdateHearts(currentHealth);
 
         if (currentHealth <= 0)
         {
