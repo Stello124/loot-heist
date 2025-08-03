@@ -20,8 +20,8 @@ public class PlatformGameManager : NetworkBehaviour
     [SerializeField] private PlatformUI platformUI; // Kullanıcı arayüzü
 
     [Header("Platform Game Settings")]
-    [SerializeField] private GameObject finishArea; // Bitiş alanı (opsiyonel)
-    [SerializeField] private bool lastPlayerWins = true; // Son kalan kazanır mı, yoksa ilk bitiren mi?
+    [SerializeField] private GameObject finishArea; // Bitiş alanı (zorunlu)
+    [SerializeField] private bool lastPlayerWins = false; // false = İlk bitiren kazanır, true = Son kalan kazanır
 
     // Network variables
     private NetworkVariable<bool> isGameActive = new NetworkVariable<bool>(false);
@@ -45,11 +45,22 @@ public class PlatformGameManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        // UI'yi bul
+        // UI'yi bul veya validate et
         if (platformUI == null)
         {
             platformUI = FindObjectOfType<PlatformUI>();
-            Debug.Log($"🎯 PlatformUI bulundu: {(platformUI != null ? "✅" : "❌")}");
+            if (platformUI != null)
+            {
+                Debug.Log("🎯 PlatformUI otomatik bulundu ✅");
+            }
+            else
+            {
+                Debug.LogError("❌ PlatformUI bulunamadı! Inspector'da PlatformUI'yi manuel bağlayın veya sahneye PlatformUI GameObject'i ekleyin.");
+            }
+        }
+        else
+        {
+            Debug.Log("🎯 PlatformUI Inspector'dan bağlandı ✅");
         }
 
         // Network variable değişikliklerini dinle
@@ -214,7 +225,7 @@ public class PlatformGameManager : NetworkBehaviour
         isGameActive.Value = true;
         gameStarted = true;
 
-        Debug.Log("🟡 Platform oyunu başladı! Oyuncular hareket edebilir! (4.map)");
+        Debug.Log("🟡 Platform race başladı! İlk bitiren kazanır! (4.map)");
 
         // Oyuncuları serbest bırak
         FreezeAllPlayersClientRpc(false);
@@ -290,20 +301,27 @@ public class PlatformGameManager : NetworkBehaviour
 
         Debug.Log($"💀 Player eliminated: {clientId} (4.map)");
 
-        // Kalan oyuncu sayısını kontrol et
-        int remainingPlayers = GetConnectedPlayerCount();
-        if (remainingPlayers <= 1)
+        // LastPlayerWins modunda: Kalan oyuncu sayısını kontrol et
+        if (lastPlayerWins)
         {
-            // Son oyuncu kaldı - o kazandı
-            foreach (ulong playerId in NetworkManager.Singleton.ConnectedClientsIds)
+            int remainingPlayers = GetConnectedPlayerCount();
+            if (remainingPlayers <= 1)
             {
-                if (playerId != clientId) // Eliminate olan haricindeki
+                // Son oyuncu kaldı - o kazandı
+                foreach (ulong playerId in NetworkManager.Singleton.ConnectedClientsIds)
                 {
-                    winnerClientId.Value = playerId;
-                    break;
+                    if (playerId != clientId) // Eliminate olan haricindeki
+                    {
+                        winnerClientId.Value = playerId;
+                        break;
+                    }
                 }
+                EndGame();
             }
-            EndGame();
+        }
+        else
+        {
+            Debug.Log("⚠️ Race modunda elimination göz ardı edildi - sadece respawn çalışır (4.map)");
         }
     }
 
@@ -315,7 +333,7 @@ public class PlatformGameManager : NetworkBehaviour
         isGameActive.Value = false;
         gameEnded = true;
 
-        Debug.Log($"🏆 Platform oyunu bitti! Kazanan: {winnerClientId.Value} (4.map)");
+        Debug.Log($"🏆 Platform race bitti! Kazanan: {winnerClientId.Value} (4.map)");
 
         // Oyuncuları dondur
         FreezeAllPlayersClientRpc(true);

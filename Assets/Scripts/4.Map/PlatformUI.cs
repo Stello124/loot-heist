@@ -5,195 +5,94 @@ using UnityEngine.SceneManagement;
 using Unity.Netcode;
 
 /// <summary>
-/// 4.map platform oyunu UI sistemi - 1.map'teki RaceUI'dan uyarlandı
+/// 4.map platform oyunu UI sistemi - Manuel düzenlenebilir versiyon
+/// Inspector'dan UI elemanlarını bağla ve özelleştir
 /// </summary>
 public class PlatformUI : MonoBehaviour
 {
-    [Header("UI Panels")]
+    [Header("🎨 UI Panel Bağlantıları")]
+    [Tooltip("Bekleme ve countdown için ana panel")]
     public GameObject startPanel;
+    [Tooltip("Kazanan gösterimi için panel")]
     public GameObject winnerPanel;
 
-    [Header("UI Texts")]
+    [Header("📝 UI Text Bağlantıları")]
+    [Tooltip("Bekleme/countdown text'i")]
     public TextMeshProUGUI startText;
+    [Tooltip("Kazanan text'i")]
     public TextMeshProUGUI winnerText;
 
-    [Header("UI Buttons")]
+    [Header("🔲 UI Button Bağlantıları")]
+    [Tooltip("Tekrar oyna butonu")]
     public Button playAgainButton;
+    [Tooltip("Lobby'e dön butonu")]
     public Button backToLobbyButton;
+
+    [Header("⚙️ Text Özelleştirmeleri")]
+    [Space(10)]
+    [Header("Waiting Phase Ayarları")]
+    public string waitingTitleText = "Platform Race";
+    public string waitingSubText = "İlk bitiren kazanır!";
+    public float waitingFontSize = 42f;
+    public Color waitingTextColor = Color.white;
+
+    [Header("Countdown Phase Ayarları")]
+    public string countdownTitleText = "PLATFORM RACE BAŞLIYOR!";
+    public string countdownSubText = "İlk bitiren kazanır!";
+    public float countdownFontSize = 48f;
+    public Color countdownTextColor = Color.yellow;
+
+    [Header("Winner Phase Ayarları")]
+    public string winnerTitleWin = "🏆 KAZANDIN! 🏆";
+    public string winnerTitleLose = "🏆 {WINNER} KAZANDI! 🏆";
+    public string winnerSubText = "Platform Race Şampiyonu!";
+    public float winnerFontSize = 56f;
+    public Color winnerColorWin = Color.green;
+    public Color winnerColorLose = Color.yellow;
 
     private void Start()
     {
-        CreateUIIfMissing();
+        ValidateUIComponents();
         SetupButtons();
         ResetUI();
     }
 
-    private void CreateUIIfMissing()
+    private void ValidateUIComponents()
     {
-        // Canvas bulup yoksa oluştur
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas == null)
-        {
-            GameObject canvasObj = new GameObject("PlatformCanvas");
-            canvas = canvasObj.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvasObj.AddComponent<UnityEngine.UI.CanvasScaler>();
-            canvasObj.AddComponent<UnityEngine.UI.GraphicRaycaster>();
-            Debug.Log("✅ Canvas oluşturuldu (4.map)");
-        }
+        bool hasErrors = false;
 
-        // StartPanel oluştur
         if (startPanel == null)
         {
-            startPanel = new GameObject("StartPanel");
-            startPanel.transform.SetParent(canvas.transform, false);
-            
-            // Panel background
-            UnityEngine.UI.Image panelImage = startPanel.AddComponent<UnityEngine.UI.Image>();
-            panelImage.color = new Color(0, 0, 0, 0.8f); // Yarı saydam siyah
-            
-            // RectTransform ayarla
-            RectTransform panelRect = startPanel.GetComponent<RectTransform>();
-            panelRect.anchorMin = Vector2.zero;
-            panelRect.anchorMax = Vector2.one;
-            panelRect.offsetMin = Vector2.zero;
-            panelRect.offsetMax = Vector2.zero;
-            
-            Debug.Log("✅ StartPanel oluşturuldu (4.map)");
+            Debug.LogError("❌ Start Panel atanmamış! Inspector'da bağlayın. (4.map)");
+            hasErrors = true;
         }
 
-        // StartText oluştur
-        if (startText == null)
-        {
-            GameObject textObj = new GameObject("StartText");
-            textObj.transform.SetParent(startPanel.transform, false);
-            
-            startText = textObj.AddComponent<TextMeshProUGUI>();
-            startText.text = "Platform Oyunu Hazırlanıyor...";
-            startText.fontSize = 48;
-            startText.color = Color.white;
-            startText.alignment = TextAlignmentOptions.Center;
-            
-            // RectTransform ayarla
-            RectTransform textRect = textObj.GetComponent<RectTransform>();
-            textRect.anchorMin = Vector2.zero;
-            textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = Vector2.zero;
-            textRect.offsetMax = Vector2.zero;
-            
-            Debug.Log("✅ StartText oluşturuldu (4.map)");
-        }
-
-        // WinnerPanel oluştur
         if (winnerPanel == null)
         {
-            winnerPanel = new GameObject("WinnerPanel");
-            winnerPanel.transform.SetParent(canvas.transform, false);
-            
-            // Panel background
-            UnityEngine.UI.Image winnerPanelImage = winnerPanel.AddComponent<UnityEngine.UI.Image>();
-            winnerPanelImage.color = new Color(0, 0, 0, 0.9f);
-            
-            // RectTransform ayarla
-            RectTransform winnerRect = winnerPanel.GetComponent<RectTransform>();
-            winnerRect.anchorMin = Vector2.zero;
-            winnerRect.anchorMax = Vector2.one;
-            winnerRect.offsetMin = Vector2.zero;
-            winnerRect.offsetMax = Vector2.zero;
-            
-            Debug.Log("✅ WinnerPanel oluşturuldu (4.map)");
+            Debug.LogError("❌ Winner Panel atanmamış! Inspector'da bağlayın. (4.map)");
+            hasErrors = true;
         }
 
-        // WinnerText oluştur
+        if (startText == null)
+        {
+            Debug.LogError("❌ Start Text atanmamış! Inspector'da bağlayın. (4.map)");
+            hasErrors = true;
+        }
+
         if (winnerText == null)
         {
-            GameObject winnerTextObj = new GameObject("WinnerText");
-            winnerTextObj.transform.SetParent(winnerPanel.transform, false);
-            
-            winnerText = winnerTextObj.AddComponent<TextMeshProUGUI>();
-            winnerText.text = "Kazanan Belirleniyor...";
-            winnerText.fontSize = 56;
-            winnerText.color = Color.yellow;
-            winnerText.alignment = TextAlignmentOptions.Center;
-            
-            // RectTransform ayarla
-            RectTransform winnerTextRect = winnerTextObj.GetComponent<RectTransform>();
-            winnerTextRect.anchorMin = new Vector2(0, 0.6f);
-            winnerTextRect.anchorMax = new Vector2(1, 0.9f);
-            winnerTextRect.offsetMin = Vector2.zero;
-            winnerTextRect.offsetMax = Vector2.zero;
-            
-            Debug.Log("✅ WinnerText oluşturuldu (4.map)");
+            Debug.LogError("❌ Winner Text atanmamış! Inspector'da bağlayın. (4.map)");
+            hasErrors = true;
         }
 
-        // PlayAgain Button oluştur
-        if (playAgainButton == null)
+        if (hasErrors)
         {
-            GameObject buttonObj = new GameObject("PlayAgainButton");
-            buttonObj.transform.SetParent(winnerPanel.transform, false);
-            
-            playAgainButton = buttonObj.AddComponent<Button>();
-            UnityEngine.UI.Image buttonImage = buttonObj.AddComponent<UnityEngine.UI.Image>();
-            buttonImage.color = new Color(0, 0.7f, 0, 1f); // Yeşil
-            
-            // Button text
-            GameObject buttonTextObj = new GameObject("ButtonText");
-            buttonTextObj.transform.SetParent(buttonObj.transform, false);
-            TextMeshProUGUI buttonText = buttonTextObj.AddComponent<TextMeshProUGUI>();
-            buttonText.text = "Tekrar Oyna";
-            buttonText.fontSize = 24;
-            buttonText.color = Color.white;
-            buttonText.alignment = TextAlignmentOptions.Center;
-            
-            // RectTransform ayarları
-            RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
-            buttonRect.anchorMin = new Vector2(0.2f, 0.3f);
-            buttonRect.anchorMax = new Vector2(0.4f, 0.5f);
-            buttonRect.offsetMin = Vector2.zero;
-            buttonRect.offsetMax = Vector2.zero;
-            
-            RectTransform buttonTextRect = buttonTextObj.GetComponent<RectTransform>();
-            buttonTextRect.anchorMin = Vector2.zero;
-            buttonTextRect.anchorMax = Vector2.one;
-            buttonTextRect.offsetMin = Vector2.zero;
-            buttonTextRect.offsetMax = Vector2.zero;
-            
-            Debug.Log("✅ PlayAgainButton oluşturuldu (4.map)");
+            Debug.LogError("🚨 UI SETUP HATASI: Manuel olarak UI elemanlarını oluşturup Inspector'da bağlayın! (4.map)");
+            Debug.LogError("📖 Detaylı rehber: 4MAP_MANUAL_UI_SETUP_REHBERI.md");
         }
-
-        // BackToLobby Button oluştur
-        if (backToLobbyButton == null)
+        else
         {
-            GameObject buttonObj = new GameObject("BackToLobbyButton");
-            buttonObj.transform.SetParent(winnerPanel.transform, false);
-            
-            backToLobbyButton = buttonObj.AddComponent<Button>();
-            UnityEngine.UI.Image buttonImage = buttonObj.AddComponent<UnityEngine.UI.Image>();
-            buttonImage.color = new Color(0.7f, 0, 0, 1f); // Kırmızı
-            
-            // Button text
-            GameObject buttonTextObj = new GameObject("ButtonText");
-            buttonTextObj.transform.SetParent(buttonObj.transform, false);
-            TextMeshProUGUI buttonText = buttonTextObj.AddComponent<TextMeshProUGUI>();
-            buttonText.text = "Lobby'e Dön";
-            buttonText.fontSize = 24;
-            buttonText.color = Color.white;
-            buttonText.alignment = TextAlignmentOptions.Center;
-            
-            // RectTransform ayarları
-            RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
-            buttonRect.anchorMin = new Vector2(0.6f, 0.3f);
-            buttonRect.anchorMax = new Vector2(0.8f, 0.5f);
-            buttonRect.offsetMin = Vector2.zero;
-            buttonRect.offsetMax = Vector2.zero;
-            
-            RectTransform buttonTextRect = buttonTextObj.GetComponent<RectTransform>();
-            buttonTextRect.anchorMin = Vector2.zero;
-            buttonTextRect.anchorMax = Vector2.one;
-            buttonTextRect.offsetMin = Vector2.zero;
-            buttonTextRect.offsetMax = Vector2.zero;
-            
-            Debug.Log("✅ BackToLobbyButton oluşturuldu (4.map)");
+            Debug.Log("✅ Tüm UI elemanları başarıyla bağlandı! (4.map)");
         }
     }
 
@@ -228,9 +127,18 @@ public class PlatformUI : MonoBehaviour
 
         if (startText != null)
         {
-            startText.text = $"Oyuncular Bekleniyor...\n{joinedCount}/{expectedCount}\n\nPlatform Oyunu";
-            startText.fontSize = 48;
-            startText.color = Color.white;
+            // Özelleştirilebilir text formatı
+            string formattedText = $"Oyuncular Bekleniyor...\n{joinedCount}/{expectedCount}";
+            
+            if (!string.IsNullOrEmpty(waitingTitleText))
+                formattedText += $"\n\n{waitingTitleText}";
+                
+            if (!string.IsNullOrEmpty(waitingSubText))
+                formattedText += $"\n{waitingSubText}";
+
+            startText.text = formattedText;
+            startText.fontSize = waitingFontSize;
+            startText.color = waitingTextColor;
             Debug.Log($"✅ StartText güncellendi: {startText.text} (4.map)");
         }
         else
@@ -246,7 +154,16 @@ public class PlatformUI : MonoBehaviour
     {
         if (startText != null)
         {
-            startText.text = $"Oyuncular Bekleniyor...\n{joinedCount}/{expectedCount}\n{timeLeft}s\n\nPlatform Oyunu";
+            // Özelleştirilebilir timer formatı
+            string formattedText = $"Oyuncular Bekleniyor...\n{joinedCount}/{expectedCount}\n{timeLeft}s";
+            
+            if (!string.IsNullOrEmpty(waitingTitleText))
+                formattedText += $"\n\n{waitingTitleText}";
+                
+            if (!string.IsNullOrEmpty(waitingSubText))
+                formattedText += $"\n{waitingSubText}";
+
+            startText.text = formattedText;
             Debug.Log($"⏰ Waiting timer güncellendi: {timeLeft}s (4.map)");
         }
     }
@@ -263,13 +180,25 @@ public class PlatformUI : MonoBehaviour
         else
         {
             Debug.LogError("❌ StartPanel null! (4.map)");
+            return;
         }
 
         if (startText != null)
         {
-            startText.text = $"PLATFORM OYUNU BAŞLIYOR!\n{countdownValue}";
-            startText.fontSize = 52;
-            startText.color = Color.yellow;
+            // Özelleştirilebilir countdown formatı
+            string formattedText = "";
+            
+            if (!string.IsNullOrEmpty(countdownTitleText))
+                formattedText += $"{countdownTitleText}\n";
+                
+            formattedText += $"{countdownValue}";
+            
+            if (!string.IsNullOrEmpty(countdownSubText))
+                formattedText += $"\n\n{countdownSubText}";
+
+            startText.text = formattedText;
+            startText.fontSize = countdownFontSize;
+            startText.color = countdownTextColor;
             Debug.Log($"✅ Countdown text güncellendi: {startText.text} (4.map)");
         }
         else
@@ -282,7 +211,18 @@ public class PlatformUI : MonoBehaviour
     {
         if (startText != null)
         {
-            startText.text = $"PLATFORM OYUNU BAŞLIYOR!\n{countdownValue}";
+            // Özelleştirilebilir countdown update formatı
+            string formattedText = "";
+            
+            if (!string.IsNullOrEmpty(countdownTitleText))
+                formattedText += $"{countdownTitleText}\n";
+                
+            formattedText += $"{countdownValue}";
+            
+            if (!string.IsNullOrEmpty(countdownSubText))
+                formattedText += $"\n\n{countdownSubText}";
+
+            startText.text = formattedText;
             Debug.Log($"⏰ Countdown güncellendi: {countdownValue} (4.map)");
         }
     }
@@ -316,25 +256,37 @@ public class PlatformUI : MonoBehaviour
         else
         {
             Debug.LogError("❌ WinnerPanel null! (4.map)");
+            return;
         }
 
         if (winnerText != null)
         {
             string winnerName = $"Oyuncu {winnerClientId}";
+            bool isLocalPlayerWinner = NetworkManager.Singleton != null && NetworkManager.Singleton.LocalClientId == winnerClientId;
             
-            // Eğer kazanan ben isem
-            if (NetworkManager.Singleton != null && NetworkManager.Singleton.LocalClientId == winnerClientId)
+            // Özelleştirilebilir winner formatı
+            string formattedText = "";
+            Color textColor;
+            
+            if (isLocalPlayerWinner)
             {
-                winnerText.text = $"🏆 KAZANDIN! 🏆\n\nPlatform Ustası!";
-                winnerText.color = Color.green;
+                // Ben kazandım
+                formattedText = winnerTitleWin;
+                textColor = winnerColorWin;
             }
             else
             {
-                winnerText.text = $"🏆 {winnerName} KAZANDI! 🏆\n\nPlatform Ustası!";
-                winnerText.color = Color.yellow;
+                // Başkası kazandı
+                formattedText = winnerTitleLose.Replace("{WINNER}", winnerName);
+                textColor = winnerColorLose;
             }
             
-            winnerText.fontSize = 56;
+            if (!string.IsNullOrEmpty(winnerSubText))
+                formattedText += $"\n\n{winnerSubText}";
+
+            winnerText.text = formattedText;
+            winnerText.fontSize = winnerFontSize;
+            winnerText.color = textColor;
             Debug.Log($"✅ WinnerText güncellendi: {winnerText.text} (4.map)");
         }
         else
@@ -383,7 +335,7 @@ public class PlatformUI : MonoBehaviour
         }
     }
 
-    // Debug için
+    // Debug ve test için context menu'ler
     [ContextMenu("🔍 Debug UI State")]
     public void DebugUIState()
     {
@@ -392,5 +344,60 @@ public class PlatformUI : MonoBehaviour
         Debug.Log($"  WinnerPanel: {(winnerPanel ? (winnerPanel.activeInHierarchy ? "Active" : "Inactive") : "NULL")}");
         Debug.Log($"  StartText: {(startText ? startText.text : "NULL")}");
         Debug.Log($"  WinnerText: {(winnerText ? winnerText.text : "NULL")}");
+    }
+
+    [ContextMenu("🧪 Test Waiting UI")]
+    public void TestWaitingUI()
+    {
+        Debug.Log("🧪 Testing Waiting UI...");
+        ShowWaitingForPlayers(2, 4);
+    }
+
+    [ContextMenu("🧪 Test Countdown UI")]
+    public void TestCountdownUI()
+    {
+        Debug.Log("🧪 Testing Countdown UI...");
+        ShowCountdown(5);
+    }
+
+    [ContextMenu("🧪 Test Winner UI (Win)")]
+    public void TestWinnerUIWin()
+    {
+        Debug.Log("🧪 Testing Winner UI (Win)...");
+        // Simulate local player win
+        if (NetworkManager.Singleton != null)
+        {
+            ShowWinner(NetworkManager.Singleton.LocalClientId);
+        }
+        else
+        {
+            ShowWinner(0); // Fallback
+        }
+    }
+
+    [ContextMenu("🧪 Test Winner UI (Lose)")]
+    public void TestWinnerUILose()
+    {
+        Debug.Log("🧪 Testing Winner UI (Lose)...");
+        // Simulate other player win
+        ShowWinner(999); // Different client ID
+    }
+
+    [ContextMenu("🔄 Reset UI")]
+    public void ManualResetUI()
+    {
+        Debug.Log("🔄 Manuel UI Reset...");
+        ResetUI();
+    }
+
+    [ContextMenu("⚙️ Apply Custom Settings")]
+    public void ApplyCustomSettings()
+    {
+        Debug.Log("⚙️ Custom ayarlar uygulanıyor...");
+        Debug.Log($"Waiting: {waitingTitleText} | {waitingSubText}");
+        Debug.Log($"Countdown: {countdownTitleText} | {countdownSubText}");
+        Debug.Log($"Winner Win: {winnerTitleWin}");
+        Debug.Log($"Winner Lose: {winnerTitleLose}");
+        Debug.Log("Inspector'da değişiklik yap ve tekrar test et!");
     }
 }

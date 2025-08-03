@@ -10,8 +10,8 @@ public class PlatformRespawnTrigger : NetworkBehaviour
 {
     [Header("Respawn Settings")]
     [SerializeField] private Transform[] respawnPoints; // Respawn noktaları
-    [SerializeField] private bool eliminateOnFall = false; // Düşünce eliminate olsun mu?
-    [SerializeField] private float respawnDelay = 2f; // Respawn gecikmesi
+    [SerializeField] private bool eliminateOnFall = false; // false = Respawn olur, true = Eliminate olur
+    [SerializeField] private float respawnDelay = 1f; // Respawn gecikmesi (race için hızlı)
     [SerializeField] private AudioClip fallSound; // Düşme sesi
 
     [Header("Effects")]
@@ -44,7 +44,7 @@ public class PlatformRespawnTrigger : NetworkBehaviour
         }
 
         ulong playerId = playerNetObj.OwnerClientId;
-        Debug.Log($"🟡 Player düştü: Client {playerId} (4.map)");
+        Debug.Log($"🟡 Player düştü - başa dönüyor: Client {playerId} (4.map)");
 
         // PlatformGameManager kontrolü
         PlatformGameManager platformManager = FindObjectOfType<PlatformGameManager>();
@@ -79,28 +79,23 @@ public class PlatformRespawnTrigger : NetworkBehaviour
 
     private IEnumerator RespawnPlayer(GameObject player, ulong playerId)
     {
-        // Player'ı geçici olarak deaktif et
-        SetPlayerActiveClientRpc(playerId, false);
-        
-        // Respawn gecikmesi
-        yield return new WaitForSeconds(respawnDelay);
+        Debug.Log($"🔄 Respawn başlatılıyor: {playerId} (4.map)");
         
         // Respawn noktası seç
         Transform respawnPoint = GetRandomRespawnPoint();
-        if (respawnPoint != null)
-        {
-            // Oyuncuyu respawn noktasına taşı
-            TeleportPlayerClientRpc(playerId, respawnPoint.position);
-            Debug.Log($"🔄 Player respawn edildi: {playerId} at {respawnPoint.position} (4.map)");
-        }
-        else
+        if (respawnPoint == null)
         {
             Debug.LogWarning("⚠️ Respawn point bulunamadı! (4.map)");
+            yield break;
         }
+
+        // Hemen teleport et (gecikme olmadan)
+        TeleportPlayerClientRpc(playerId, respawnPoint.position);
+        Debug.Log($"🔄 Player hemen respawn edildi: {playerId} at {respawnPoint.position} (4.map)");
         
-        // Player'ı tekrar aktif et
-        yield return new WaitForSeconds(0.1f);
-        SetPlayerActiveClientRpc(playerId, true);
+        // Küçük bekleme sonrası pozisyonu tekrar kontrol et
+        yield return new WaitForSeconds(0.2f);
+        ConfirmTeleportClientRpc(playerId, respawnPoint.position);
     }
 
     private Transform GetRandomRespawnPoint()
@@ -133,7 +128,7 @@ public class PlatformRespawnTrigger : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void SetPlayerActiveClientRpc(ulong targetPlayerId, bool active)
+    private void ConfirmTeleportClientRpc(ulong targetPlayerId, Vector3 targetPosition)
     {
         // Sadece ilgili client bu mesajı işlesin
         if (NetworkManager.Singleton.LocalClientId != targetPlayerId) return;
@@ -146,8 +141,18 @@ public class PlatformRespawnTrigger : NetworkBehaviour
                 var netObj = obj.GetComponent<NetworkObject>();
                 if (netObj != null && netObj.OwnerClientId == targetPlayerId)
                 {
-                    obj.SetActive(active);
-                    Debug.Log($"🔄 Player active state: {active} (4.map)");
+                    // Pozisyonu tekrar kontrol et ve düzelt
+                    obj.transform.position = targetPosition;
+                    
+                    // CharacterController varsa resetle
+                    var charController = obj.GetComponent<CharacterController>();
+                    if (charController != null)
+                    {
+                        charController.enabled = false;
+                        charController.enabled = true;
+                    }
+                    
+                    Debug.Log($"🔄 Teleport onaylandı: {targetPosition} (4.map)");
                     break;
                 }
             }
@@ -160,6 +165,8 @@ public class PlatformRespawnTrigger : NetworkBehaviour
         // Sadece ilgili client bu mesajı işlesin
         if (NetworkManager.Singleton.LocalClientId != targetPlayerId) return;
 
+        Debug.Log($"🔄 TeleportPlayerClientRpc çağrıldı: {targetPlayerId} → {newPosition} (4.map)");
+
         var allObjects = FindObjectsOfType<GameObject>();
         foreach (var obj in allObjects)
         {
@@ -168,7 +175,24 @@ public class PlatformRespawnTrigger : NetworkBehaviour
                 var netObj = obj.GetComponent<NetworkObject>();
                 if (netObj != null && netObj.OwnerClientId == targetPlayerId)
                 {
+                    Debug.Log($"🔄 Player bulundu, teleport ediliyor: {obj.name} (4.map)");
+                    
+                    // CharacterController varsa geçici olarak kapat
+                    var charController = obj.GetComponent<CharacterController>();
+                    if (charController != null)
+                    {
+                        charController.enabled = false;
+                    }
+                    
+                    // Pozisyonu değiştir
                     obj.transform.position = newPosition;
+                    
+                    // CharacterController'ı tekrar aç
+                    if (charController != null)
+                    {
+                        charController.enabled = true;
+                    }
+                    
                     Debug.Log($"🔄 Player teleported to: {newPosition} (4.map)");
                     break;
                 }

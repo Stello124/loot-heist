@@ -1,13 +1,13 @@
-# 🟡 4.Map Platform Oyunu Bekleme Sistemi - KURULUM
+# 🟡 4.Map Platform Race Bekleme Sistemi - KURULUM
 
-## 🎯 YENİ PLATFORM OYUN AKIŞI:
+## 🎯 YENİ PLATFORM RACE AKIŞI:
 
 ```
 1. Host/Client oyuna girer → Karakterler DONUK kalır ❄️
 2. 30 saniye bekle diğer oyuncuları ⏰
 3. Herkes geldi → 8 saniye countdown 🚀
 4. Countdown bitti → Karakterler hareket edebilir! 🏃‍♂️
-5. Platform'lar düşer, son kalan kazanır! 🏆
+5. Platform'larda yarış, düşen başa döner, ilk bitiren kazanır! 🏆
 ```
 
 ## 🔧 UNITY'DE KURULUM:
@@ -22,7 +22,7 @@
    ✅ Waiting Time = 30 (saniye)
    ✅ Countdown Time = 8 (saniye)  
    ✅ Platform UI = PlatformCanvas'taki PlatformUI component'ini bağla
-   ✅ Last Player Wins = true (son kalan kazanır)
+   ✅ Last Player Wins = false (ilk bitiren kazanır)
 ```
 
 ### **2. PlatformUI Oluştur:**
@@ -51,12 +51,12 @@
 3. Add Component: NetworkObject
 4. Add Component: PlatformRespawnTrigger
 5. Inspector ayarları:
-   ✅ Eliminate On Fall = true (düşünce eliminate)
-   ✅ Respawn Delay = 2 saniye
-   ✅ Respawn Points = Respawn noktalarını ata
+   ✅ Eliminate On Fall = false (düşünce başa döner)
+   ✅ Respawn Delay = 1 saniye (hızlı respawn)
+   ✅ Respawn Points = Başlangıç noktalarını ata
 ```
 
-## 🎮 PLATFORM OYUNU AKIŞI:
+## 🎮 PLATFORM RACE AKIŞI:
 
 ### **Phase 1: Waiting (30 saniye)**
 ```
@@ -64,50 +64,55 @@ Ekran: "⏰ OYUNCULAR BEKLENİYOR
        2/4 Oyuncu Hazır  
        25 saniye kaldı
        
-       Platform Oyunu"
+       Platform Race
+       İlk bitiren kazanır!"
        
 Karakterler: DONUK ❄️ (hareket edemez)
 ```
 
 ### **Phase 2: Countdown (8 saniye)**  
 ```
-Ekran: "🟡 PLATFORM OYUNU BAŞLIYOR!
-       3"
+Ekran: "🟡 PLATFORM RACE BAŞLIYOR!
+       3
+       
+       İlk bitiren kazanır!"
        
 Karakterler: Hala DONUK ❄️
 ```
 
-### **Phase 3: Game Active**
+### **Phase 3: Race Active**
 ```
 Ekran: Panel kaybolur
 Karakterler: SERBEST 🏃‍♂️ (hareket edebilir)
-Platform'lar: Düşmeye başlar!
+Platform Race: Başlar! Düşen başa döner!
 ```
 
-### **Phase 4: Game Ended**
+### **Phase 4: Race Ended**
 ```
-Ekran: "🏆 [Kazanan] PLATFORM USTASI!"
+Ekran: "🏆 [Kazanan] PLATFORM RACE ŞAMPIYONU!"
 Karakterler: Tekrar DONUK ❄️
 ```
 
-## 🛠️ PLATFORM MEKAN YIKLERI:
+## 🛠️ PLATFORM RACE MEKANİKLERİ:
 
-### **Kazanma Yöntemleri:**
-1. **Son Kalan:** Tüm platform'lar düşer, ayakta kalan son oyuncu kazanır
-2. **İlk Bitiren:** Bitiş çizgisine ilk ulaşan kazanır (opsiyonel)
-
-### **Elimination Sistemi:**
-```
-- Oyuncu düşerse → PlatformRespawnTrigger tetiklenir
-- Eliminate On Fall = true → Oyuncu oyundan çıkar
-- Eliminate On Fall = false → Oyuncu respawn olur
-```
+### **Kazanma Yöntemi:**
+1. **İlk Bitiren:** Bitiş çizgisine ilk ulaşan kazanır! 🏁
+2. **Düşenler:** Başlangıç noktasına respawn olur 🔄
 
 ### **Respawn Sistemi:**
 ```
-- Respawn Points array'ine noktaları ata
-- Oyuncu düştüğünde random respawn point'e teleport olur
-- 2 saniye gecikmeli respawn
+- Oyuncu düşerse → PlatformRespawnTrigger tetiklenir
+- Eliminate On Fall = false → Oyuncu başa döner (eliminate olmaz)
+- Respawn Delay = 1 saniye → Hızlı başa dönüş
+- Respawn Points → Başlangıç pozisyonları
+```
+
+### **Race Mekanikleri:**
+```
+- Platform'lar düşer ama race devam eder
+- Düşen oyuncu başa döner, yarışa devam eder
+- İlk bitiş çizgisine ulaşan kazanır
+- Diğer tüm oyuncular durur
 ```
 
 ## 💻 NETWORK SİSTEMİ:
@@ -136,17 +141,17 @@ Karakterler: Tekrar DONUK ❄️
 ⏰ "Bekleme fazı başladı - Oyuncular donduruldu (4.map)"
 👤 "Yeni oyuncu spawn oldu: X (4.map)"  
 🚀 "Countdown fazı başladı (4.map)"
-🟡 "Platform oyunu başladı! (4.map)"
-💀 "Player eliminated: X (4.map)" veya 🏆 "Player finished: X (4.map)"
+🟡 "Platform race başladı! İlk bitiren kazanır! (4.map)"
+🔄 "Player düştü - başa dönüyor: X (4.map)" veya 🏆 "Player finished: X (4.map)"
 ```
 
 ### **UI'de görülecekler:**
 ```
 1. "⏰ OYUNCULAR BEKLENİYOR" paneli
-2. Countdown: "🟡 PLATFORM OYUNU BAŞLIYOR! 3"
+2. Countdown: "🟡 PLATFORM RACE BAŞLIYOR! 3"
 3. Panel kaybolur, hareket edebilir
-4. Platform'lar düşer, oyun başlar
-5. Kazanan paneli: "🏆 PLATFORM USTASI!"
+4. Platform race başlar, düşen başa döner
+5. Kazanan paneli: "🏆 PLATFORM RACE ŞAMPIYONU!"
 ```
 
 ## 🎯 KURULUM ADIMLARİ ÖZETİ:
@@ -165,11 +170,11 @@ PlatformGameManager:
 ├── Waiting Time: 30
 ├── Countdown Time: 8
 ├── Platform UI: PlatformUI component'ini bağla
-└── Last Player Wins: true
+└── Last Player Wins: false (ilk bitiren kazanır)
 
 PlatformRespawnTrigger:
-├── Eliminate On Fall: true
-├── Respawn Delay: 2
+├── Eliminate On Fall: false (başa döner)
+├── Respawn Delay: 1 (hızlı)
 └── Respawn Points: Respawn Transform'larını ata
 ```
 
@@ -201,9 +206,9 @@ PlatformRespawnTrigger:
 - ✅ **30 saniye waiting** → Oyuncular bekler
 - ✅ **8 saniye countdown** → Hazırlanır  
 - ✅ **Platform game active** → Platform oyunu başlar
-- ✅ **Last player wins** → Son kalan kazanır
+- ✅ **First player wins** → İlk bitiren kazanır
 - ✅ **Network sync** → Herkeste aynı anda
 - ✅ **UI feedback** → Anlık durum gösterimi
 - ✅ **Diğer map'ler etkilenmez** → 1.map, 3.map çalışır
 
-**4.MAP'A PLATFORM WAITING SİSTEMİ EKLENDİ!** 🟡🎯
+**4.MAP'A PLATFORM RACE SİSTEMİ EKLENDİ!** 🟡🏁
