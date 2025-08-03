@@ -384,6 +384,10 @@ public class RaceUI : MonoBehaviour
     private void OnBackToLobby()
     {
         Debug.Log("🏠 Back to Lobby tıklandı");
+        
+        // Lobby state'ini temizle
+        ClearLobbyState();
+        
         if (NetworkManager.Singleton != null)
         {
             if (NetworkManager.Singleton.IsServer)
@@ -396,5 +400,53 @@ public class RaceUI : MonoBehaviour
             }
         }
         SceneManager.LoadScene("LobbyBrowserScene");
+    }
+    
+    // Lobby state'ini temizle
+    private void ClearLobbyState()
+    {
+        Debug.Log("🧹 Lobby state temizleniyor...");
+        
+        // CurrentLobby component'ini bul ve temizle
+        CurrentLobby currentLobby = FindObjectOfType<CurrentLobby>();
+        if (currentLobby != null)
+        {
+            currentLobby.currentLobby = null;
+            Debug.Log("✅ CurrentLobby temizlendi");
+        }
+        
+        // LobbyRoomUI component'ini bul ve temizle
+        LobbyRoomUI lobbyRoomUI = FindObjectOfType<LobbyRoomUI>();
+        if (lobbyRoomUI != null)
+        {
+            // LobbyRoomUI'deki lobby referanslarını temizle
+            var lobbyRoomUIField = lobbyRoomUI.GetType().GetField("_currentLobby", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (lobbyRoomUIField != null)
+            {
+                lobbyRoomUIField.SetValue(lobbyRoomUI, null);
+                Debug.Log("✅ LobbyRoomUI _currentLobby temizlendi");
+            }
+            
+            var lobbyIdField = lobbyRoomUI.GetType().GetField("lobbyId", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (lobbyIdField != null)
+            {
+                lobbyIdField.SetValue(lobbyRoomUI, null);
+                Debug.Log("✅ LobbyRoomUI lobbyId temizlendi");
+            }
+        }
+        
+        // LobbyData Instance'ını temizle (eğer varsa)
+        if (LobbyData.Instance != null)
+        {
+            // LobbyData'nın static instance'ını temizle
+            var instanceField = typeof(LobbyData).GetField("Instance", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+            if (instanceField != null)
+            {
+                instanceField.SetValue(null, null);
+                Debug.Log("✅ LobbyData Instance temizlendi");
+            }
+        }
+        
+        Debug.Log("🧹 Lobby state temizleme tamamlandı - Yeni lobby için hazır");
     }
 }
