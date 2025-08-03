@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platform: {fileID: 2125425857166713180}
   checkAreaCenter: {fileID: 2125425857166713180}
-  checkAreaSize: {x: 1.82, y: 1.2, z: 5.34}
+  checkAreaSize: {x: 2.27, y: 1.2, z: 5.34}
   torqueForce: 15
   maxAngle: 70
   angularDrag: 3

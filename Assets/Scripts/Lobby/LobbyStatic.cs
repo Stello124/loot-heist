@@ -1,4 +1,4 @@
-using Unity.Services.Lobbies.Models;
+﻿using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +13,7 @@ public static class LobbyStatic
             if (player.Data.TryGetValue("PlayerName", out var nameObj))
                 Debug.Log("Player Name = " + nameObj.Value);
             else
-                Debug.Log("Player Name = �simsiz");
+                Debug.Log("Player Name = İsimsiz");
         }
     }
 

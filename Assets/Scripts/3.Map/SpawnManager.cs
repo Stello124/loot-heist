@@ -1,3 +1,7 @@
+﻿// NOT: Bu script artık kullanılmıyor!
+// NetworkSpawnManager3Map kullanın.
+// Sadece geriye uyumluluk için bırakılmıştır.
+
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -7,21 +11,34 @@ public class SpawnManager : MonoBehaviour
     public Transform[] spawnPoints;
     public int playerCount = 4;
 
-    public static List<GameObject> allPlayers = new List<GameObject>();
+    // DEPRECATED: GlobalPlayerSpawner.allPlayers kullanın
+    public static List<GameObject> allPlayers
+    {
+        get { return GlobalPlayerSpawner.GetAllPlayers(); }
+    }
 
     void Start()
     {
-        for (int i = 0; i < playerCount; i++)
+        Debug.LogWarning("⚠️ SpawnManager DEPRECATED! NetworkSpawnManager3Map kullanın.");
+        
+        // Offline modda çalışır ama multiplayer'da devre dışı
+        if (Unity.Netcode.NetworkManager.Singleton == null)
         {
-            int spawnIndex = i % spawnPoints.Length;
-            Transform spawnPoint = spawnPoints[spawnIndex];
+            // Offline mode
+            for (int i = 0; i < playerCount; i++)
+            {
+                int spawnIndex = i % spawnPoints.Length;
+                Transform spawnPoint = spawnPoints[spawnIndex];
 
-            GameObject player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
-            player.name = "Player" + (i + 1);
-            allPlayers.Add(player);
+                GameObject player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+                player.name = "Player" + (i + 1);
+            }
+            
+            if (BombManager.Instance != null)
+            {
+                BombManager.Instance.StartBombGame();
+            }
         }
-
-        BombManager.Instance.AssignBombToRandomPlayer();
     }
 }
 

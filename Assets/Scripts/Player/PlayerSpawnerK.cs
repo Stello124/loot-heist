@@ -4,27 +4,21 @@ using System.Collections;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject kartalPrefab;
+    [SerializeField] private GameObject playerPrefab;
 
     void Start()
     {
-        StartCoroutine(SpawnWhenReady());
+        NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
     }
 
-    IEnumerator SpawnWhenReady()
+    private void HandleClientConnected(ulong clientId)
     {
-        // NetworkManager hazýr olana kadar bekle
-        while (NetworkManager.Singleton == null || !NetworkManager.Singleton.IsServer)
-            yield return null;
-
-        if (kartalPrefab == null)
-        {
-            Debug.LogError("Kartal prefabý atanmadý!");
-            yield break;
-        }
+        if (!NetworkManager.Singleton.IsServer) return;
 
         Vector3 spawnPos = new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
-        GameObject playerObj = Instantiate(kartalPrefab, spawnPos, Quaternion.identity);
-        playerObj.GetComponent<NetworkObject>().Spawn();
+        GameObject playerObj = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+
+        // Karakteri bu client’e ait olarak spawn et
+        playerObj.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
     }
 }
