@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class PlatformSpawner : MonoBehaviour
+public class PlatformSpawner : NetworkBehaviour
 {
     public GameObject normalPlatformPrefab;
     public GameObject instantBreakPlatformPrefab;
@@ -10,9 +11,11 @@ public class PlatformSpawner : MonoBehaviour
     public float stepSpacing = 2.5f;
     public float laneSpacing = 2f;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        Debug.Log("PlatformSpawner başladı.");
+        if (!IsServer) return; // Sadece server platformları spawn etsin
+        
+        Debug.Log("PlatformSpawner başladı - Server'da platformlar spawn ediliyor.");
         SpawnPlatforms();
     }
 
@@ -49,7 +52,20 @@ public class PlatformSpawner : MonoBehaviour
 
             for (int j = 0; j < 3; j++)
             {
-                Instantiate(prefabs[j], positions[j], rotation);
+                // NetworkObject olarak spawn et
+                GameObject spawnedPlatform = Instantiate(prefabs[j], positions[j], rotation);
+                
+                // NetworkObject component'i varsa spawn et
+                NetworkObject netObj = spawnedPlatform.GetComponent<NetworkObject>();
+                if (netObj != null)
+                {
+                    netObj.Spawn();
+                    Debug.Log($"Network Platform spawn edildi: {spawnedPlatform.name} at {positions[j]}");
+                }
+                else
+                {
+                    Debug.LogWarning($"Platform'da NetworkObject yok: {spawnedPlatform.name}");
+                }
             }
 
             Debug.Log($"Adım {i + 1}: Platformlar karıştırılarak spawn edildi.");

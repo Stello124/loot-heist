@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Netcode;
 
-public class BreakablePlatform : MonoBehaviour
+public class BreakablePlatform : NetworkBehaviour
 {
     public GameObject platformToDisable;  // Mesh'li görsel platform objesi
     public float warningDuration = 1.5f;  // Yanıp sönme süresi
@@ -10,7 +11,8 @@ public class BreakablePlatform : MonoBehaviour
 
     private Renderer platformRenderer;
     private Collider platformCollider;
-    private bool isBreaking = false;
+    private NetworkVariable<bool> isBreaking = new NetworkVariable<bool>(false);
+    private NetworkVariable<bool> isBroken = new NetworkVariable<bool>(false);
 
     void Start()
     {
@@ -20,15 +22,33 @@ public class BreakablePlatform : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isBreaking && other.CompareTag("Player"))
+        if (!IsServer) return; // Sadece server'da çalışsın
+        
+        if (!isBreaking.Value && !isBroken.Value && other.CompareTag("Player"))
         {
-            StartCoroutine(BreakSequence());
+            Debug.Log($"💥 BreakablePlatform tetiklendi: {gameObject.name} - Player: {other.name}");
+            StartBreakSequenceServerRpc();
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void StartBreakSequenceServerRpc()
+    {
+        if (isBreaking.Value || isBroken.Value) return; // Zaten işlemdeyse işlem yapma
+        
+        isBreaking.Value = true;
+        StartBreakSequenceClientRpc();
+    }
+
+    [ClientRpc]
+    private void StartBreakSequenceClientRpc()
+    {
+        StartCoroutine(BreakSequence());
     }
 
     IEnumerator BreakSequence()
     {
-        isBreaking = true;
+        Debug.Log($"💥 BreakablePlatform yanıp sönmeye başladı: {gameObject.name}");
 
         float timer = 0f;
         while (timer < warningDuration)
@@ -38,13 +58,46 @@ public class BreakablePlatform : MonoBehaviour
             timer += blinkInterval;
         }
 
+        // Platform'u kır
+        if (IsServer)
+        {
+            isBroken.Value = true;
+            isBreaking.Value = false;
+            BreakPlatformClientRpc();
+        }
+    }
+    
+    [ClientRpc]
+    private void BreakPlatformClientRpc()
+    {
+        Debug.Log($"💥 BreakablePlatform kırıldı: {gameObject.name}");
         platformRenderer.enabled = false;
         platformCollider.enabled = false;
-
+        
+        // Respawn için coroutine başlat
+        StartCoroutine(RespawnPlatform());
+    }
+    
+    private IEnumerator RespawnPlatform()
+    {
         yield return new WaitForSeconds(reappearDelay);
-
+        
+        if (IsServer)
+        {
+            RespawnPlatformClientRpc();
+        }
+    }
+    
+    [ClientRpc]
+    private void RespawnPlatformClientRpc()
+    {
+        Debug.Log($"🔄 BreakablePlatform yeniden oluştu: {gameObject.name}");
         platformRenderer.enabled = true;
         platformCollider.enabled = true;
-        isBreaking = false;
+        
+        if (IsServer)
+        {
+            isBroken.Value = false;
+        }
     }
 }
