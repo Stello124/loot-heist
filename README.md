@@ -211,20 +211,20 @@ Bu sprintte oyun deneyimini tamamlayıcı tüm ana bileşenlere odaklanıldı:
 
 ## 📌 Tamamlananlar
 
-- ✅ Unity Netcode kullanılarak multiplayer senkronizasyonu tamamlandı. Oyuncular artık aynı lobiye bağlanıp senkron şekilde oynayabiliyor.
-- ✅ 4 farklı mini oyun haritası tamamen bitirildi:
+-> ✅ Unity Netcode kullanılarak multiplayer senkronizasyonu tamamlandı. Oyuncular artık aynı lobiye bağlanıp senkron şekilde oynayabiliyor.
+-> ✅ 4 farklı mini oyun haritası tamamen bitirildi:
 
 - Yarış
 - Bomba
 - Köprü
 - Dönence
 
-- ✅ Bomba mekaniği geliştirildi: Bomba taşıma, patlama ve karakter ölümleri multiplayer uyumlu hale getirildi. 
-- ✅ Her mini oyun haritasına özel mekanikler entegre edildi (örneğin yarış haritasında hareketli spike objeleri, dönen platformlar vb.)
-- ✅ Lobi oluşturma, lobiye katılma ve oyuncu sayısına göre başlatma sistemi tamamlandı.
-- ✅ Karakter özelleştirme için temel bir randomize sistemi geliştirildi.
-- ✅ Her harita için özel ses efektleri ve arka plan müzikleri entegre edildi.
-- ✅ UI sisteminde görsel bütünlüğe uygun kapsamlı çalışmalar yapıldı:
+-> ✅ Bomba mekaniği geliştirildi: Bomba taşıma, patlama ve karakter ölümleri multiplayer uyumlu hale getirildi. 
+-> ✅ Her mini oyun haritasına özel mekanikler entegre edildi (örneğin yarış haritasında hareketli spike objeleri, dönen platformlar vb.)
+-> ✅ Lobi oluşturma, lobiye katılma ve oyuncu sayısına göre başlatma sistemi tamamlandı.
+-> ✅ Karakter özelleştirme için temel bir randomize sistemi geliştirildi.
+-> ✅ Her harita için özel ses efektleri ve arka plan müzikleri entegre edildi.
+-> ✅ UI sisteminde görsel bütünlüğe uygun kapsamlı çalışmalar yapıldı:
 
 - Ana giriş ve lobi ekranları
 - Countdown ve durum göstergeleri
