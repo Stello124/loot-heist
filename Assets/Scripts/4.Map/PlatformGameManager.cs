@@ -249,6 +249,7 @@ public class PlatformGameManager : NetworkBehaviour
     {
         Debug.Log($"🧊 FreezeAllPlayers çağrıldı: {freeze} (4.map)");
         
+        // Her client sadece kendi player'ını freeze etsin (1.map pattern)
         var allObjects = FindObjectsOfType<GameObject>();
         int frozenPlayers = 0;
 
@@ -256,12 +257,19 @@ public class PlatformGameManager : NetworkBehaviour
         {
             if (obj.CompareTag("Player"))
             {
-                StartCoroutine(FreezePlayerComponentsAfterDelay(obj, freeze, 0.1f));
-                frozenPlayers++;
+                var netObj = obj.GetComponent<NetworkObject>();
+                if (netObj != null && netObj.OwnerClientId == NetworkManager.Singleton.LocalClientId)
+                {
+                    // Sadece kendi player'ını freeze et
+                    StartCoroutine(FreezePlayerComponentsAfterDelay(obj, freeze, 0.1f));
+                    frozenPlayers++;
+                    Debug.Log($"🧊 Local player freeze edildi: {NetworkManager.Singleton.LocalClientId} (4.map)");
+                    break; // Sadece bir player bulduğumuzda dur
+                }
             }
         }
 
-        Debug.Log($"🧊 {frozenPlayers} oyuncu {(freeze ? "donduruldu" : "serbest bırakıldı")} (4.map)");
+        Debug.Log($"🧊 {frozenPlayers} local oyuncu {(freeze ? "donduruldu" : "serbest bırakıldı")} (4.map)");
     }
 
     private IEnumerator FreezePlayerComponentsAfterDelay(GameObject player, bool freeze, float delay)
@@ -409,9 +417,13 @@ public class PlatformGameManager : NetworkBehaviour
     [ClientRpc]
     private void FreezeSpecificPlayerClientRpc(ulong targetClientId, bool freeze)
     {
+        // Sadece belirtilen client bu mesajı işlesin (1.map pattern)
         if (NetworkManager.Singleton.LocalClientId != targetClientId) return;
 
+        Debug.Log($"🧊 Specific player freeze çağrıldı. Target: {targetClientId}, Local: {NetworkManager.Singleton.LocalClientId}, Freeze: {freeze} (4.map)");
+        
         var allObjects = FindObjectsOfType<GameObject>();
+        int frozenPlayers = 0;
         foreach (var obj in allObjects)
         {
             if (obj.CompareTag("Player"))
@@ -420,10 +432,14 @@ public class PlatformGameManager : NetworkBehaviour
                 if (netObj != null && netObj.OwnerClientId == targetClientId)
                 {
                     StartCoroutine(FreezePlayerComponentsAfterDelay(obj, freeze, 0.1f));
+                    frozenPlayers++;
+                    Debug.Log($"🧊 Target player freeze edildi: {targetClientId} (4.map)");
                     break;
                 }
             }
         }
+
+        Debug.Log($"🧊 Sonuç: {frozenPlayers} target player freeze edildi (4.map)");
     }
 
     [ClientRpc]
