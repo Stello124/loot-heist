@@ -119,20 +119,27 @@ public class BombGameUI : MonoBehaviour
             
             mainMenuButton = buttonObj.AddComponent<Button>();
             Image buttonImage = buttonObj.AddComponent<Image>();
-            buttonImage.color = new Color(0.8f, 0.2f, 0.2f, 0.9f);
+            buttonImage.color = new Color(0.9f, 0.1f, 0.1f, 1f); // Daha kırmızı
+            
+            // Button hover efekti
+            ColorBlock colors = mainMenuButton.colors;
+            colors.normalColor = new Color(0.9f, 0.1f, 0.1f, 1f);
+            colors.highlightedColor = new Color(1f, 0.3f, 0.3f, 1f);
+            colors.pressedColor = new Color(0.7f, 0.05f, 0.05f, 1f);
+            mainMenuButton.colors = colors;
             
             GameObject buttonTextObj = new GameObject("Text");
             buttonTextObj.transform.SetParent(buttonObj.transform, false);
             Text buttonText = buttonTextObj.AddComponent<Text>();
             buttonText.text = "Ana Menü";
             buttonText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            buttonText.fontSize = 40; // Daha büyük yazı
+            buttonText.fontSize = 50; // Daha büyük yazı
             buttonText.color = Color.white;
             buttonText.alignment = TextAnchor.MiddleCenter;
             
             RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
-            buttonRect.anchorMin = new Vector2(0.15f, 0.15f); // Daha büyük alan
-            buttonRect.anchorMax = new Vector2(0.45f, 0.25f); // Daha büyük alan
+            buttonRect.anchorMin = new Vector2(0.1f, 0.1f); // Daha büyük alan
+            buttonRect.anchorMax = new Vector2(0.4f, 0.2f); // Daha büyük alan
             buttonRect.offsetMin = Vector2.zero;
             buttonRect.offsetMax = Vector2.zero;
             
@@ -156,20 +163,27 @@ public class BombGameUI : MonoBehaviour
             
             playAgainButton = buttonObj.AddComponent<Button>();
             Image buttonImage = buttonObj.AddComponent<Image>();
-            buttonImage.color = new Color(0.2f, 0.8f, 0.2f, 0.9f);
+            buttonImage.color = new Color(0.1f, 0.9f, 0.1f, 1f); // Daha yeşil
+            
+            // Button hover efekti
+            ColorBlock colors = playAgainButton.colors;
+            colors.normalColor = new Color(0.1f, 0.9f, 0.1f, 1f);
+            colors.highlightedColor = new Color(0.3f, 1f, 0.3f, 1f);
+            colors.pressedColor = new Color(0.05f, 0.7f, 0.05f, 1f);
+            playAgainButton.colors = colors;
             
             GameObject buttonTextObj = new GameObject("Text");
             buttonTextObj.transform.SetParent(buttonObj.transform, false);
             Text buttonText = buttonTextObj.AddComponent<Text>();
             buttonText.text = "Tekrar Oyna";
             buttonText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            buttonText.fontSize = 40; // Daha büyük yazı
+            buttonText.fontSize = 50; // Daha büyük yazı
             buttonText.color = Color.white;
             buttonText.alignment = TextAnchor.MiddleCenter;
             
             RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
-            buttonRect.anchorMin = new Vector2(0.55f, 0.15f); // Daha büyük alan
-            buttonRect.anchorMax = new Vector2(0.85f, 0.25f); // Daha büyük alan
+            buttonRect.anchorMin = new Vector2(0.6f, 0.1f); // Daha büyük alan
+            buttonRect.anchorMax = new Vector2(0.9f, 0.2f); // Daha büyük alan
             buttonRect.offsetMin = Vector2.zero;
             buttonRect.offsetMax = Vector2.zero;
             
