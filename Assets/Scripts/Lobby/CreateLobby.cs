@@ -21,11 +21,15 @@ public class CreateLobby : MonoBehaviour
     [Header("Panel Referansları")]
     public GameObject lobbySetupPanel;       // Paneli kapatmak için
     public LobbyRoomUI lobbyRoomUI;          // Lobby bilgilerini yazdıran script
+    
+
 
     public async void CreateLobbyMethod()
     {
         string lobbyName = lobbyname.text;
         int maxPlayers = Convert.ToInt32(maxplayers.options[maxplayers.value].text);
+        
+
 
         CreateLobbyOptions options = new CreateLobbyOptions
         {
@@ -77,6 +81,7 @@ public class CreateLobby : MonoBehaviour
 
             // Heartbeat başlat
             StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 9f));
+            
             LobbyStatic.LoadLobbyRoom();
             //SceneManager.LoadScene("LobbyRoom");
         }

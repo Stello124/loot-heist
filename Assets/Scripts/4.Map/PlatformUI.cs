@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using System.Collections;
 
 /// <summary>
 /// 4.map platform oyunu UI sistemi - Manuel düzenlenebilir versiyon
@@ -23,8 +24,6 @@ public class PlatformUI : MonoBehaviour
     public TextMeshProUGUI winnerText;
 
     [Header("🔲 UI Button Bağlantıları")]
-    [Tooltip("Tekrar oyna butonu")]
-    public Button playAgainButton;
     [Tooltip("Lobby'e dön butonu")]
     public Button backToLobbyButton;
 
@@ -85,6 +84,14 @@ public class PlatformUI : MonoBehaviour
             hasErrors = true;
         }
 
+        if (backToLobbyButton == null)
+        {
+            Debug.LogError("❌ Back To Lobby Button atanmamış! Inspector'da bağlayın. (4.map)");
+            hasErrors = true;
+        }
+        
+        // Not: playAgainButton artık kullanılmıyor - sadece backToLobbyButton gerekli
+
         if (hasErrors)
         {
             Debug.LogError("🚨 UI SETUP HATASI: Manuel olarak UI elemanlarını oluşturup Inspector'da bağlayın! (4.map)");
@@ -98,16 +105,36 @@ public class PlatformUI : MonoBehaviour
 
     private void SetupButtons()
     {
-        if (playAgainButton != null)
-        {
-            playAgainButton.onClick.RemoveAllListeners();
-            playAgainButton.onClick.AddListener(OnPlayAgain);
-        }
-
         if (backToLobbyButton != null)
         {
+            Debug.Log($"🔧 Button setup başlıyor: {backToLobbyButton.name} (4.map)");
+            
             backToLobbyButton.onClick.RemoveAllListeners();
             backToLobbyButton.onClick.AddListener(OnBackToLobby);
+            
+            // Button'un interactable olduğunu kontrol et
+            if (!backToLobbyButton.interactable)
+            {
+                backToLobbyButton.interactable = true;
+                Debug.Log("🔧 Button interactable yapıldı!");
+            }
+            
+            Debug.Log($"✅ BackToLobby button listener eklendi: Interactable={backToLobbyButton.interactable} (4.map)");
+        }
+        else
+        {
+            Debug.LogError("❌ BackToLobby button NULL! Inspector'da bağlayın! (4.map)");
+        }
+        
+        // EventSystem kontrolü
+        var eventSystem = FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+        if (eventSystem == null)
+        {
+            Debug.LogError("❌ EventSystem bulunamadı! UI etkileşimi çalışmayabilir!");
+        }
+        else
+        {
+            Debug.Log($"✅ EventSystem mevcut: {eventSystem.name}");
         }
     }
 
@@ -252,6 +279,9 @@ public class PlatformUI : MonoBehaviour
         {
             winnerPanel.SetActive(true);
             Debug.Log("✅ WinnerPanel gösterildi (4.map)");
+            
+            // MOUSE KONTROLÜNÜ AKTİF ET!
+            EnableMouseControl();
         }
         else
         {
@@ -305,35 +335,122 @@ public class PlatformUI : MonoBehaviour
         Debug.Log("✅ UI sıfırlandı (4.map)");
     }
 
-    private void OnPlayAgain()
+    /// <summary>
+    /// Mouse kontrolünü aktif et - Winner ekranında mouse'u serbest bırak
+    /// </summary>
+    private void EnableMouseControl()
     {
-        Debug.Log("🎮 Play Again butonu tıklandı (4.map)");
+        Debug.Log("🖱️ Mouse kontrolü aktif ediliyor... (4.map)");
         
-        // Sahneyi yeniden yükle
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsHost)
+        // Cursor'u görünür yap ve unlock et
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        
+        // Mouse'un hareket etmesini sağlamak için Time.timeScale'i kontrol et
+        if (Time.timeScale == 0f)
         {
-            NetworkManager.Singleton.SceneManager.LoadScene("4.map", LoadSceneMode.Single);
+            Debug.LogWarning("⚠️ Time.timeScale = 0! Mouse problemi olabilir.");
         }
-        else
+        
+        Debug.Log($"✅ Cursor ayarları: Visible={Cursor.visible}, LockState={Cursor.lockState}, TimeScale={Time.timeScale}");
+        
+        // Mouse'u sürekli korumak için coroutine başlat
+        StartCoroutine(KeepMouseActive());
+    }
+
+    /// <summary>
+    /// Mouse'u sürekli aktif tut - Başka scriptler kapatmasın diye
+    /// </summary>
+    private System.Collections.IEnumerator KeepMouseActive()
+    {
+        Debug.Log("🛡️ Mouse koruma sistemi başlatıldı...");
+        
+        while (winnerPanel != null && winnerPanel.activeInHierarchy)
         {
-            Debug.LogWarning("⚠️ Sadece Host sahne değiştirebilir!");
+            // Her 0.1 saniyede mouse'u kontrol et ve aktif tut
+            if (!Cursor.visible || Cursor.lockState != CursorLockMode.None)
+            {
+                Debug.Log("⚠️ Mouse tekrar kapatılmış! Yeniden açılıyor...");
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            
+            yield return new WaitForSeconds(0.1f);
         }
+        
+        Debug.Log("🛡️ Mouse koruma sistemi sonlandırıldı.");
     }
 
     private void OnBackToLobby()
     {
-        Debug.Log("🏠 Back to Lobby butonu tıklandı (4.map)");
+        Debug.Log("🏠 ==> BUTTON TIKLANDI! Back to Lobby button çalışıyor! (4.map)");
         
-        // Lobby'e dön
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsHost)
+        // MOUSE'U KORUMALI ŞEKİLDE AKTİF TUT!
+        StartCoroutine(ProtectMouseAndLoadMenu());
+    }
+
+    private System.Collections.IEnumerator ProtectMouseAndLoadMenu()
+    {
+        Debug.Log("🛡️ Mouse korumalı sahne değiştirme başlıyor...");
+        
+        // Mouse'u sürekli aktif tut (başka scriptler kapatmasın diye)
+        for (int i = 0; i < 10; i++)
         {
-            NetworkManager.Singleton.SceneManager.LoadScene("LobbyRoom", LoadSceneMode.Single);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Debug.Log($"🖱️ Mouse koruma döngüsü #{i+1}: Visible={Cursor.visible}, LockState={Cursor.lockState}");
+            yield return new WaitForFixedUpdate(); // Her frame mouse'u koru
+        }
+        
+        Debug.Log("✅ Mouse koruması tamamlandı, sahne değiştiriliyor...");
+        
+        // NetworkManager durumunu kontrol et
+        if (NetworkManager.Singleton != null)
+        {
+            Debug.Log($"🔗 NetworkManager durumu: IsHost={NetworkManager.Singleton.IsHost}, IsClient={NetworkManager.Singleton.IsClient}, IsConnected={NetworkManager.Singleton.IsConnectedClient}");
+            
+            if (NetworkManager.Singleton.IsHost)
+            {
+                Debug.Log("🏠 HOST olarak ana menüye dönülüyor...");
+                LoadMainMenuDirectly();
+            }
+            else if (NetworkManager.Singleton.IsClient)
+            {
+                Debug.Log("👤 CLIENT olarak ana menüye dönülüyor...");
+                LoadMainMenuDirectly();
+            }
+            else
+            {
+                Debug.Log("❓ Network durumu belirsiz, direkt sahne değiştiriliyor...");
+                LoadMainMenuDirectly();
+            }
         }
         else
         {
-            Debug.LogWarning("⚠️ Sadece Host sahne değiştirebilir!");
+            Debug.LogWarning("⚠️ NetworkManager NULL! Direkt sahne değiştiriliyor...");
+            LoadMainMenuDirectly();
         }
     }
+
+    private void LoadMainMenuDirectly()
+    {
+        Debug.Log("🏠 Ana menüye dönülüyor...");
+        
+        // Mouse'u aktif tut
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        
+        // Network'ü kapat
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+        
+        // Ana menü sahnesine dön
+        SceneManager.LoadScene("LobbyBrowserScene");
+    }
+
+
 
     // Debug ve test için context menu'ler
     [ContextMenu("🔍 Debug UI State")]
@@ -373,6 +490,31 @@ public class PlatformUI : MonoBehaviour
         {
             ShowWinner(0); // Fallback
         }
+    }
+
+    [ContextMenu("🔧 Test Button Click")]
+    public void TestButtonClick()
+    {
+        Debug.Log("🔧 Manuel button test...");
+        OnBackToLobby();
+    }
+
+    [ContextMenu("🛡️ Start Mouse Protection")]
+    public void StartMouseProtection()
+    {
+        Debug.Log("🛡️ Manuel mouse koruma başlatılıyor...");
+        StartCoroutine(KeepMouseActive());
+    }
+
+
+
+    [ContextMenu("🖱️ Force Enable Mouse")]
+    public void ForceEnableMouse()
+    {
+        Debug.Log("🖱️ Force enable mouse...");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Debug.Log($"✅ Mouse zorla aktif edildi: Visible={Cursor.visible}, LockState={Cursor.lockState}");
     }
 
     [ContextMenu("🧪 Test Winner UI (Lose)")]

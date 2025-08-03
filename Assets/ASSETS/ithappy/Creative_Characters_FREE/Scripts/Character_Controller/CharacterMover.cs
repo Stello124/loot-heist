@@ -37,6 +37,10 @@ namespace Controller
         private CharacterController m_Controller;
         private Animator m_Animator;
 
+        private AudioSource m_AudioSource;
+        [SerializeField] private AudioClip m_JumpSFX;
+        private bool wasGroundedLastFrame = true;
+
         private MovementHandler m_Movement;
         private AnimationHandler m_Animation;
 
@@ -70,6 +74,8 @@ namespace Controller
             m_Controller = GetComponent<CharacterController>();
             m_Animator = GetComponent<Animator>();
 
+            m_AudioSource = GetComponent<AudioSource>();
+
             m_Movement = new MovementHandler(m_Controller, m_Transform, m_WalkSpeed, m_RunSpeed, m_RotateSpeed, m_JumpHeight, m_Space);
             m_Animation = new AnimationHandler(m_Animator, m_HorizontalID, m_VerticalID, m_StateID, m_JumpID);
         }
@@ -87,6 +93,23 @@ namespace Controller
 
                 // 🎯 Animasyon değişikliği kontrolü ve RPC gönderimi
                 CheckAndSendAnimationRPC(animAxis, animState, isAir);
+
+                if (IsOwner)
+                {
+                    bool isGroundedNow = m_Controller.isGrounded;
+
+                    // Eğer önceki karede yere basıyorduk ama şimdi basmıyorsak, zıplamışız demektir
+                    if (wasGroundedLastFrame && !isGroundedNow)
+                    {
+                        if (m_JumpSFX != null && m_AudioSource != null)
+                        {
+                            m_AudioSource.PlayOneShot(m_JumpSFX);
+                        }
+                    }
+
+                    wasGroundedLastFrame = isGroundedNow;
+                }
+
             }
             // ✅ NON-OWNER'lar hiçbir hareket yapmasın - sadece RPC'leri dinlesin
         }

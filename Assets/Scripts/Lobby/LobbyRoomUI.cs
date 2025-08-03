@@ -47,6 +47,8 @@ public class LobbyRoomUI : MonoBehaviour
         if (_currentLobby == null || _currentLobby.currentLobby == null) return;
 
         lobbyId = _currentLobby.currentLobby.Id;
+        
+
 
         UpdateLobbyUI();
         InvokeRepeating(nameof(PollForLobbyUpdate), 2f, 2.5f);
@@ -149,6 +151,7 @@ public class LobbyRoomUI : MonoBehaviour
 
         lobbyNameText.text = lobby.Name;
         lobbyCodeText.text = lobby.LobbyCode;
+        
         gameModeText.text = lobby.Data["GameMode"].Value;
 
         ClearPlayerList();
@@ -166,6 +169,7 @@ public class LobbyRoomUI : MonoBehaviour
 
         lobbyNameText.text = lobby.Name;
         lobbyCodeText.text = lobby.LobbyCode;
+        
         gameModeText.text = lobby.Data["GameMode"].Value;
 
         ClearPlayerList();

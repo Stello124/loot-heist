@@ -88,27 +88,20 @@ Artık UI elemanlarını tamamen kendin oluşturup özelleştirebilirsin!
    - Color: Sarı
 ```
 
-### **ADIM 4: Button'ları Oluştur (Opsiyonel)**
+### **ADIM 4: Back to Lobby Button Oluştur**
 
-#### A) Play Again Button:
-```
-1. WinnerPanel'in altında sağ tık
-2. UI → Button - TextMeshPro
-3. İsim: "PlayAgainButton"
-4. Pozisyon: Sol alt köşe
-5. Text: "Tekrar Oyna"
-6. Color: Yeşil
-```
-
-#### B) Back to Lobby Button:
+#### Back to Lobby Button:
 ```
 1. WinnerPanel'in altında sağ tık
 2. UI → Button - TextMeshPro
 3. İsim: "BackToLobbyButton"
-4. Pozisyon: Sağ alt köşe
-5. Text: "Lobby'e Dön"
-6. Color: Kırmızı
+4. Pozisyon: Alt orta
+5. Text: "Ana Menüye Dön"
+6. Color: Kırmızı/Mavi
+7. Size: Büyük ve merkezi (300x80px)
 ```
+
+**ÖNEMLİ:** Play Again button'a gerek yok! Sadece Ana Menüye dön butonu yeterli.
 
 ### **ADIM 5: PlatformUI Script'ini Bağla**
 
@@ -133,8 +126,7 @@ PlatformUI (Script):
 └── Winner Text: WinnerText'i sürükle
 
 🔲 UI Button Bağlantıları:
-├── Play Again Button: PlayAgainButton'u sürükle (opsiyonel)
-└── Back To Lobby Button: BackToLobbyButton'u sürükle (opsiyonel)
+└── Back To Lobby Button: BackToLobbyButton'u sürükle
 ```
 
 ### **ADIM 6: Text'leri Özelleştir**
@@ -228,13 +220,11 @@ WinnerText:
 
 ### **Button Pozisyonları:**
 ```
-PlayAgainButton:
-- Bottom left: (20%, 10%)
-- Size: 200x80px
-
 BackToLobbyButton:
-- Bottom right: (80%, 10%)  
-- Size: 200x80px
+- Bottom center: (50%, 15%)  
+- Size: 300x80px
+- Center aligned
+- Büyük ve görünür
 ```
 
 ## 🧪 TEST ETME
